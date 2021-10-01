@@ -20,8 +20,7 @@ class Movie(db.Model):
                 summary=None, 
                 running_date=None, 
                 poster=None,
-                genre=None):
-        
+                genre=None):        
         self.name = name
         self.screening_date = screening_date
         self.actor = actor

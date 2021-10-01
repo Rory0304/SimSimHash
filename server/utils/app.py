@@ -3,9 +3,12 @@ from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
+from flask_mongoengine import MongoEngine
+
 import config
 
 db = SQLAlchemy()
+mongodb = MongoEngine()
 migrate = Migrate()
 
 def create_app():

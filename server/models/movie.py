@@ -1,4 +1,4 @@
-from ..app import db
+from app import db
 
 class Movie(db.Model):
     __tablename__ = "MOVIE"
@@ -18,7 +18,7 @@ class Movie(db.Model):
                 actor=None, 
                 director=None, 
                 summary=None, 
-                running_date=None, 
+                running_time=None, 
                 poster=None,
                 genre=None):        
         self.name = name
@@ -26,6 +26,6 @@ class Movie(db.Model):
         self.actor = actor
         self.director = director
         self.summary = summary
-        self.running_date = running_date
+        self.running_time = running_time
         self.poster = poster
         self.genre = genre

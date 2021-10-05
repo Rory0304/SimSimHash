@@ -1,4 +1,4 @@
-from ..app import mongodb
+import mongoengine as mongodb
 class Review(mongodb.Document):
     movie_id = mongodb.IntField(required=True)
     rating = mongodb.IntField()

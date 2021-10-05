@@ -1,4 +1,4 @@
-from ..app import db
+from app import db
 
 class Movie(db.Model):
     __tablename__ = "MOVIE"
@@ -11,6 +11,12 @@ class Movie(db.Model):
     running_time = db.Column(db.Integer)
     poster = db.Column(db.String(200))
     genre = db.Column(db.String(50))
+    rating = db.Column(db.Float)
+    naver = db.Column(db.Float)
+    daum = db.Column(db.Float)
+    watcha = db.Column(db.Float)
+    cine21 = db.Column(db.Float)
+    
     
     def __init__(self,
                 name, 
@@ -18,14 +24,24 @@ class Movie(db.Model):
                 actor=None, 
                 director=None, 
                 summary=None, 
-                running_date=None, 
+                running_time=None, 
                 poster=None,
-                genre=None):        
+                genre=None,
+                rating = None,
+                naver = None,
+                daum = None,
+                watcha = None,
+                cine21 = None):        
         self.name = name
         self.screening_date = screening_date
         self.actor = actor
         self.director = director
         self.summary = summary
-        self.running_date = running_date
+        self.running_time = running_time
         self.poster = poster
         self.genre = genre
+        self.rating = rating
+        self.naver = naver
+        self.daum = daum
+        self.watcha = watcha
+        self.cine21 = cine21

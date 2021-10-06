@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import TagList from "./TagList";
 import SelectedTagList from "./SelectedTagList";
+import MainIntro from "./MainIntro";
 import { getMovieListByTag } from "../../modules/MainPage/tagDataSlice";
-import React from "react";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -159,10 +160,7 @@ function MainPage() {
     return (
         <main>
             <div>
-                <h1>#심심해시</h1>
-                <p>태그를 선택하여 새로운 영화 취향을 발견해보세요!</p>
-            </div>
-            <div>
+                <MainIntro />
                 <Slide />
                 <Button type="primary" onClick={showModal}>
                     더 보기

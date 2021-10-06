@@ -66,6 +66,7 @@ const sample = [
 function MainPage() {
     const dispatch = useDispatch();
     const { selectedTagList } = useSelector((state) => state.mainTagDataSlice);
+    const [filteredMovieList, setFilteredMovieList] = useState([]);
 
     useEffect(() => {
         const debounce = setTimeout(() => {
@@ -75,6 +76,14 @@ function MainPage() {
             console.log("clear");
             clearTimeout(debounce);
         };
+    }, [selectedTagList]);
+
+    useEffect(() => {
+        const filter = [];
+        selectedTagList.map((item) => {
+            filter.push(item.name);
+        });
+        setFilteredMovieList(sample.filter((movie) => filter.includes(movie.tag)));
     }, [selectedTagList]);
 
     const Slide = () => {
@@ -117,7 +126,7 @@ function MainPage() {
         return (
             <>
                 <Slider {...settings}>
-                    {sample.map((item) => {
+                    {filteredMovieList.map((item) => {
                         return (
                             <>
                                 <img src={item.img} width="400"></img>
@@ -165,7 +174,7 @@ function MainPage() {
                     onOk={handleOk}
                     onCancel={handleCancel}
                 >
-                    {sample.map((item) => {
+                    {filteredMovieList.map((item) => {
                         return (
                             <>
                                 <img src={item.img} width="400"></img>

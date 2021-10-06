@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import { useState, useEffect } from "react";
-import { Tag, Carousel } from "antd";
+import { Tag, Modal, Button } from "antd";
 import FormItemInput from "antd/lib/form/FormItemInput";
 // import { ReloadOutlined } from "@ant-design/icons";
 
@@ -153,6 +153,20 @@ function MainPage() {
         );
     };
 
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
     return (
         <main>
             <header>
@@ -161,6 +175,21 @@ function MainPage() {
             </header>
             <div>
                 <Slide />
+                <Button type="primary" onClick={showModal}>
+                    더 보기
+                </Button>
+                <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                    {sample.map((item) => {
+                        return (
+                            <>
+                                <img src={item.img} width="400"></img>
+                                {item.title}<br />
+                                {item.star}<br />
+                                {item.tag}
+                            </>
+                        )
+                    })}
+                </Modal>
                 {/* 선택된 태그 리스트 */}
                 <div>
                     {selectedTagList.map((selectedTag) => (

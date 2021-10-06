@@ -8,9 +8,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-import { Modal, Button } from "antd";
-import FormItemInput from "antd/lib/form/FormItemInput";
+import { Button, Modal } from "antd";
 
 const sample = [
     {
@@ -83,6 +81,7 @@ function MainPage() {
             filter.push(item.name);
         });
         setFilteredMovieList(sample.filter((movie) => filter.includes(movie.tag)));
+        console.log(filter)
     }, [selectedTagList]);
 
     const Slide = () => {
@@ -122,10 +121,12 @@ function MainPage() {
             ]
         };
 
+        const target = filteredMovieList.length >= 1 && filteredMovieList || sample
+
         return (
             <>
                 <Slider {...settings}>
-                    {filteredMovieList.map((item) => {
+                    {target.map((item) => {
                         return (
                             <>
                                 <img src={item.img} width="400"></img>
@@ -163,7 +164,10 @@ function MainPage() {
                 <p>태그를 선택하여 새로운 영화 취향을 발견해보세요!</p>
             </div>
             <div>
-                <Slide />
+                <div>
+                    <Slide />
+                </div>
+                <br />
                 <Button type="primary" onClick={showModal}>
                     더 보기
                 </Button>

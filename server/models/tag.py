@@ -14,6 +14,10 @@ class Tag(mongodb.Document):
         self.watcha = watcha
         self.cine21 = cine21
     
-    
-    def to_dict(self):
-        return {x.name: getattr(self, x.name) for x in self.__table__.columns}
+    def to_json(self):
+        return {"movie_id": self.movie_id,
+                "total": self.total,
+                "naver": self.naver,
+                "daum": self.daum,
+                "watcha": self.watcha,
+                "cine21": self.cine21}

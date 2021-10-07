@@ -82,6 +82,10 @@ const fontStyle = css`
     color: #ffffff;
 `
 
+const slideStyle = css`
+    width: 30%
+`
+
 const sample = [
     {
         img: "https://movie-phinf.pstatic.net/20211001_121/16330536363187liBB_JPEG/movie_image.jpg",

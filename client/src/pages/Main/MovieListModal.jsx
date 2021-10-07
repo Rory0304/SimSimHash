@@ -55,7 +55,7 @@ function MovieListModal() {
     return (
         <div>
             <div css={buttonDivStyle}>
-                { movieList.length > 4 ?
+                { movieList.length >= 5 ?
                     <Button type="text" onClick={showModal} css={buttonStyle}>
                         더 보기
                     </Button>

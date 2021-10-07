@@ -15,6 +15,18 @@ import "slick-carousel/slick/slick-theme.css";
 import { Button, Modal, Rate } from "antd";
 import { TagFilled } from "@ant-design/icons";
 
+import { sample } from "./Sample";
+
+const buttonDivStyle = css`
+    width: 65rem;
+    margin: 0 auto;
+    text-align: right;
+`
+
+const buttonStyle = css`
+    color: rgba(246, 45, 168, 0.93);
+`
+
 const divStyle = css`
     width: 65rem;
     margin: 0 auto;
@@ -64,6 +76,15 @@ const sliderImgStyle = css`
         -moz-transform: scale(1.1);
     }
 
+    &:hover div {
+            display: grid;
+            background-color: rgb(30 30 30 / 75%);
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+        }
+    }
+
     img {
         width: 100%;
         height: 100%;
@@ -75,29 +96,14 @@ const sliderImgStyle = css`
 `;
 
 const modalStyle = css`
-    display: grid;
-    img {
-        width: 100px;
-        margin: 0 auto;
-    }
-    .ant-modal {
-        width: 500px;
-        background-color: #111111;
-        color: red;
-        /*overflow-y: auto;*/
-        /*overflow-x: auto;*/
-    }
-    .ant-modal-content {
-        width: 500px;
-        background-color: #111111;
-        color: red;
-        /*overflow-y: auto;*/
-        /*overflow-x: auto;*/
-    }
-    .ant-modal-body {
-        background-color: #111111;
-    }
-`;
+    width: 150px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #444444;
+    text-align: center;
+    margin-right: 15px;
+    margin-left: 15px;
+`
 
 const rateStyle = css`
     font-size: 0.8rem;
@@ -116,57 +122,6 @@ const selectedInfo = css`
     text-align: center;
     margin: 14px 0;
 `;
-
-const sample = [
-    {
-        img: "https://movie-phinf.pstatic.net/20211001_121/16330536363187liBB_JPEG/movie_image.jpg",
-        title: "007 노 타임 투 다이",
-        star: 9.29,
-        tag: "#웅장한"
-    },
-    {
-        img: "https://movie-phinf.pstatic.net/20210831_152/1630371935224qy9s6_JPEG/movie_image.jpg",
-        title: "보이스",
-        star: 3.42,
-        tag: "#감동적인"
-    },
-    {
-        img: "https://movie-phinf.pstatic.net/20210917_60/16318534287592XLg8_JPEG/movie_image.jpg",
-        title: "기적",
-        star: 8.49,
-        tag: "#재치있는"
-    },
-    {
-        img: "https://movie-phinf.pstatic.net/20210825_8/1629879510900xEwsL_JPEG/movie_image.jpg",
-        title: "샹치와 텐 링즈의 전설",
-        star: 9.49,
-        tag: "#의미있는"
-    },
-    {
-        img: "https://movie-phinf.pstatic.net/20210831_7/1630399407921MTlDg_JPEG/movie_image.jpg",
-        title: "스쿨 아웃 포에버",
-        star: 6.29,
-        tag: "#독특한"
-    },
-    {
-        img: "https://movie-phinf.pstatic.net/20210820_122/1629448997924YXUCv_JPEG/movie_image.jpg",
-        title: "모가디슈",
-        star: 5.29,
-        tag: "#화려한"
-    },
-    {
-        img: "https://movie-phinf.pstatic.net/20210930_111/1632990544838Hy8aq_JPEG/movie_image.jpg",
-        title: "수색자",
-        star: 7.29,
-        tag: "#멋있는"
-    },
-    {
-        img: "https://movie-phinf.pstatic.net/20210824_61/1629789980296uFIEw_JPEG/movie_image.jpg",
-        title: "극장판 포켓몬스터: 정글의 아이, 코코 ",
-        star: 5.79,
-        tag: "#재미있는"
-    }
-];
 
 function MainPage() {
     const dispatch = useDispatch();
@@ -278,27 +233,32 @@ function MainPage() {
                 <MainIntro />
             </div>
             <div>
+                <div css={buttonDivStyle}>
+                    <Button type="text" onClick={showModal} css={buttonStyle}>
+                        더 보기
+                    </Button>
+                </div>
                 <div css={divStyle}>
                     <Slide />
                 </div>
                 <div>
-                    <Button type="primary" onClick={showModal}>
-                        더 보기
-                    </Button>
-                </div>
-                <div css={modalStyle}>
                     <Modal
-                        title="Basic Modal"
+                        title="검색결과 더 보기"
                         visible={isModalVisible}
                         onOk={handleOk}
                         onCancel={handleCancel}
+                        width='800px'
                         bodyStyle={{
-                            backgroundColor: "#333333"
+                            backgroundColor: '#333333',
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(4, 1fr)',
+                            rowGap: '30px'
                         }}
+                        footer={null}
                     >
                         {filteredMovieList.map((item) => {
                             return (
-                                <>
+                                <div css={modalStyle}>
                                     <img src={item.img} width="100"></img>
                                     <p css={fontStyle}>{item.title}</p>
                                     <Rate
@@ -308,7 +268,7 @@ function MainPage() {
                                         css={rateStyle}
                                     />
                                     <p css={fontStyle}>{item.tag}</p>
-                                </>
+                                </div>
                             );
                         })}
                     </Modal>

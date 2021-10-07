@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import TagList from "./TagList";
 import SelectedTagList from "./SelectedTagList";
+import MainIntro from "./MainIntro";
 import { getMovieListByTag } from "../../modules/MainPage/tagDataSlice";
-import React from "react";
+
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -152,7 +153,7 @@ function MainPage() {
             filter.push(item.name);
         });
         setFilteredMovieList(sample.filter((movie) => filter.includes(movie.tag)));
-        console.log(filter)
+        console.log(filter);
     }, [selectedTagList]);
 
     const Slide = () => {
@@ -193,7 +194,7 @@ function MainPage() {
             ]
         };
 
-        const target = filteredMovieList.length >= 1 && filteredMovieList || sample
+        const target = (filteredMovieList.length >= 1 && filteredMovieList) || sample;
 
         return (
             <>

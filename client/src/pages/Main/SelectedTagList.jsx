@@ -6,32 +6,6 @@ import { Tag } from "antd";
 import { removeTag } from "../../modules/MainPage/tagDataSlice";
 import { css } from "@emotion/react";
 
-function SelectedTagList() {
-    const dispatch = useDispatch();
-    const { selectedTagList } = useSelector((state) => state.mainTagDataSlice);
-
-    const onRemoveSelectedTag = (tagIndex) => {
-        dispatch(removeTag({ tagIndex }));
-    };
-
-    return (
-        <div css={SelectedTagListWrapper}>
-            <div css={SelectedTagListInner}>
-                {selectedTagList.map((selectedTag) => (
-                    <Tag
-                        key={selectedTag.key}
-                        onClose={() => onRemoveSelectedTag(selectedTag.key)}
-                        closable
-                        css={CustomSelectedTagStyle}
-                    >
-                        {selectedTag.name}
-                    </Tag>
-                ))}
-            </div>
-        </div>
-    );
-}
-
 const CustomSelectedTagStyle = css`
     color: #fff;
     background: linear-gradient(to bottom right, rgb(252, 4, 65), rgba(246, 45, 168, 0.93));
@@ -68,5 +42,31 @@ const SelectedTagListInner = css`
         border: 2px solid transparent;
     }
 `;
+
+function SelectedTagList() {
+    const dispatch = useDispatch();
+    const { selectedTagList } = useSelector((state) => state.mainTagDataSlice);
+
+    const onRemoveSelectedTag = (tagIndex) => {
+        dispatch(removeTag({ tagIndex }));
+    };
+
+    return (
+        <div css={SelectedTagListWrapper}>
+            <div css={SelectedTagListInner}>
+                {selectedTagList.map((selectedTag) => (
+                    <Tag
+                        key={selectedTag.key}
+                        onClose={() => onRemoveSelectedTag(selectedTag.key)}
+                        closable
+                        css={CustomSelectedTagStyle}
+                    >
+                        {selectedTag.name}
+                    </Tag>
+                ))}
+            </div>
+        </div>
+    );
+}
 
 export default SelectedTagList;

@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+
 import { Button, Modal, Rate } from "antd";
 import { css, jsx } from "@emotion/react";
 
@@ -79,6 +81,7 @@ function MovieListModal() {
                 {movieList.map((item) => {
                     return (
                         <div css={modalStyle}>
+                            <Link to={`/movie/${item.id}`}>
                             <img src={item.img} width="100"></img>
                             <p css={fontStyle}>{item.title}</p>
                             <Rate
@@ -88,6 +91,7 @@ function MovieListModal() {
                                 css={rateStyle}
                             />
                             <p css={fontStyle}>{item.tag}</p>
+                            </Link>
                         </div>
                     );
                 })}

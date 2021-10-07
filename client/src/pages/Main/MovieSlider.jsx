@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { getMovieListByTag } from "../../modules/MainPage/tagDataSlice";
 import { css, jsx } from "@emotion/react";
@@ -129,6 +130,7 @@ function MovieSlider() {
                     return (
                         <>
                             <div css={sliderImgStyle}>
+                                <Link to={`/movie/${item.id}`}>
                                 <img src={item.img} />
                                 <div css={sliderImgLayerStyle}>
                                     <p css={fontStyle}>{item.title}</p>
@@ -140,6 +142,7 @@ function MovieSlider() {
                                     />
                                     <p css={fontStyle}>{item.tag}</p>
                                 </div>
+                                </Link>
                             </div>
                         </>
                     );

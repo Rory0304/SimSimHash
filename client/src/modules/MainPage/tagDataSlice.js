@@ -1,9 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { sample } from "../../assets/Sample";
 
 const initialState = {
     tagList: [],
     selectedTagList: [],
-    movieList: []
+    movieList: [],
+    loading: false,
+    error: ""
 };
 
 //15개씩 받아온다.
@@ -52,7 +55,10 @@ export const getNewTagList = createAsyncThunk("GET_NEWTAG_DATA", (args, ThunkAPI
 
 export const getMovieListByTag = createAsyncThunk("GET_MOVIE_DATA", (args, ThunkAPI) => {
     //movie data 불러오는 곳 (debounce가 적용됨)
-    console.log("movie data");
+    console.log("debounce");
+    const { mainTagDataSlice } = ThunkAPI.getState();
+    const selectedTagNames = mainTagDataSlice.selectedTagList.map((item) => item.name);
+    return sample.filter((movie) => selectedTagNames.includes(movie.tag));
 });
 
 export const mainTagDataSlice = createSlice({
@@ -71,6 +77,22 @@ export const mainTagDataSlice = createSlice({
         setTagList(state, action) {
             Object.assign(state.tagList, action.payload.tagList);
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getMovieListByTag.rejected, (state, action) => {
+            state.loading = false;
+            state.movieList = [];
+            state.error = action.payload;
+        });
+
+        builder.addCase(getMovieListByTag.pending, (state) => {
+            state.loading = true;
+            state.movieList = [];
+            state.error = "";
+        });
+        builder.addCase(getMovieListByTag.fulfilled, (state, action) => {
+            state.movieList = action.payload;
+        });
     }
 });
 

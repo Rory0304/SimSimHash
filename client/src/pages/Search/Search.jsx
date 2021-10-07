@@ -2,17 +2,16 @@
 import { css, jsx } from "@emotion/react";
 
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 
 import { Rate } from "antd";
-import { sample } from "../Main/Sample";
+import { sample } from "../../assets/Sample";
 
 const resultStyle = css`
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 300px);
     text-align: center;
-`
+`;
 
 const divStyle = css`
     margin: 0 auto;
@@ -23,7 +22,7 @@ const divStyle = css`
     text-align: center;
     margin-right: 15px;
     margin-left: 15px;
-`
+`;
 
 const imgStyle = css`
     width: 100px;
@@ -60,7 +59,7 @@ function SearchPage() {
                         <div>
                             <div css={divStyle}>
                                 <form onChange={(e) => setKeyword(e.target.value)} />
-                                <img src={item.img} css={imgStyle} />
+                                <img src={item.img} css={imgStyle} alt={item.title} />
                                 <p css={fontStyle}>{item.title}</p>
                                 <Rate
                                     disabled

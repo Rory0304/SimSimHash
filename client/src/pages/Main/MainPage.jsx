@@ -13,27 +13,56 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Button, Modal, Rate } from "antd";
+import { TagFilled } from "@ant-design/icons";
 
 const divStyle = css`
     width: 65rem;
     margin: 0 auto;
 
-    .slick-prev:before {
-        opacity: 1;
-        color: black;
-        left: 0;
-    }
+    .slick-prev:before,
     .slick-next:before {
         opacity: 1;
-        color: black;
+        color: #45464b;
+        font-size: 35px;
     }
 `;
 
+const sliderImgLayerStyle = css`
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    transform: scale(1); //default값
+    -webkit-transform: scale(1); ////default값
+    -moz-transform: scale(1); //crome
+`;
+
 const sliderImgStyle = css`
-    width: 204px;
-    height: 298px;
+    position: relative;
+    width: 180px;
+    height: 260px;
     margin: 0 auto;
-    border-radius: 8px;
+
+    &:hover div {
+        display: grid;
+        background-color: rgb(30 30 30 / 75%);
+        align-items: center;
+        align-content: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transform: scale(1.1); //hover시 확대되는 범위 조정
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+    }
+
+    &:hover img {
+        transform: scale(1.1); //hover시 확대되는 범위 조정
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+    }
 
     img {
         width: 100%;
@@ -42,12 +71,6 @@ const sliderImgStyle = css`
         -webkit-transform: scale(1); ////default값
         -moz-transform: scale(1); //crome
         transition: all 0.2s ease-in-out;
-
-        &:hover {
-            transform: scale(1.1); //hover시 확대되는 범위 조정
-            -webkit-transform: scale(1.1);
-            -moz-transform: scale(1.1);
-        }
     }
 `;
 
@@ -77,16 +100,21 @@ const modalStyle = css`
 `;
 
 const rateStyle = css`
-    font-size: 13px;
+    font-size: 0.8rem;
 `;
 
 const fontStyle = css`
-    font-size: 13px;
+    font-size: 1.15rem;
+    font-weight: bold;
     color: #ffffff;
 `;
 
-const slideStyle = css`
-    width: 30%;
+const selectedInfo = css`
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    margin: 14px 0;
 `;
 
 const sample = [
@@ -210,17 +238,18 @@ function MainPage() {
                         return (
                             <>
                                 <div css={sliderImgStyle}>
-                                    {" "}
                                     <img src={item.img} />
+                                    <div css={sliderImgLayerStyle}>
+                                        <p css={fontStyle}>{item.title}</p>
+                                        <Rate
+                                            disabled
+                                            allowHalf
+                                            defaultValue={Math.round(item.star / 2)}
+                                            css={rateStyle}
+                                        />
+                                        <p css={fontStyle}>{item.tag}</p>
+                                    </div>
                                 </div>
-                                {/* <p css={fontStyle}>{item.title}</p> */}
-                                {/* <Rate
-                                    disabled
-                                    allowHalf
-                                    defaultValue={Math.round(item.star / 2)}
-                                    css={rateStyle}
-                                /> */}
-                                {/* <p css={fontStyle}>{item.tag}</p> */}
                             </>
                         );
                     })}
@@ -284,6 +313,12 @@ function MainPage() {
                         })}
                     </Modal>
                 </div>
+                <p css={selectedInfo}>
+                    <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
+                    {selectedTagList.length < 2
+                        ? "해시태그를 2개 이상 선택하세요!"
+                        : `해당 키워드를 가진 영화의 개수는 ${filteredMovieList.length}개 입니다.`}
+                </p>
                 <SelectedTagList />
                 <TagList />
             </div>

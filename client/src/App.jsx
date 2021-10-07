@@ -28,6 +28,7 @@ function App() {
 
 const wrapperStyle = css`
     background-color: #24262b;
+    height: 100vh;
 `;
 
 export default App;

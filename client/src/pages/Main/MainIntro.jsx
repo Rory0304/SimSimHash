@@ -2,24 +2,39 @@
 
 import React from "react";
 import { css } from "@emotion/react";
+import logo from "../../assets/logo.png";
+
 function MainIntro() {
     return (
         <div css={MainIntroWrapStyle}>
             <div>
-                <img src={require("../../assets/logo.png")} alt="심심해시 로고" />
+                <img src={logo} alt="심심해시 로고" css={LogoAreaStyle} />
             </div>
-            <p>태그를 선택하여 새로운 영화 취향을 발견해보세요!</p>
+            <p>키워드로 취향에 맞는 영화를 찾아보세요!</p>
         </div>
     );
 }
 
 const MainIntroWrapStyle = css`
     width: 100%;
-    height: 164px;
+    height: 200px;
+    margin-top: 25px;
     display: flex;
     flex-flow: column;
     justify-content: center;
     text-align: center;
+    gap: 15px;
+
+    p {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: rgba(255, 255, 255, 0.8);
+    }
+`;
+
+const LogoAreaStyle = css`
+    width: 617px;
+    object-fit: cover;
 `;
 
 export default MainIntro;

@@ -1,8 +1,11 @@
+/** @jsxImportSource @emotion/react */
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tag } from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
 import { setTagList, addTag, getTagList, getNewTagList } from "../../modules/MainPage/tagDataSlice";
+import { css } from "@emotion/react";
 
 function TagList() {
     const dispatch = useDispatch();
@@ -24,24 +27,61 @@ function TagList() {
         getInitialTagList();
     }, []);
 
+    const isInSelectedTagList = (tag) => {
+        const selectedTagListIndex = selectedTagList.map((selectedTag) => selectedTag.key);
+        return selectedTagListIndex.includes(tag.key);
+    };
+
     const onSelectTag = (tag) => {
-        dispatch(addTag({ tag }));
+        if (!isInSelectedTagList(tag)) {
+            dispatch(addTag({ tag }));
+        }
     };
 
     return (
-        <div>
+        <div css={TagListWrapper}>
             {tagList.map((tag) => (
                 <CheckableTag
                     key={tag.key}
                     onClick={() => onSelectTag(tag)}
-                    checked={selectedTagList.indexOf(tag) > -1}
+                    checked={isInSelectedTagList(tag)}
+                    css={customTagStyle({ checked: isInSelectedTagList(tag) })}
                 >
                     {tag.name}
                 </CheckableTag>
             ))}
-            <ReloadOutlined onClick={() => reloadTagList()} />
+            <ReloadOutlined onClick={() => reloadTagList()} css={ReloadBtnStyle} />
         </div>
     );
 }
+
+const ReloadBtnStyle = css`
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.4rem;
+`;
+
+const TagListWrapper = css`
+    width: 51rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 9px;
+`;
+
+const customTagStyle = ({ checked }) => css`
+    color: #fff;
+    background: ${checked
+        ? "linear-gradient(to bottom right, rgb(252, 4, 65), rgba(246, 45, 168, 0.93))"
+        : "#45464B"};
+    padding: 7px 9px;
+    font-size: 1rem;
+
+    &:not(.ant-tag-checkable-checked):hover {
+        color: #fff;
+        transform: scale(1.1);
+    }
+`;
 
 export default TagList;

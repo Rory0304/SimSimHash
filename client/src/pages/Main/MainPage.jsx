@@ -161,10 +161,7 @@ function MainPage() {
     return (
         <main>
             <div>
-                <h1>#심심해시</h1>
-                <p>태그를 선택하여 새로운 영화 취향을 발견해보세요!</p>
-            </div>
-            <div>
+                <MainIntro />
                 <div>
                     <Slide />
                 </div>

@@ -55,9 +55,12 @@ function MovieListModal() {
     return (
         <div>
             <div css={buttonDivStyle}>
-                <Button type="text" onClick={showModal} css={buttonStyle}>
-                    더 보기
-                </Button>
+                { movieList.length > 4 ?
+                    <Button type="text" onClick={showModal} css={buttonStyle}>
+                        더 보기
+                    </Button>
+                    : null
+                }
             </div>
             <Modal
                 title="검색결과 더 보기"

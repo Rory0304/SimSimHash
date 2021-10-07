@@ -2,6 +2,7 @@
 import { css, jsx } from "@emotion/react";
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom"
 
 import { Rate } from "antd";
 import { sample } from "../../assets/Sample";
@@ -59,6 +60,7 @@ function SearchPage() {
                         <div>
                             <div css={divStyle}>
                                 <form onChange={(e) => setKeyword(e.target.value)} />
+                                <Link to={`/movie/${item.id}`}>
                                 <img src={item.img} css={imgStyle} alt={item.title} />
                                 <p css={fontStyle}>{item.title}</p>
                                 <Rate
@@ -68,6 +70,7 @@ function SearchPage() {
                                     css={rateStyle}
                                 />
                                 <p css={fontStyle}>{item.tag}</p>
+                                </Link>
                             </div>
                         </div>
                     );

@@ -9,7 +9,7 @@ import { sample } from "../../assets/Sample";
 const resultStyle = css`
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(4, 300px);
+    grid-template-columns: repeat(4, 1fr);
     text-align: center;
 `;
 

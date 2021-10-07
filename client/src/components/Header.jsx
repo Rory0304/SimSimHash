@@ -44,7 +44,7 @@ function Header() {
             <nav>
                 <ul css={menuStyle}>
                     <li>
-                        <NavLink to="#">작품 검색</NavLink>
+                        <NavLink exact to="/search">작품 검색</NavLink>
                     </li>
                     <li>
                         <NavLink to="#">어바웃어스</NavLink>

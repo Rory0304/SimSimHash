@@ -25,7 +25,9 @@ function TagList() {
     }, []);
 
     const onSelectTag = (tag) => {
-        dispatch(addTag({ tag }));
+        if (selectedTagList.indexOf(tag) === -1) {
+            dispatch(addTag({ tag }));
+        }
     };
 
     return (

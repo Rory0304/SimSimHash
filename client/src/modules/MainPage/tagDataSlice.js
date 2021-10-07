@@ -47,7 +47,8 @@ export const mainTagDataSlice = createSlice({
     initialState,
     reducers: {
         addTag(state, action) {
-            state.selectedTagList.push(action.payload.tag);
+            if (!state.selectedTagList.includes(action.payload.tag))
+            {state.selectedTagList.push(action.payload.tag)};
         },
         removeTag(state, action) {
             const filteredTagList = state.selectedTagList.filter(

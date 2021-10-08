@@ -6,7 +6,7 @@ import logo from "../../assets/logo.png";
 
 const MainIntroWrapStyle = css`
     width: 100%;
-    height: 200px;
+    height: 190px;
     margin-top: 25px;
     display: flex;
     flex-flow: column;

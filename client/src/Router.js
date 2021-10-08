@@ -1,7 +1,7 @@
 import { React } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import MainPage from "./pages/Main/MainPage";
-import SearchPage from "./pages/Search/Search";
+import SearchPage from "./pages/Search/SearchPage";
 import DetailPage from "./pages/Detail/DetailPage";
 import Header from "./components/Header";
 
@@ -16,9 +16,6 @@ function Routers() {
                 <Route exact path="/search">
                     <SearchPage />
                 </Route>
-                {/* <Route exact path="/movie/:id">
-                    <DetailPage />
-                </Route> */}
                 <Route exact path="/movie/:id" render={props => <DetailPage {...props} />} />
             </Switch>
         </BrowserRouter>

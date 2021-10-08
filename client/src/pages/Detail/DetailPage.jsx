@@ -28,12 +28,13 @@ const getMovieById = (id) => {
 
 const DetailPage = ({ history, match }) => {
     const [ movie, setMovie ] = useState({});
+    const [ noreview, setNoreview ] = useState([]);
     const { id } = match.params;
     
     useEffect(() => {
         setMovie(getMovieById(id));
     }, []);
-    
+
     return (
         <>
             <div>
@@ -41,16 +42,12 @@ const DetailPage = ({ history, match }) => {
                     movie ? (
                     <div css={fontStyle}>
                         <div>
-                            <dt>영화 번호</dt>
-                            <dd>{ movie.id }</dd>
-                        </div>
-                        <div>
                             <dt>제목</dt>
                             <dd>{ movie.title }</dd>
                         </div>
                         <div>
                             <dt>포스터</dt>
-                            <dd><img src={movie.img} width="300px" /></dd>
+                            <dd><img src={movie.img} width="200px" /></dd>
                         </div>
                         <div>
                             <dt>평점</dt>
@@ -73,12 +70,10 @@ const DetailPage = ({ history, match }) => {
                         </div>
                         <div>
                             <dt>줄거리</dt>
-                            <dd>
-                                { movie.story}
-                            </dd>
+                            <dd>{ movie.story }</dd>
                         </div>
                         <div>
-                            <ShowGraph movie={movie} />
+                            <ShowGraph noreviewarr={movie.noreviewarr} />
                         </div>
                     </div>
                     ) : '해당 영화를 찾을 수 없습니다.'

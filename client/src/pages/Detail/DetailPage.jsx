@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useEffect, useState } from 'react';
+import { ShowGraph } from './ShowGraph';
 
 import { css, jsx } from "@emotion/react";
 
@@ -75,6 +76,9 @@ const DetailPage = ({ history, match }) => {
                             <dd>
                                 { movie.story}
                             </dd>
+                        </div>
+                        <div>
+                            <ShowGraph movie={movie} />
                         </div>
                     </div>
                     ) : '해당 영화를 찾을 수 없습니다.'

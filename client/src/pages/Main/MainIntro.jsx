@@ -7,22 +7,21 @@ import logo from "../../assets/logo.png";
 const MainIntroWrapStyle = css`
     width: 100%;
     height: 190px;
-    margin-top: 25px;
     display: flex;
     flex-flow: column;
     justify-content: center;
     text-align: center;
-    gap: 15px;
 
     p {
         font-size: 1.25rem;
         font-weight: bold;
         color: rgba(255, 255, 255, 0.8);
+        margin: 15px 0;
     }
 `;
 
 const LogoAreaStyle = css`
-    width: 617px;
+    width: 600px;
     object-fit: cover;
 `;
 

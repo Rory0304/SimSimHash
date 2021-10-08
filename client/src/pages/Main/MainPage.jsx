@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import TagList from "./TagList";
@@ -21,6 +21,18 @@ const selectedInfo = css`
     margin: 35px 0 15px 0;
 `;
 
+const mainWrapperStyle = css`
+    height: 91%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+`;
+
+const mainContentWrapperStyle = css`
+    width: 100%;
+`;
+
 function MainPage() {
     const dispatch = useDispatch();
     const { selectedTagList, movieList } = useSelector((state) => state.mainTagDataSlice);
@@ -35,21 +47,23 @@ function MainPage() {
     }, [selectedTagList]);
 
     return (
-        <main>
-            <div>
-                <MainIntro />
-            </div>
-            <div>
-                <MovieListModal />
-                <MovieSlider />
-                <p css={selectedInfo}>
-                    <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
-                    {selectedTagList.length < 2
-                        ? "해시태그를 2개 이상 선택하세요!"
-                        : `해당 키워드를 가진 영화의 개수는 ${movieList.length}개 입니다.`}
-                </p>
-                <SelectedTagList />
-                <TagList />
+        <main css={mainWrapperStyle}>
+            <div css={mainContentWrapperStyle}>
+                <div>
+                    <MainIntro />
+                </div>
+                <div>
+                    <MovieListModal />
+                    <MovieSlider />
+                    <p css={selectedInfo}>
+                        <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
+                        {selectedTagList.length < 2
+                            ? "해시태그를 2개 이상 선택하세요!"
+                            : `해당 키워드를 가진 영화의 개수는 ${movieList.length}개 입니다.`}
+                    </p>
+                    <SelectedTagList />
+                    <TagList />
+                </div>
             </div>
         </main>
     );

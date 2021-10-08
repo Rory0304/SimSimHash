@@ -5,7 +5,8 @@ import { css, jsx } from "@emotion/react";
 const headerStyle = css`
     display: flex;
     justify-content: space-between;
-    height: 80px;
+    height: 9%;
+    align-items: center;
     line-height: 80px;
     padding: 0 65px;
     border-bottom: 1px solid;
@@ -44,7 +45,9 @@ function Header() {
             <nav>
                 <ul css={menuStyle}>
                     <li>
-                        <NavLink exact to="/search">작품 검색</NavLink>
+                        <NavLink exact to="/search">
+                            작품 검색
+                        </NavLink>
                     </li>
                     <li>
                         <NavLink to="#">어바웃어스</NavLink>

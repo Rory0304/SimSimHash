@@ -131,17 +131,17 @@ function MovieSlider() {
                         <>
                             <div css={sliderImgStyle}>
                                 <Link to={`/movie/${item.id}`}>
-                                <img src={item.img} />
-                                <div css={sliderImgLayerStyle}>
-                                    <p css={fontStyle}>{item.title}</p>
-                                    <Rate
-                                        disabled
-                                        allowHalf
-                                        defaultValue={Math.round(item.star / 2)}
-                                        css={rateStyle}
-                                    />
-                                    <p css={fontStyle}>{item.tag}</p>
-                                </div>
+                                    <img src={item.img} alt={item.title} />
+                                    <div css={sliderImgLayerStyle}>
+                                        <p css={fontStyle}>{item.title}</p>
+                                        <Rate
+                                            disabled
+                                            allowHalf
+                                            defaultValue={Math.round(item.star / 2)}
+                                            css={rateStyle}
+                                        />
+                                        <p css={fontStyle}>{item.tag}</p>
+                                    </div>
                                 </Link>
                             </div>
                         </>

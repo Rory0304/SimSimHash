@@ -18,7 +18,7 @@ const selectedInfo = css`
     font-weight: bold;
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
-    margin: 14px 0;
+    margin: 35px 0 15px 0;
 `;
 
 function MainPage() {

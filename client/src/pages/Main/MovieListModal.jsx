@@ -57,12 +57,11 @@ function MovieListModal() {
     return (
         <div>
             <div css={buttonDivStyle}>
-                { movieList.length >= 5 ?
+                {movieList.length >= 5 ? (
                     <Button type="text" onClick={showModal} css={buttonStyle}>
                         더 보기
                     </Button>
-                    : null
-                }
+                ) : null}
             </div>
             <Modal
                 title="검색결과 더 보기"
@@ -82,15 +81,15 @@ function MovieListModal() {
                     return (
                         <div css={modalStyle}>
                             <Link to={`/movie/${item.id}`}>
-                            <img src={item.img} width="100"></img>
-                            <p css={fontStyle}>{item.title}</p>
-                            <Rate
-                                disabled
-                                allowHalf
-                                defaultValue={Math.round(item.star / 2)}
-                                css={rateStyle}
-                            />
-                            <p css={fontStyle}>{item.tag}</p>
+                                <img src={item.img} width="100" alt={item.title} />
+                                <p css={fontStyle}>{item.title}</p>
+                                <Rate
+                                    disabled
+                                    allowHalf
+                                    defaultValue={Math.round(item.star / 2)}
+                                    css={rateStyle}
+                                />
+                                <p css={fontStyle}>{item.tag}</p>
                             </Link>
                         </div>
                     );

@@ -56,7 +56,7 @@ function SearchPage() {
     return (
         <div>
             <div css={resultStyle}>
-                {keyword !== null && filteredMovieList.length >= 1 ? (
+                {(keyword == null &&target == sample) || (keyword !== null && target == filteredMovieList) ? (
                 target.map((item) => {
                     return (
                         <div>

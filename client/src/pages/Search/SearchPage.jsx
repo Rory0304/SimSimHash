@@ -2,23 +2,36 @@
 import { css, jsx } from "@emotion/react";
 
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
-import { Rate } from "antd";
 import { sample } from "../../assets/Sample";
 import Poster from "../../components/Poster";
+import SearchBar from "../../components/SearchBar";
+
+const searchBannerStyle = css`
+    display: flex;
+    height: 17.5rem;
+    text-align: center;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    p {
+        font-size: 2rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 18px;
+    }
+`;
 
 const SearchResultWrapper = css`
     padding: 30px;
 `;
 
 const resultStyle = css`
-    margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    justify-content: center;
-    text-align: center;
-    gap: 35px;
+    grid-gap: 5.3rem 2.5rem;
+    justify-items: center;
 `;
 
 function SearchPage() {
@@ -33,14 +46,15 @@ function SearchPage() {
 
     return (
         <div css={SearchResultWrapper}>
-            <div>
-                <input onChange={(e) => setKeyword(e.target.value)} />
+            <div css={searchBannerStyle}>
+                <p>심심해시에서 다양한 영화를 검색해보세요!</p>
+                <SearchBar setKeyword={setKeyword} />
             </div>
-            <div css={resultStyle}>
+            <ul css={resultStyle}>
                 {target.map((item) => {
                     return <Poster item={item} setKeyword={setKeyword} />;
                 })}
-            </div>
+            </ul>
         </div>
     );
 }

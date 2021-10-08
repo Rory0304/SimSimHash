@@ -21,10 +21,6 @@ const selectedInfo = css`
     margin: 35px 0 15px 0;
 `;
 
-const wrapperStyle = css`
-    height: 100vh;
-`;
-
 const mainWrapperStyle = css`
     height: 91vh;
     display: flex;
@@ -33,10 +29,6 @@ const mainWrapperStyle = css`
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
-`;
-
-const mainContentWrapperStyle = css`
-    width: 100%;
 `;
 
 function MainPage() {
@@ -53,9 +45,9 @@ function MainPage() {
     }, [selectedTagList]);
 
     return (
-        <div css={wrapperStyle}>
+        <div>
             <main css={mainWrapperStyle}>
-                <div css={mainContentWrapperStyle}>
+                <div>
                     <div>
                         <MainIntro />
                     </div>

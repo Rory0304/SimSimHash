@@ -12,6 +12,7 @@ const resultStyle = css`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     text-align: center;
+
 `;
 
 const divStyle = css`
@@ -55,7 +56,8 @@ function SearchPage() {
     return (
         <div>
             <div css={resultStyle}>
-                {target.map((item) => {
+                {keyword !== null && filteredMovieList.length >= 1 ? (
+                target.map((item) => {
                     return (
                         <div>
                             <div css={divStyle}>
@@ -74,7 +76,8 @@ function SearchPage() {
                             </div>
                         </div>
                     );
-                })}
+                })) : <p>검색결과가 없습니다.</p>
+                }
             </div>
             <div>
                 <input onChange={(e) => setKeyword(e.target.value)} />

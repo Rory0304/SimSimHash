@@ -19,16 +19,11 @@ function App() {
 
     return (
         <Provider store={store}>
-            <div css={wrapperStyle}>
+            <div>
                 <Router />
             </div>
         </Provider>
     );
 }
-
-const wrapperStyle = css`
-    background-color: #24262b;
-    height: 100vh;
-`;
 
 export default App;

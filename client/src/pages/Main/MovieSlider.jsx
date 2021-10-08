@@ -9,8 +9,8 @@ import { css, jsx } from "@emotion/react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 import { Rate } from "antd";
 import { sample } from "../../assets/Sample";
@@ -44,6 +44,7 @@ const sliderImgStyle = css`
 
     &:hover div {
         z-index: 1;
+        visibility: visible;
         transform: scale(1.1);
         -webkit-transform: scale(1.1);
         -moz-transform: scale(1.1);
@@ -58,6 +59,7 @@ const sliderImgStyle = css`
 
 const sliderImgLayerStyle = css`
     z-index: -1;
+    visibility: hidden;
     display: grid;
     background-color: rgb(30 30 30 / 75%);
     align-items: center;
@@ -134,11 +136,7 @@ function MovieSlider() {
                         <>
                             <div css={sliderImgStyle}>
                                 <Link to={`/movie/${item.id}`}>
-                                    <LazyLoadImage 
-                                        effect="blur"
-                                        src={item.img} 
-                                        alt={item.title}
-                                    />
+                                    <LazyLoadImage effect="blur" src={item.img} alt={item.title} />
                                     <div css={sliderImgLayerStyle}>
                                         <p css={fontStyle}>{item.title}</p>
                                         <Rate

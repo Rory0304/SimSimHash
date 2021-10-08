@@ -22,11 +22,13 @@ const selectedInfo = css`
 `;
 
 const mainWrapperStyle = css`
-    height: 91%;
+    height: 91vh;
     display: flex;
     align-content: center;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
 `;
 
 const mainContentWrapperStyle = css`

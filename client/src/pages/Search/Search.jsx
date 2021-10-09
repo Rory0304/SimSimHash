@@ -2,17 +2,18 @@
 import { css, jsx } from "@emotion/react";
 
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Rate } from "antd";
-import { sample } from "../../assets/Sample";
+import { sample } from "../Main/Sample";
 
 const resultStyle = css`
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     text-align: center;
-`;
+    align-items: center;
+`
 
 const divStyle = css`
     margin: 0 auto;
@@ -23,7 +24,7 @@ const divStyle = css`
     text-align: center;
     margin-right: 15px;
     margin-left: 15px;
-`;
+`
 
 const imgStyle = css`
     width: 100px;
@@ -55,31 +56,24 @@ function SearchPage() {
     return (
         <div>
             <div css={resultStyle}>
-                {(keyword == null && target == sample) ||
-                (keyword !== null && target == filteredMovieList) ? (
-                    target.map((item) => {
-                        return (
-                            <div>
-                                <div css={divStyle}>
-                                    <form onChange={(e) => setKeyword(e.target.value)} />
-                                    <Link to={`/movie/${item.id}`}>
-                                        <img src={item.img} css={imgStyle} alt={item.title} />
-                                        <p css={fontStyle}>{item.title}</p>
-                                        <Rate
-                                            disabled
-                                            allowHalf
-                                            defaultValue={Math.round(item.star / 2)}
-                                            css={rateStyle}
-                                        />
-                                        <p css={fontStyle}>{item.tag}</p>
-                                    </Link>
-                                </div>
+                {target.map((item) => {
+                    return (
+                        <div>
+                            <div css={divStyle}>
+                                <form onChange={(e) => setKeyword(e.target.value)} />
+                                <img src={item.img} css={imgStyle} />
+                                <p css={fontStyle}>{item.title}</p>
+                                <Rate
+                                    disabled
+                                    allowHalf
+                                    defaultValue={Math.round(item.star / 2)}
+                                    css={rateStyle}
+                                />
+                                <p css={fontStyle}>{item.tag}</p>
                             </div>
-                        );
-                    })
-                ) : (
-                    <p>검색결과가 없습니다.</p>
-                )}
+                        </div>
+                    );
+                })}
             </div>
             <div>
                 <input onChange={(e) => setKeyword(e.target.value)} />

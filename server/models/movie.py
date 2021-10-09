@@ -1,12 +1,12 @@
 from app import db
 
 class Movie(db.Model):
-    __tablename__ = "MOVIE"
+    __tablename__ = "movie"
     id = db.Column(db.Integer, primary_key=True)
     # 크롤링 정보
     title = db.Column(db.String(50), nullable=False)
     release_date = db.Column(db.Date)
-    actor = db.Column(db.String(100))
+    actor = db.Column(db.String(200))
     director = db.Column(db.String(50))
     summary = db.Column(db.Text)
     running_time = db.Column(db.Integer)

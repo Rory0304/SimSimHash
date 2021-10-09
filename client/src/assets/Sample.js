@@ -265,7 +265,7 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210917_227/1631842790698OTIjB_JPEG/movie_image.jpg",
+        poster: "https://movie-phinf.pstatic.net/20210923_298/1632376015399DWJAd_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
@@ -1040,7 +1040,7 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210705_86/1625448832976w5qpG_JPEG/movie_image.jpg",
+        poster: "https://movie-phinf.pstatic.net/20210721_243/1626844891093xnPK1_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",

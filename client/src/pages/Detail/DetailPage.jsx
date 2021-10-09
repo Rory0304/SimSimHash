@@ -28,7 +28,6 @@ const getMovieById = (id) => {
 
 const DetailPage = ({ history, match }) => {
     const [ movie, setMovie ] = useState({});
-    const [ noreview, setNoreview ] = useState([]);
     const { id } = match.params;
     
     useEffect(() => {
@@ -47,7 +46,7 @@ const DetailPage = ({ history, match }) => {
                         </div>
                         <div>
                             <dt>포스터</dt>
-                            <dd><img src={movie.img} width="200px" /></dd>
+                            <dd><img src={movie.poster} width="200px" /></dd>
                         </div>
                         <div>
                             <dt>평점</dt>
@@ -55,7 +54,7 @@ const DetailPage = ({ history, match }) => {
                                 <Rate
                                     disabled
                                     allowHalf
-                                    defaultValue={Math.round(movie.star / 2)}
+                                    defaultValue={Math.round(movie.scpre / 2)}
                                     css={rateStyle}
                                 />
                             </dd>
@@ -69,8 +68,16 @@ const DetailPage = ({ history, match }) => {
                             <dd>{ movie.actor }</dd>
                         </div>
                         <div>
+                            <dt>장르</dt>
+                            <dd>{ movie.genre }</dd>
+                        </div>
+                        <div>
+                            <dt>해시태그</dt>
+                            <dd>{ movie.total }</dd>
+                        </div>
+                        <div>
                             <dt>줄거리</dt>
-                            <dd>{ movie.story }</dd>
+                            <dd>{ movie.summary }</dd>
                         </div>
                         <div>
                             <ShowGraph noreviewarr={movie.noreviewarr} />

@@ -136,16 +136,16 @@ function MovieSlider() {
                         <>
                             <div css={sliderImgStyle}>
                                 <Link to={`/movie/${item.id}`}>
-                                    <LazyLoadImage effect="blur" src={item.img} alt={item.title} />
+                                    <LazyLoadImage effect="blur" src={item.poster} alt={item.title} />
                                     <div css={sliderImgLayerStyle}>
                                         <p css={fontStyle}>{item.title}</p>
                                         <Rate
                                             disabled
                                             allowHalf
-                                            defaultValue={Math.round(item.star / 2)}
+                                            defaultValue={Math.round(item.score / 2)}
                                             css={rateStyle}
                                         />
-                                        <p css={fontStyle}>{item.tag}</p>
+                                        <p css={fontStyle}>{item.total}</p>
                                     </div>
                                 </Link>
                             </div>

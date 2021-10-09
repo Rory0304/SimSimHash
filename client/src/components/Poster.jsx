@@ -54,19 +54,19 @@ function Poster({ item, setKeyword }) {
             <div>
                 <form onChange={(e) => setKeyword(e.target.value)} />
                 <Link to={`/movie/${item.id}`}>
-                    <img src={item.img} css={imgStyle} alt={item.title} />
+                    <img src={item.poster} css={imgStyle} alt={item.title} />
                     <div css={movieInfoStyle}>
                         <div>
                             <p>{item.title}</p>
                             <Rate
                                 disabled
                                 allowHalf
-                                defaultValue={Math.round(item.star / 2)}
+                                defaultValue={Math.round(item.score / 2)}
                                 css={rateStyle}
                             />
                         </div>
                         <p>
-                            <span>{item.tag}</span>
+                            <span>{item.total}</span>
                         </p>
                     </div>
                 </Link>

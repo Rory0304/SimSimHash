@@ -79,15 +79,15 @@ function MovieListModal() {
                     return (
                         <div css={modalStyle}>
                             <Link to={`/movie/${item.id}`}>
-                                <img src={item.img} width="100" alt={item.title} />
+                                <img src={item.poster} width="100" alt={item.title} />
                                 <p css={fontStyle}>{item.title}</p>
                                 <Rate
                                     disabled
                                     allowHalf
-                                    defaultValue={Math.round(item.star / 2)}
+                                    defaultValue={Math.round(item.score / 2)}
                                     css={rateStyle}
                                 />
-                                <p css={fontStyle}>{item.tag}</p>
+                                <p css={fontStyle}>{item.total}</p>
                             </Link>
                         </div>
                     );

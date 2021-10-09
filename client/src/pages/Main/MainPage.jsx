@@ -31,10 +31,6 @@ const mainWrapperStyle = css`
     flex-wrap: wrap;
 `;
 
-const mainContentWrapperStyle = css`
-    width: 100%;
-`;
-
 function MainPage() {
     const dispatch = useDispatch();
     const { selectedTagList, movieList } = useSelector((state) => state.mainTagDataSlice);
@@ -49,25 +45,27 @@ function MainPage() {
     }, [selectedTagList]);
 
     return (
-        <main css={mainWrapperStyle}>
-            <div css={mainContentWrapperStyle}>
+        <div>
+            <main css={mainWrapperStyle}>
                 <div>
-                    <MainIntro />
+                    <div>
+                        <MainIntro />
+                    </div>
+                    <div>
+                        <MovieListModal />
+                        <MovieSlider />
+                        <p css={selectedInfo}>
+                            <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
+                            {selectedTagList.length < 2
+                                ? "해시태그를 2개 이상 선택하세요!"
+                                : `해당 키워드를 가진 영화의 개수는 ${movieList.length}개 입니다.`}
+                        </p>
+                        <SelectedTagList />
+                        <TagList />
+                    </div>
                 </div>
-                <div>
-                    <MovieListModal />
-                    <MovieSlider />
-                    <p css={selectedInfo}>
-                        <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
-                        {selectedTagList.length < 2
-                            ? "해시태그를 2개 이상 선택하세요!"
-                            : `해당 키워드를 가진 영화의 개수는 ${movieList.length}개 입니다.`}
-                    </p>
-                    <SelectedTagList />
-                    <TagList />
-                </div>
-            </div>
-        </main>
+            </main>
+        </div>
     );
 }
 export default MainPage;

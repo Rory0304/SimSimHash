@@ -15,21 +15,24 @@ from models.movie import Movie
 from config import SQLALCHEMY_DATABASE_URI
 
 s = time.time()
+
 dir = './data/movie/'
-f = [i for i in os.listdir(dir) if i.endswith('poster.csv')]
-print("작업파일:\t",f)
+files = [i for i in os.listdir(dir) if i.endswith('poster.csv')]
+print("작업파일:\t",files)
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 
 Session = sessionmaker(bind=engine)
 session = Session()
 print("연결 성공")
+
+
 # Movie 테이블 삭제, 생성
-Movie.__table__.drop(engine)
-Movie.__table__.create(engine)
+# Movie.__table__.drop(bind=engine)
+# Movie.__table__.create(bind=engine)
 
-for file_path in f:
-
+for file_path in files:
+    print(file_path)
     data = pd.read_csv(path.join(dir,file_path), encoding='utf-8')
 
     def convert_release_date(release_date):
@@ -70,12 +73,12 @@ for file_path in f:
         release_date = data.loc[i,"release_date"]
         actor = data.loc[i,"actor"]
         director = data.loc[i,"director"]
-        # summary = data.loc[i,"summary"]
         summary = data.loc[i,"story"]
         running_time = data.loc[i,"running_time"]
         genre = data.loc[i,"genre"]
-        # rating = data.loc[i,"rating"]
         rating = data.loc[i,"grade"]
+        poster = data.loc[i,"poster"]
+        nation = data.loc[i,"nation"]
         
         movie = Movie(
             title = title,
@@ -84,8 +87,10 @@ for file_path in f:
             director = director,
             summary = summary,
             running_time = running_time,
+            poster = poster,
             genre = genre,
             rating = rating,
+            nation = nation,
         )
         session.add(movie)
 session.commit()

@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
 import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { Button, Modal, Rate } from "antd";
+import Poster from "../../components/Poster";
+
+import { Button, Modal } from "antd";
 import { css, jsx } from "@emotion/react";
 
 const buttonDivStyle = css`
@@ -18,27 +19,16 @@ const buttonStyle = css`
 `;
 
 const modalStyle = css`
-    width: 150px;
-    padding: 10px;
-    border-radius: 15px;
-    background-color: #444444;
-    text-align: center;
-    margin-right: 15px;
-    margin-left: 15px;
-`;
-
-const rateStyle = css`
-    font-size: 0.8rem;
-`;
-
-const fontStyle = css`
-    font-size: 1.15rem;
-    font-weight: bold;
-    color: #ffffff;
+    .ant-modal-body {
+        background-color: #333333;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        justify-items: center;
+        row-gap: 30px;
+    }
 `;
 
 function MovieListModal() {
-    const dispatch = useDispatch();
     const { movieList } = useSelector((state) => state.mainTagDataSlice);
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -66,31 +56,12 @@ function MovieListModal() {
                 visible={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                width="800px"
-                bodyStyle={{
-                    backgroundColor: "#333333",
-                    display: "grid",
-                    gridTemplateColumns: "repeat(4, 1fr)",
-                    rowGap: "30px"
-                }}
+                width="60rem"
+                css={modalStyle}
                 footer={null}
             >
                 {movieList.map((item) => {
-                    return (
-                        <div css={modalStyle}>
-                            <Link to={`/movie/${item.id}`}>
-                                <img src={item.img} width="100" alt={item.title} />
-                                <p css={fontStyle}>{item.title}</p>
-                                <Rate
-                                    disabled
-                                    allowHalf
-                                    defaultValue={Math.round(item.star / 2)}
-                                    css={rateStyle}
-                                />
-                                <p css={fontStyle}>{item.tag}</p>
-                            </Link>
-                        </div>
-                    );
+                    return <Poster item={item} page="main" />;
                 })}
             </Modal>
         </div>

@@ -38,7 +38,7 @@ const noresult = css`
     color: white;
     text-align: center;
     margin-top: 150px;
-`
+`;
 
 function SearchPage() {
     const [keyword, setKeyword] = useState();
@@ -56,14 +56,16 @@ function SearchPage() {
                 <p>심심해시에서 다양한 영화를 검색해보세요!</p>
                 <SearchBar setKeyword={setKeyword} />
             </div>
-            {(keyword == null && target == sample) || (keyword !== null && target == filteredMovieList) ? (
+            {(keyword == null && target == sample) ||
+            (keyword !== null && target == filteredMovieList) ? (
                 <ul css={resultStyle}>
                     {target.map((item) => {
-                        return <Poster item={item} setKeyword={setKeyword} />;
+                        return <Poster item={item} setKeyword={setKeyword} page="search" />;
                     })}
                 </ul>
-            ) : <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>
-            }
+            ) : (
+                <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>
+            )}
         </div>
     );
 }

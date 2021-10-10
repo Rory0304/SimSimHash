@@ -30,8 +30,10 @@ const sliderWrapperStyle = css`
 const sliderImgStyle = css`
     position: relative;
     width: 180px;
-    height: 260px;
+    height: 257px;
     margin: 0 auto;
+
+    background-color: #222222;
 
     img {
         width: 100%;
@@ -55,6 +57,8 @@ const sliderImgStyle = css`
         -webkit-transform: scale(1.1);
         -moz-transform: scale(1.1);
     }
+
+    
 `;
 
 const sliderImgLayerStyle = css`

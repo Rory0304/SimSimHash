@@ -106,7 +106,7 @@ function Poster({ item, setKeyword, page }) {
                             <Rate
                                 disabled
                                 allowHalf
-                                defaultValue={Math.round(item.star / 2)}
+                                defaultValue={Math.round(item.score / 2)}
                                 css={rateStyle}
                             />
                         )}

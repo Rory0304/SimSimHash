@@ -30,8 +30,10 @@ const sliderWrapperStyle = css`
 const sliderImgStyle = css`
     position: relative;
     width: 180px;
-    height: 260px;
+    height: 257px;
     margin: 0 auto;
+
+    background-color: #222222;
 
     img {
         width: 100%;
@@ -55,6 +57,8 @@ const sliderImgStyle = css`
         -webkit-transform: scale(1.1);
         -moz-transform: scale(1.1);
     }
+
+    
 `;
 
 const sliderImgLayerStyle = css`
@@ -136,16 +140,16 @@ function MovieSlider() {
                         <>
                             <div css={sliderImgStyle}>
                                 <Link to={`/movie/${item.id}`}>
-                                    <LazyLoadImage effect="blur" src={item.img} alt={item.title} />
+                                    <LazyLoadImage effect="blur" src={item.poster} alt={item.title} />
                                     <div css={sliderImgLayerStyle}>
                                         <p css={fontStyle}>{item.title}</p>
                                         <Rate
                                             disabled
                                             allowHalf
-                                            defaultValue={Math.round(item.star / 2)}
+                                            defaultValue={Math.round(item.score / 2)}
                                             css={rateStyle}
                                         />
-                                        <p css={fontStyle}>{item.tag}</p>
+                                        <p css={fontStyle}>{item.total}</p>
                                     </div>
                                 </Link>
                             </div>

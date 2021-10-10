@@ -58,7 +58,7 @@ export const getMovieListByTag = createAsyncThunk("GET_MOVIE_DATA", (args, Thunk
     console.log("debounce");
     const { mainTagDataSlice } = ThunkAPI.getState();
     const selectedTagNames = mainTagDataSlice.selectedTagList.map((item) => item.name);
-    return sample.filter((movie) => selectedTagNames.includes(movie.tag));
+    return sample.filter((movie) => selectedTagNames.includes(movie.total));
 });
 
 export const mainTagDataSlice = createSlice({

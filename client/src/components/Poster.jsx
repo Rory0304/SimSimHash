@@ -95,7 +95,7 @@ function Poster({ item, setKeyword, page }) {
                 <Link to={`/movie/${item.id}`}>
                     <div css={imgStyle({ page: page })}>
                         <Suspense fallback={<div css={lazyImageStyle({ page: page })} />}>
-                            <LazyImage src={item.img} alt={item.title} />
+                            <LazyImage src={item.poster} alt={item.title} />
                         </Suspense>
                     </div>
                     <div css={movieInfoStyle}>
@@ -111,7 +111,7 @@ function Poster({ item, setKeyword, page }) {
                             />
                         )}
                         <Suspense fallback={<p css={laztTextStyle}></p>}>
-                            <LazyText text={item.tag} />
+                            <LazyText text={item.total} />
                         </Suspense>
                     </div>
                 </Link>

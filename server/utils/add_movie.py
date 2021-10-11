@@ -10,14 +10,13 @@ import os
 
 from os import path
 sys.path.append(path.dirname( path.dirname( path.abspath(__file__) ) ))
-
 from models.movie import Movie
 from config import SQLALCHEMY_DATABASE_URI
 
 s = time.time()
 
 dir = './data/movie/'
-files = [i for i in os.listdir(dir) if i.endswith('poster.csv')]
+files = [i for i in os.listdir(dir) if i.endswith('last_of_last.csv')]
 print("작업파일:\t",files)
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
@@ -28,8 +27,8 @@ print("연결 성공")
 
 
 # Movie 테이블 삭제, 생성
-# Movie.__table__.drop(bind=engine)
-# Movie.__table__.create(bind=engine)
+Movie.__table__.drop(bind=engine)
+Movie.__table__.create(bind=engine)
 
 for file_path in files:
     print(file_path)
@@ -65,17 +64,21 @@ for file_path in files:
         '''
         return int(running_time[:-1])
 
-    data['release_date'] = data['release'].apply(convert_release_date)
-    data['running_time'] = data['running'].apply(convert_running_time)
+    data['release_date'] = data['release_date'].apply(convert_release_date)
+    data['running_time'] = data['running_time'].apply(convert_running_time)
+    # data['release_date'] = data['release'].apply(convert_release_date)
+    # data['running_time'] = data['running'].apply(convert_running_time)
 
     for i in range(len(data)):
         title = data.loc[i,"title"]
         release_date = data.loc[i,"release_date"]
         actor = data.loc[i,"actor"]
         director = data.loc[i,"director"]
-        summary = data.loc[i,"story"]
+        # summary = data.loc[i,"story"]
+        summary = data.loc[i,"summary"]
         running_time = data.loc[i,"running_time"]
         genre = data.loc[i,"genre"]
+        # rating = data.loc[i,"rating"]
         rating = data.loc[i,"grade"]
         poster = data.loc[i,"poster"]
         nation = data.loc[i,"nation"]

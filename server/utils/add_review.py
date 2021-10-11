@@ -11,8 +11,8 @@ from models.review import Review
 from models.movie import Movie
 
 FILE_PATH = "./review_sample.csv"
-MONGO_URI = 'mongodb://kdt-vm-0202007.koreacentral.cloudapp.azure.com:21/'
-MYSQL_URI = '''mysql://root:7teamghkdlxld@kdt-vm-0202007.koreacentral.cloudapp.azure.com:5000/simsimhash?charset=utf8'''
+from config import MONGO_URI
+from config import SQLALCHEMY_DATABASE_URI
 
 def convert_datetime(dt):
     from datetime import datetime
@@ -23,7 +23,7 @@ def convert_datetime(dt):
     return datetime(year=year, month=month, day=day, hour=hour, minute=minute).isoformat()
 
 def get_movie_id(title, date):
-    engine = create_engine(MYSQL_URI)
+    engine = create_engine(SQLALCHEMY_DATABASE_URI)
     Session = sessionmaker(bind=engine)
     session = Session()
 

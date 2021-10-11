@@ -45,13 +45,24 @@ const noresult = css`
 const paginationStyle = css`
     margin-top: 30px;
     text-align: center;
-    .ant-pagination-item-active {
-        background-color: #222222;
-        border-color: rgba(246, 45, 168, 0.93);
+    .ant-pagination-item:focus-visible, .ant-pagination-item:hover a {
+        color: rgba(246, 45, 168, 0.93);
     }
-    .ant-pagination-item-active a {
-    color: rgba(246, 45, 168, 0.93);
-}
+    .ant-pagination-item-active {
+        background-color: transparent;
+        border-color: rgba(246, 45, 168, 0.93);
+        a {
+            color: rgba(246, 45, 168, 0.93);
+        }
+    }
+    .ant-pagination-item-link {
+        &:hover {
+            color:rgba(246, 45, 168, 0.93);
+        }
+    }
+    .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-link-icon, .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
+        color:rgba(246, 45, 168, 0.93);
+    }
 `;
 
 function SearchPage() {

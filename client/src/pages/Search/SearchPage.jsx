@@ -3,7 +3,7 @@ import { css, jsx } from "@emotion/react";
 
 import { useEffect, useState } from "react";
 
-import { Pagination } from 'antd';
+import { Pagination } from "antd";
 
 import { sample } from "../../assets/Sample";
 import Poster from "../../components/Poster";
@@ -50,21 +50,21 @@ const paginationStyle = css`
         border-color: rgba(246, 45, 168, 0.93);
     }
     .ant-pagination-item-active a {
-    color: rgba(246, 45, 168, 0.93);
-}
+        color: rgba(246, 45, 168, 0.93);
+    }
 `;
 
 function SearchPage() {
     const [keyword, setKeyword] = useState();
     const [filteredMovieList, setFilteredMovieList] = useState([]);
-    
+
     useEffect(() => {
         setFilteredMovieList(sample.filter((movie) => movie.title.includes(keyword)));
     }, [keyword]);
 
     const target = (filteredMovieList.length >= 1 && filteredMovieList) || sample;
 
-    const pageSize = 4;
+    const pageSize = 10;
     const [pagination, setPagination] = useState({
         totalPage: target.length / pageSize,
         current: 1,
@@ -86,8 +86,8 @@ function SearchPage() {
                 <p>심심해시에서 다양한 영화를 검색해보세요!</p>
                 <SearchBar setKeyword={setKeyword} />
             </div>
-            {(keyword == null && target == sample) ||
-            (keyword !== null && target == filteredMovieList) ? (
+            {(keyword == null && target === sample) ||
+            (keyword !== null && target === filteredMovieList) ? (
                 <ul css={resultStyle}>
                     {target.slice(pagination.minIndex, pagination.maxIndex).map((item) => {
                         return <Poster item={item} setKeyword={setKeyword} page="search" />;
@@ -96,7 +96,14 @@ function SearchPage() {
             ) : (
                 <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>
             )}
-            <Pagination size="small" pageSize={pageSize} current={pagination.current} total={target.length} onChange={handleChange} css={paginationStyle} />
+            <Pagination
+                size="small"
+                pageSize={pageSize}
+                current={pagination.current}
+                total={target.length}
+                onChange={handleChange}
+                css={paginationStyle}
+            />
         </div>
     );
 }

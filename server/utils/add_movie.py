@@ -2,19 +2,17 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 import pandas as pd
 from datetime import date
-# import pymysql
-# pymysql.install_as_MySQLdb()
+import pymysql
+pymysql.install_as_MySQLdb()
 
 import sys
 from os import path
 sys.path.append(path.dirname( path.dirname( path.abspath(__file__) ) ))
 from models.movie import Movie
 
+file_path = "./naver_2019.csv"
 
-
-file_path = 'naver_2019.csv'
-
-engine = create_engine('''mysql://root:7teamghkdlxld@172.30.1.35:3306/MOVIE?charset=utf8''')
+engine = create_engine('''mysql://root:7teamghkdlxld@172.30.1.35:3306/simsimhash?charset=utf8''')
 
 Session = sessionmaker(bind=engine)
 session = Session()

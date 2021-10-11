@@ -6,13 +6,15 @@ class Movie(db.Model):
     # 크롤링 정보
     title = db.Column(db.String(50), nullable=False)
     release_date = db.Column(db.Date)
-    actor = db.Column(db.String(100))
+    actor = db.Column(db.String(200))
     director = db.Column(db.String(50))
     summary = db.Column(db.Text)
     running_time = db.Column(db.Integer)
     poster = db.Column(db.String(200))
     genre = db.Column(db.String(50))
     rating = db.Column(db.String(50))
+    nation = db.Column(db.String(50))
+    
     # 계산하여 update할 정보
     score = db.Column(db.Float)
     naver = db.Column(db.Float)
@@ -28,17 +30,20 @@ class Movie(db.Model):
                 director,
                 summary,
                 running_time,
+                poster,
                 genre,
-                rating):        
+                rating,
+                nation):        
         self.title = title
         self.release_date = release_date
         self.actor = actor
         self.director = director
         self.summary = summary
         self.running_time = running_time
-        # self.poster = "not yet",
+        self.poster = poster,
         self.genre = genre
         self.rating = rating
+        self.nation = nation
         self.score = 0
         self.naver = 0
         self.daum = 0

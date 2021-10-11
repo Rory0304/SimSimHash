@@ -1,0 +1,7 @@
+server/__pycache__/*.pyc
+server/__pycache__/app.cpython-38.pyc
+server/models/__pycache__*.pyc
+server/models/__pycache__/movie.cpython-38.pyc
+server/*.pyc
+
+server/config.py

@@ -20,6 +20,8 @@ const buttonStyle = css`
 
 const modalStyle = css`
     .ant-modal-body {
+        height: 75vh;
+        overflow-y: scroll;
         background-color: #333333;
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -53,10 +55,10 @@ function MovieListModal() {
             </div>
             <Modal
                 title="검색결과 더 보기"
+                width="70vw"
                 visible={isModalVisible}
                 onOk={handleOk}
                 onCancel={handleCancel}
-                width="60rem"
                 css={modalStyle}
                 footer={null}
             >

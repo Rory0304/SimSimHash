@@ -4,4 +4,4 @@ server/blueprints/__pycache__/*.pyc
 server/utils/__pycache__/*.pyc
 server/*.pyc
 
-server/config.py
+server/flask/config.py

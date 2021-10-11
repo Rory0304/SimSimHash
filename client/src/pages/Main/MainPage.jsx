@@ -29,6 +29,7 @@ const mainWrapperStyle = css`
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
+    overflow: hidden;
 `;
 
 function MainPage() {

@@ -1,14 +1,13 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import config
-
 import pymysql
 pymysql.install_as_MySQLdb()
-
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
+    app.config.from_object(config)
 
     app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:7teamghkdlxld@172.30.1.35:3306/moive"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -31,6 +30,6 @@ def create_app():
 
     return app
 
-#컨테이너 작성시 0.0.0.0 아이피로 수정필요
 if __name__ == "__main__":
-    create_app().run(debug=True)
+    app = create_app()
+    app.run(host='0.0.0.0', debug=True)

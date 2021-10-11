@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { useLazyImageHandler } from "../hook/useLazyImageHandler";
 import { Rate } from "antd";
-import LoadingPoster from "./LoadingPoster";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/opacity.css";
 
@@ -45,7 +44,7 @@ function LazyPoster({ page, item }) {
                 <div ref={imgRef}>
                     <LazyLoadImage
                         effect="opacity"
-                        src={imgSrc}
+                        src={`${imgSrc}?type=m203_290_2`}
                         placeholderSrc={item.poster}
                         alt={item.title}
                         style={{

@@ -8,11 +8,11 @@ from pymongo import MongoClient
 import pymysql
 pymysql.install_as_MySQLdb()
 
-MONGO_URI = 'mongodb://kdt-vm-0202007.koreacentral.cloudapp.azure.com:21/'
-MYSQL_URI = '''mysql://root:7teamghkdlxld@kdt-vm-0202007.koreacentral.cloudapp.azure.comd:5000/mysql?charset=utf8'''
+from config import MONGO_URI
+from config import SQLALCHEMY_DATABASE_URI
 
 def ranking_cal():
-    engine = create_engine(MYSQL_URI)
+    engine = create_engine(SQLALCHEMY_DATABASE_URI)
     Session = sessionmaker(bind=engine)
     session = Session()
 

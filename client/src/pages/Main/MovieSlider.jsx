@@ -139,7 +139,7 @@ function MovieSlider() {
                         <>
                             <div css={sliderImgStyle}>
                                 <Link to={`/movie/${item.id}`}>
-                                    <LazyLoadImage effect="blur" src={item.poster} alt={item.title} />
+                                    <LazyLoadImage effect="blur" src={`${item.poster}?type=m203_290_2`} alt={item.title} />
                                     <div css={sliderImgLayerStyle}>
                                         <p css={fontStyle}>{item.title}</p>
                                         <Rate

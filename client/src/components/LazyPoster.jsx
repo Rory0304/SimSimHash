@@ -45,7 +45,7 @@ function LazyPoster({ page, item }) {
                 <div ref={imgRef}>
                     <LazyLoadImage
                         effect="opacity"
-                        src={imgSrc}
+                        src={`${imgSrc}?type=m203_290_2`}
                         placeholderSrc={item.poster}
                         alt={item.title}
                         style={{

@@ -111,7 +111,7 @@ function SearchPage() {
                             return <Poster item={item} setKeyword={setKeyword} page="search" />;
                         })}
                     </ul>
-                        <Pagination
+                    <Pagination
                         size="small"
                         pageSize={pageSize}
                         current={pagination.current}

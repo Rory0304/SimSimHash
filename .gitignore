@@ -1,7 +1,7 @@
-server/__pycache__/*.pyc
-server/models/__pycache__/*.pyc
-server/blueprints/__pycache__/*.pyc
-server/utils/__pycache__/*.pyc
-server/*.pyc
+server/flask/__pycache__/*.pyc
+server/flask/models/__pycache__/*.pyc
+server/flask/blueprints/__pycache__/*.pyc
+server/flask/utils/__pycache__/*.pyc
+server/flask/*.pyc
 
 server/flask/config.py

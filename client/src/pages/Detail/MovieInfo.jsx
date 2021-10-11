@@ -1,8 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
+import { useState } from "react";
 
 const movieInfoWrapper = css`
-    height: 330px;
+    height: fit-content;
     position: relative;
     margin-bottom: 32px;
     button {
@@ -14,23 +15,49 @@ const movieInfoWrapper = css`
         background-color: transparent;
         -webkit-text-decoration: underline;
         text-decoration: underline;
+        cursor: pointer;
+        color: rgba(246, 45, 168, 0.93);
     }
 `;
 
-const movieInfoContents = css`
-    display: flex;
-    justify-content: space-around;
-    gap: 50px;
-`;
+const movieInfoContents = ({ open }) => css`
+    display: grid;
+    grid-gap: 30px;
+    ${open && `justify-items: center;`}
 
-const movieInfoSpec = css`
-    height: 287px;
     h2 {
+        display: inline-block;
         color: white;
         font-size: 2.5rem;
-        margin-bottom: 20px;
         font-weight: bold;
+
+        ${open
+            ? `grid-column-start: 1;
+        grid-row-start: 1;
+        grid-column-end: 5;`
+            : `grid-column-start: 2;
+`}
     }
+`;
+
+const moviePoster = ({ open }) => css`
+    ${open
+        ? `grid-column-start: 2;
+    grid-column-end: 4;`
+        : `grid-column-start: 1;
+    grid-row-start: 1;
+    grid-row-end: 4;`}
+
+    img {
+        ${open ? `width: 300px` : `width:200px`}
+    }
+`;
+
+const movieInfoSpec = ({ open }) => css`
+    ${open &&
+    `grid-column-start: 1;
+    grid-column-end: 5;
+        `}
 
     dl {
         line-height: 2.2rem;
@@ -48,18 +75,24 @@ const movieInfoSpec = css`
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
         }
+
+        dd:last-of-type {
+            ${open && `-webkit-box-orient: horizontal;`}
+        }
     }
 `;
 
 function MovieInfo({ movie }) {
+    const [movieInfoOpen, setMovieInfoOpen] = useState(false);
+
     return (
         <div css={movieInfoWrapper}>
-            <div css={movieInfoContents}>
-                <div>
-                    <img src={movie.poster} width="200px" alt={movie.title} />
+            <div css={movieInfoContents({ open: movieInfoOpen })}>
+                <h2>{movie.title}</h2>
+                <div css={moviePoster({ open: movieInfoOpen })}>
+                    <img src={movie.poster} alt={movie.title} />
                 </div>
-                <div css={movieInfoSpec}>
-                    <h2>{movie.title}</h2>
+                <div css={movieInfoSpec({ open: movieInfoOpen })}>
                     <dl>
                         <dt>개요</dt>
                         <dd>
@@ -79,7 +112,9 @@ function MovieInfo({ movie }) {
                     </dl>
                 </div>
             </div>
-            <button>펼쳐보기</button>
+            <button onClick={() => setMovieInfoOpen(!movieInfoOpen)}>
+                {movieInfoOpen ? "접기" : "펼쳐보기"}
+            </button>
         </div>
     );
 }

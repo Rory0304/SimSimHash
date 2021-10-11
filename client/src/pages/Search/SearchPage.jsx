@@ -71,6 +71,12 @@ function SearchPage() {
 
     useEffect(() => {
         setFilteredMovieList(sample.filter((movie) => movie.title.includes(keyword)));
+        setPagination({
+            totalPage: target.length / pageSize,
+            current: 1,
+            minIndex: 0,
+            maxIndex: pageSize
+        })
     }, [keyword]);
 
     const target = (filteredMovieList.length >= 1 && filteredMovieList) || sample;

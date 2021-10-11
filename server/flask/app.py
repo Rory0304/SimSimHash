@@ -9,14 +9,6 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(config)
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:7teamghkdlxld@172.30.1.35:3306/moive"
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config["JSON_AS_ASCII"] = False
-
-    app.config.from_object(config)
-    app.secret_key = "hahaha"
-
-
     # Blueprints
     from blueprints import aboutus, detail, movie, search, tag
     app.register_blueprint(aboutus.bp)
@@ -32,4 +24,4 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0', port=5000,debug=True)

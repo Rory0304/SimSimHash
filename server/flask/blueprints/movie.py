@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
-from flask_pymongo import MongoClient
-from app import db
+from pymongo import MongoClient
 from config import MONGO_URI
 from models.movie import Movie
 from utils.tag_search import tag_search

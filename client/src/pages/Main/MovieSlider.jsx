@@ -29,11 +29,10 @@ const sliderWrapperStyle = css`
 
 const sliderImgStyle = css`
     position: relative;
+    background-color: #222222;
     width: 180px;
     height: 257px;
     margin: 0 auto;
-
-    background-color: #222222;
 
     img {
         width: 100%;

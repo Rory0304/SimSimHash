@@ -3,6 +3,8 @@ import { css, jsx } from "@emotion/react";
 
 import { useEffect, useState } from "react";
 
+import { Pagination } from 'antd';
+
 import { sample } from "../../assets/Sample";
 import Poster from "../../components/Poster";
 import SearchBar from "../../components/SearchBar";
@@ -40,15 +42,43 @@ const noresult = css`
     margin-top: 150px;
 `;
 
+const paginationStyle = css`
+    margin-top: 30px;
+    text-align: center;
+    .ant-pagination-item-active {
+        background-color: #222222;
+        border-color: rgba(246, 45, 168, 0.93);
+    }
+    .ant-pagination-item-active a {
+    color: rgba(246, 45, 168, 0.93);
+}
+`;
+
 function SearchPage() {
     const [keyword, setKeyword] = useState();
     const [filteredMovieList, setFilteredMovieList] = useState([]);
-
+    
     useEffect(() => {
         setFilteredMovieList(sample.filter((movie) => movie.title.includes(keyword)));
     }, [keyword]);
 
     const target = (filteredMovieList.length >= 1 && filteredMovieList) || sample;
+
+    const pageSize = 4;
+    const [pagination, setPagination] = useState({
+        totalPage: target.length / pageSize,
+        current: 1,
+        minIndex: 0,
+        maxIndex: pageSize
+    });
+
+    const handleChange = (page) => {
+        setPagination({
+            current: page,
+            minIndex: (page - 1) * pageSize,
+            maxIndex: page * pageSize
+        });
+    };
 
     return (
         <div css={SearchResultWrapper}>
@@ -59,13 +89,14 @@ function SearchPage() {
             {(keyword == null && target == sample) ||
             (keyword !== null && target == filteredMovieList) ? (
                 <ul css={resultStyle}>
-                    {target.map((item) => {
+                    {target.slice(pagination.minIndex, pagination.maxIndex).map((item) => {
                         return <Poster item={item} setKeyword={setKeyword} page="search" />;
                     })}
                 </ul>
             ) : (
                 <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>
             )}
+            <Pagination size="small" pageSize={pageSize} current={pagination.current} total={target.length} onChange={handleChange} css={paginationStyle} />
         </div>
     );
 }

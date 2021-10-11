@@ -12,6 +12,11 @@ const inputStyle = css`
     border-color: #444444;
     background-color: transparent;
     color: #fff;
+    &.ant-input:focus,
+    &.ant-input-focused {
+        border-color: rgb(246 45 168 / 60%);
+        box-shadow: 0 0 0 2px rgb(246 45 168 / 24%);
+    }
     &:hover {
         background-color: #444444;
         box-shadow: 0 1px 6px 0 #171717;

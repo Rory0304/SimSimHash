@@ -73,6 +73,12 @@ function SearchPage() {
 
     useEffect(() => {
         setFilteredMovieList(sample.filter((movie) => movie.title.includes(keyword)));
+        setPagination({
+            totalPage: target.length / pageSize,
+            current: 1,
+            minIndex: 0,
+            maxIndex: pageSize
+        })
     }, [keyword]);
 
     const target = (filteredMovieList.length >= 1 && filteredMovieList) || sample;
@@ -101,22 +107,24 @@ function SearchPage() {
             </div>
             {(keyword == null && target === sample) ||
             (keyword !== null && target === filteredMovieList) ? (
-                <ul css={resultStyle}>
-                    {target.slice(pagination.minIndex, pagination.maxIndex).map((item) => {
-                        return <Poster item={item} setKeyword={setKeyword} page="search" />;
-                    })}
-                </ul>
+                <>
+                    <ul css={resultStyle}>
+                        {target.slice(pagination.minIndex, pagination.maxIndex).map((item) => {
+                            return <Poster item={item} setKeyword={setKeyword} page="search" />;
+                        })}
+                    </ul>
+                    <Pagination
+                        size="small"
+                        pageSize={pageSize}
+                        current={pagination.current}
+                        total={target.length}
+                        onChange={handleChange}
+                        css={paginationStyle}
+                    />
+                </>
             ) : (
                 <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>
             )}
-            <Pagination
-                size="small"
-                pageSize={pageSize}
-                current={pagination.current}
-                total={target.length}
-                onChange={handleChange}
-                css={paginationStyle}
-            />
         </div>
     );
 }

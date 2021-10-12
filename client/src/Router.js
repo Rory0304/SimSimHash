@@ -4,10 +4,12 @@ import MainPage from "./pages/Main/MainPage";
 import SearchPage from "./pages/Search/SearchPage";
 import DetailPage from "./pages/Detail/DetailPage";
 import Header from "./components/Header";
+import ScrollToTop from "./components/ScrollToTop";
 
 function Routers() {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Header />
             <Switch>
                 <Route exact path="/">
@@ -16,7 +18,7 @@ function Routers() {
                 <Route exact path="/search">
                     <SearchPage />
                 </Route>
-                <Route exact path="/movie/:id" render={props => <DetailPage {...props} />} />
+                <Route exact path="/movie/:id" render={(props) => <DetailPage {...props} />} />
             </Switch>
         </BrowserRouter>
     );

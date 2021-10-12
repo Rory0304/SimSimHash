@@ -46,7 +46,8 @@ const noresult = css`
 const paginationStyle = css`
     margin-top: 30px;
     text-align: center;
-    .ant-pagination-item:focus-visible, .ant-pagination-item:hover a {
+    .ant-pagination-item:focus-visible,
+    .ant-pagination-item:hover a {
         color: rgba(246, 45, 168, 0.93);
     }
     .ant-pagination-item-active {
@@ -58,11 +59,12 @@ const paginationStyle = css`
     }
     .ant-pagination-item-link {
         &:hover {
-            color:rgba(246, 45, 168, 0.93);
+            color: rgba(246, 45, 168, 0.93);
         }
     }
-    .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-link-icon, .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
-        color:rgba(246, 45, 168, 0.93);
+    .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-link-icon,
+    .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon {
+        color: rgba(246, 45, 168, 0.93);
     }
 `;
 

@@ -1,0 +1,6 @@
+flask
+pymongo
+selenium
+flask-sqlalchemy
+pymysql
+uwsgi

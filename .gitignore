@@ -1,7 +1,7 @@
-server/__pycache__/*.pyc
-server/__pycache__/app.cpython-38.pyc
-server/models/__pycache__*.pyc
-server/models/__pycache__/movie.cpython-38.pyc
-server/*.pyc
+server/flask/__pycache__/*.pyc
+server/flask/models/__pycache__/*.pyc
+server/flask/blueprints/__pycache__/*.pyc
+server/flask/utils/__pycache__/*.pyc
+server/flask/*.pyc
 
-server/config.py
+server/flask/config.py

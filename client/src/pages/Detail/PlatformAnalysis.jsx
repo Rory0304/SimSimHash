@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 const platformAreaWrapper = css`
     h3 {
@@ -12,11 +12,11 @@ const platformAreaWrapper = css`
 `;
 
 const platformBox = css`
+    position: relative;
     background-color: #222222;
     color: #fff;
     width: 90%;
     margin: 20px auto;
-    padding: 30px;
     line-height: 3rem;
     border-radius: 20px;
 
@@ -25,6 +25,22 @@ const platformBox = css`
         font-size: 1.5rem;
         font-weight: bold;
     }
+
+    button {
+        position: absolute;
+        bottom: 0;
+        right: 30px;
+        margin-bottom: 20px;
+        border: none;
+        clear: both;
+        background-color: transparent;
+        cursor: pointer;
+        color: rgba(246, 45, 168, 0.93);
+    }
+`;
+
+const platformHeaderWrapper = css`
+    padding: 30px;
 `;
 
 const platformBoxHeader = css`
@@ -39,6 +55,7 @@ const tagStyle = ({ name }) => css`
     padding: 3px 13px 5px 13px;
     border-radius: 20px;
     text-align: center;
+    margin-right: 10px;
 
     ${name === "네이버" &&
     ` border: 1px solid rgba(23, 175, 61, 0.93);
@@ -57,47 +74,146 @@ const tagStyle = ({ name }) => css`
     background-color: rgb(173 35 35 / 34%);`}
 `;
 
-function PlatformBox({ name, score, wholeScore, noreview, tag }) {
+const hiddenPlatformInfo = ({ expanded, name }) => css`
+    transition: all 0.3s;
+    background-color: #2a2a2a;
+    color: white;
+    ${expanded
+        ? `height: 688px;border-top: 2px solid height: 600px;padding:30px 50px;`
+        : `height:0vh; overflow: hidden;`};
+
+    ${expanded && name === "네이버" && ` border-top: 1px solid rgba(23, 175, 61, 0.93);`}
+
+    ${expanded && name === "왓챠" && ` border-top: 1px solid rgba(246, 45, 168, 0.93);`}
+
+    ${expanded && name === "다음" && ` border-top: 1px solid rgba(65, 45, 246, 0.93);`}
+
+    ${expanded && name === "씨네21" && ` border-top: 1px solid rgba(173, 35, 35, 0.93);`}
+
+    div {
+        margin-bottom: 30px;
+    }
+    p {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+`;
+
+function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title }) {
+    const [expanded, setExpanded] = useState(false);
+    const [tagCloud, setTagCloud] = useState([]);
+    const [tagList, setTagList] = useState([]);
+
+    useEffect(() => {
+        if (expanded && tagCloud === [] && tagList === []) {
+            /* 백엔드에 플랫폼 분석 정보 요청 */
+        }
+    }, [expanded]);
+
     return (
-        <div css={platformBox}>
-            <div css={platformBoxHeader}>
-                <h4>{name}</h4>
-                <p>
-                    {score}점 / {wholeScore}점 <span>({noreview}명 참여)</span>
-                </p>
+        <li css={platformBox}>
+            {/* 플랫폼 간단 정보 : 영화 플랫폼 별점 정보 / 대표 키워드 */}
+            <div css={platformHeaderWrapper}>
+                <div css={platformBoxHeader}>
+                    <h4>{name}</h4>
+                    <p>
+                        {score}점 / {wholeScore}점 <span>({noreview}명 참여)</span>
+                    </p>
+                </div>
+                <div>
+                    {tags.map((tag) => (
+                        <span css={tagStyle({ name: name })}>{tag}</span>
+                    ))}
+                </div>
             </div>
-            <div>
-                <p>
-                    <span css={tagStyle({ name: name })}>{tag}</span>
-                </p>
+            {/* 숨겨진 플랫폼 분석 정보 : 아코디언 박스 접근성 규칙 준수 http://web-accessibility.carnegiemuseums.org/code/accordions/*/}
+            <div
+                css={hiddenPlatformInfo({ expanded: expanded, name: name })}
+                aria-hidden={!expanded}
+                id={`content-${enName}`}
+            >
+                {/* 워드 클라우드 정보 */}
+                <div>
+                    <p>
+                        {name} 유저들은 <br /> "{title}"을 이렇게 평가했어요!
+                    </p>
+                    <div
+                        style={{ height: "200px", width: "100%", border: "1px solid white" }}
+                    ></div>
+                </div>
+                {/* 더 많은 태그 목록 */}
+                <div>
+                    <p>{name} 유저들은 아래의 키워드로 표현했어요!</p>
+                    <div
+                        style={{ height: "200px", width: "100%", border: "1px solid white" }}
+                    ></div>
+                </div>
             </div>
-        </div>
+            <button
+                aria-controls={`content-${enName}`}
+                aria-expanded={expanded}
+                id={`accordion-control-${enName}`}
+                onClick={() => setExpanded(!expanded)}
+            >
+                {expanded ? "접기" : "더보기"}
+            </button>
+        </li>
     );
 }
-function PlatformAnalysis({ movie }) {
+const PlatformAnalysis = React.forwardRef(({ movie }, ref) => {
+    const platforms = [
+        {
+            name: "네이버",
+            enName: "naver",
+            score: 4.8,
+            wholeScore: 10,
+            noreview: 137,
+            tags: ["웅장한", "재미있는", "신기한"]
+        },
+        {
+            name: "다음",
+            enName: "daum",
+            score: 4.8,
+            wholeScore: 10,
+            noreview: 137,
+            tags: ["웅장한", "재미있는", "신기한"]
+        },
+        {
+            name: "왓챠",
+            enName: "whatcha",
+            score: 4.8,
+            wholeScore: 10,
+            noreview: 12,
+            tags: ["웅장한", "재미있는", "신기한"]
+        },
+        {
+            name: "씨네21",
+            enName: "cine21",
+            score: 4.8,
+            wholeScore: 10,
+            noreview: 12,
+            tags: ["웅장한", "재미있는", "신기한"]
+        }
+    ];
+
     return (
-        <div id="platformArea" css={platformAreaWrapper}>
+        <div ref={ref} css={platformAreaWrapper}>
             <h3>플랫폼 별 분석</h3>
-            <div>
-                <PlatformBox
-                    name="네이버"
-                    score={4.8}
-                    wholeScore={10}
-                    noreview={137}
-                    tag={"웅장한"}
-                />
-                <PlatformBox name="왓챠" score={4.8} wholeScore={10} noreview={12} tag={"웅장한"} />
-                <PlatformBox name="다음" score={4.8} wholeScore={10} noreview={20} tag={"웅장한"} />
-                <PlatformBox
-                    name="씨네21"
-                    score={4.8}
-                    wholeScore={10}
-                    noreview={147}
-                    tag={"웅장한"}
-                />
-            </div>
+            <ul aria-label="아코디언 컨트롤 버튼">
+                {platforms.map((platform) => (
+                    <PlatformBox
+                        name={platform.name}
+                        enName={platform.enName}
+                        score={platform.score}
+                        wholeScore={platform.wholeScore}
+                        noreview={platform.noreview}
+                        tags={platform.tags}
+                        title={movie.title}
+                    />
+                ))}
+            </ul>
         </div>
     );
-}
+});
 
 export default PlatformAnalysis;

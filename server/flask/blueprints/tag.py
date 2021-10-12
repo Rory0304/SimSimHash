@@ -1,7 +1,6 @@
 from flask import Blueprint, jsonify
-from pymongo import MongoClient
 from random import shuffle
-from config import MONGO_URI
+from app import hashtag_col
 
 bp = Blueprint('tag',__name__)
 
@@ -10,13 +9,8 @@ bp = Blueprint('tag',__name__)
 def get_tags():
     QUERY = 3 # 넘겨줘야 할 태그 수
     
-    # tag collection 연결
-    client = MongoClient(MONGO_URI)
-    db = client.simsimhash
-    col = db.tags
-    
     # total_tag 검색
-    cur = col.find({'name' : 'total_tag'})
+    cur = hashtag_col.find({'name' : 'total_tag'})
     total_tag = []
     for i in cur:
         total_tag.append(i)

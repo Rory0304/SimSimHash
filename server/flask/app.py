@@ -5,6 +5,13 @@ import pymysql
 pymysql.install_as_MySQLdb()
 db = SQLAlchemy()
 
+from pymongo import MongoClient
+from config import MONGO_URI
+client = MongoClient(MONGO_URI)
+mongodb = client.simsimhash
+ranking_col = mongodb.ranking
+hashtag_col = mongodb.tags
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(config)

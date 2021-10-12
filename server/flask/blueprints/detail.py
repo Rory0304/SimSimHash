@@ -14,11 +14,9 @@ def get_detail():
     return jsonify(movie_detail, total_detail)
 
 @bp.route("/detail/get_platform", methods=['POST'])
-def get_detail():
+def get_platform():
     movie_id = request.json['movie_id']
     platform = request.json['platform']
-
-    
 
     movie_detail = get_movie_detail(movie_id)
     total_detail = get_total_detail(movie_id)

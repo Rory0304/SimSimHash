@@ -1,20 +1,14 @@
 from flask import Blueprint, jsonify, request
-from pymongo import MongoClient
-from config import MONGO_URI
 from models.movie import Movie
 from utils.tag_search import tag_search
+from app import ranking_col, hashtag_col
 
 bp = Blueprint('movie',__name__)
 
 @bp.route("/movie", methods=['GET', 'POST'])
 def get_movies():
-    client = MongoClient(MONGO_URI)
-    mongodb = client.simsimhash
-    col = mongodb.ranking
-    hashcol = mongodb.tags
-    
     if request.method == 'GET':
-        search_list = list(col.find_one({"collection": "ranking"}).values())[2:]
+        search_list = list(ranking_col.find_one({"collection": "ranking"}).values())[2:]
 
     if request.method == 'POST':
         selected_tags = request.json['selectedTags']
@@ -26,7 +20,7 @@ def get_movies():
     index = 0
     for search in search_list:
         filtered_movie = Movie.query.filter(Movie.id == search).first()
-        filtered_hashtags = hashcol.find_one({"movie_id": search})
+        filtered_hashtags = hashtag_col.find_one({"movie_id": search})
 
         searched_movie[index] = {
             "movie_id": filtered_movie.id,
@@ -44,5 +38,4 @@ def get_movies():
 
         index = index+1
 
-    client.close()
     return jsonify(searched_movie)

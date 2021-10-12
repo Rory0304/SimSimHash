@@ -18,11 +18,12 @@ def create_app():
 
     # Blueprints
     from blueprints import aboutus, detail, movie, search, tag
-    app.register_blueprint(aboutus.bp)
-    app.register_blueprint(detail.bp)
-    app.register_blueprint(movie.bp)
-    app.register_blueprint(search.bp)
-    app.register_blueprint(tag.bp)
+    url_prefix='/api'
+    app.register_blueprint(aboutus.bp, url_prefix=url_prefix)
+    app.register_blueprint(detail.bp, url_prefix=url_prefix)
+    app.register_blueprint(movie.bp, url_prefix=url_prefix)
+    app.register_blueprint(search.bp, url_prefix=url_prefix)
+    app.register_blueprint(tag.bp, url_prefix=url_prefix)
     
     # ORM
     db.init_app(app)
@@ -31,4 +32,4 @@ def create_app():
 
 if __name__ == "__main__":
     app = create_app()
-    app.run(host='0.0.0.0', port=5000,debug=True)
+    app.run(host='0.0.0.0', port=80,debug=True)

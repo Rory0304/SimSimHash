@@ -2,6 +2,7 @@
 import { css, jsx } from "@emotion/react";
 
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { Pagination } from "antd";
 
@@ -111,14 +112,16 @@ function SearchPage() {
                             return <Poster item={item} setKeyword={setKeyword} page="search" />;
                         })}
                     </ul>
-                    <Pagination
-                        size="small"
-                        pageSize={pageSize}
-                        current={pagination.current}
-                        total={target.length}
-                        onChange={handleChange}
-                        css={paginationStyle}
-                    />
+                    <Link to={`/search?page=${pagination.current}`}>
+                        <Pagination
+                            size="small"
+                            pageSize={pageSize}
+                            current={pagination.current}
+                            total={target.length}
+                            onChange={handleChange}
+                            css={paginationStyle}
+                        />
+                    </Link>
                 </>
             ) : (
                 <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>

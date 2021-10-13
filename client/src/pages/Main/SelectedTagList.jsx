@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 
-import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { Tag } from "antd";
 import { removeTag } from "../../modules/MainPage/tagDataSlice";
-import { css } from "@emotion/react";
 
 const CustomSelectedTagStyle = css`
     color: #fff;

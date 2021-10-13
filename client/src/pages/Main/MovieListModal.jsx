@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -6,7 +7,6 @@ import { useSelector } from "react-redux";
 import Poster from "../../components/Poster";
 
 import { Button, Modal } from "antd";
-import { css, jsx } from "@emotion/react";
 
 const buttonDivStyle = css`
     width: 65rem;

@@ -106,7 +106,7 @@ function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title })
 
     useEffect(() => {
         if (expanded && tagCloud === [] && tagList === []) {
-            /* 백엔드에 플랫폼 분석 정보 요청 */
+            /* Todo: 백엔드에 플랫폼 분석 정보 요청 */
         }
     }, [expanded]);
 

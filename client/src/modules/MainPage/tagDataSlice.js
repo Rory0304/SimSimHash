@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { sample } from "../../assets/Sample";
+import { api } from "../../config";
 
 const initialState = {
     tagList: [],
@@ -9,7 +10,7 @@ const initialState = {
     error: ""
 };
 
-//15개씩 받아온다.
+//[메인페이지] 15개씩 랜덤 태그를 받아온다.
 export const getTagList = createAsyncThunk("GET_TAG_DATA", (args, ThunkAPI) => {
     const requested = [
         { key: 1, name: "#재미있는" },
@@ -31,7 +32,7 @@ export const getTagList = createAsyncThunk("GET_TAG_DATA", (args, ThunkAPI) => {
     return requested;
 });
 
-//임시 테스트 용
+//임시 테스트 용으로 생성한 함수 => api 연동 시, getTagList로 기능 대체
 export const getNewTagList = createAsyncThunk("GET_NEWTAG_DATA", (args, ThunkAPI) => {
     const requested = [
         { key: 1, name: "#재미있는" },
@@ -53,9 +54,8 @@ export const getNewTagList = createAsyncThunk("GET_NEWTAG_DATA", (args, ThunkAPI
     return requested;
 });
 
+/* [메인 페이지] 태그와 관련된 영화 리스트를 불러옴 */
 export const getMovieListByTag = createAsyncThunk("GET_MOVIE_DATA", (args, ThunkAPI) => {
-    //movie data 불러오는 곳 (debounce가 적용됨)
-    console.log("debounce");
     const { mainTagDataSlice } = ThunkAPI.getState();
     const selectedTagNames = mainTagDataSlice.selectedTagList.map((item) => item.name);
     return sample.filter((movie) => selectedTagNames.includes(movie.total));

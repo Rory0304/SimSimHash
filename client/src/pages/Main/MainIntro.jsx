@@ -1,7 +1,8 @@
 /** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 
 import React from "react";
-import { css } from "@emotion/react";
+
 import logo from "../../assets/logo.png";
 
 const MainIntroWrapStyle = css`

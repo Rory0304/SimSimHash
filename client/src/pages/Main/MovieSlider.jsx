@@ -1,19 +1,20 @@
 /** @jsxImportSource @emotion/react */
-
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-
-import { getMovieListByTag } from "../../modules/MainPage/tagDataSlice";
 import { css, jsx } from "@emotion/react";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
+
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { Rate } from "antd";
 import { sample } from "../../assets/Sample";
+
+/* 영화 포스터 슬라이더 */
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+/* 영화 포스터 로딩 시, 레이지 로딩 적용 */
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const sliderWrapperStyle = css`
     width: 65rem;
@@ -56,8 +57,6 @@ const sliderImgStyle = css`
         -webkit-transform: scale(1.1);
         -moz-transform: scale(1.1);
     }
-
-    
 `;
 
 const sliderImgLayerStyle = css`
@@ -139,7 +138,11 @@ function MovieSlider() {
                         <>
                             <div css={sliderImgStyle}>
                                 <Link to={`/movie/${item.id}`}>
-                                    <LazyLoadImage effect="blur" src={`${item.poster}?type=m203_290_2`} alt={item.title} />
+                                    <LazyLoadImage
+                                        effect="blur"
+                                        src={`${item.poster}?type=m203_290_2`}
+                                        alt={item.title}
+                                    />
                                     <div css={sliderImgLayerStyle}>
                                         <p css={fontStyle}>{item.title}</p>
                                         <Rate

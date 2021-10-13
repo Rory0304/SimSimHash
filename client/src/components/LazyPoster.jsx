@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import React from "react";
+
 import { useLazyImageHandler } from "../hook/useLazyImageHandler";
 import { Rate } from "antd";
+
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/opacity.css";
 

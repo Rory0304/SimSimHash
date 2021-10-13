@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
+
 import { lazy, Suspense } from "react";
 
-import { css, jsx } from "@emotion/react";
 import { Link } from "react-router-dom";
 
 import LoadingPoster from "./LoadingPoster";
-// import LazyPoster from "./LazyPoster";
 
 const imgStyle = ({ page }) => css`
     text-align: center;

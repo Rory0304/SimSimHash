@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { setTagList, addTag, getTagList, getNewTagList } from "../../modules/MainPage/tagDataSlice";
+
 import { Tag } from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
-import { setTagList, addTag, getTagList, getNewTagList } from "../../modules/MainPage/tagDataSlice";
-import { css } from "@emotion/react";
 
 const ReloadBtnStyle = css`
     color: rgba(255, 255, 255, 0.8);

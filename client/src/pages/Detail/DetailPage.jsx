@@ -7,9 +7,8 @@ import { Link } from "react-router-dom";
 import MovieInfo from "./MovieInfo";
 import IntegratedAnalysis from "./IntegratedAnalysis";
 import PlatformAnalysis from "./PlatformAnalysis";
-import { sample } from "../../assets/Sample";
-
 import { Button } from "antd";
+import { sample } from "../../assets/Sample";
 
 const detailPageWrapper = css`
     font-size: 1.15rem;

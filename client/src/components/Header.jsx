@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { Link, NavLink } from "react-router-dom";
 import { css, jsx } from "@emotion/react";
+import SearchBar from "./SearchBar";
 
 const headerStyle = css`
     display: flex;

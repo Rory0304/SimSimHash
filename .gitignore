@@ -5,3 +5,5 @@ server/flask/utils/__pycache__/*.pyc
 server/flask/*.pyc
 
 server/flask/config.py
+
+server/flask/utils/data/total

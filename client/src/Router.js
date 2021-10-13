@@ -15,9 +15,7 @@ function Routers() {
                 <Route exact path="/">
                     <MainPage />
                 </Route>
-                <Route exact path="/search">
-                    <SearchPage />
-                </Route>
+                <Route exact path="/search" render={(props) => <SearchPage {...props} />} />
                 <Route exact path="/movie/:id" render={(props) => <DetailPage {...props} />} />
             </Switch>
         </BrowserRouter>

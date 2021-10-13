@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import MovieInfo from "./MovieInfo";
 import IntegratedAnalysis from "./IntegratedAnalysis";
 import PlatformAnalysis from "./PlatformAnalysis";
-import { Button } from "antd";
+import { Button, BackTop } from "antd";
 import { sample } from "../../assets/Sample";
 
 const detailPageWrapper = css`
@@ -56,6 +56,17 @@ const goBackBtnArea = css`
     }
 `;
 
+const style = {
+    height: 40,
+    width: 70,
+    lineHeight: '40px',
+    borderRadius: 8,
+    backgroundColor: '#444444',
+    color: '#fff',
+    textAlign: 'center',
+    fontSize: 14,
+};
+
 const getMovieById = (id) => {
     const array = sample.filter((movie) => String(movie.id) === id);
 
@@ -93,6 +104,9 @@ const DetailPage = ({ history, match }) => {
             <div css={goBackBtnArea}>
                 <Button onClick={() => history.goBack()}>목록으로 돌아가기</Button>
             </div>
+            <BackTop>
+                <div style={style}>맨 위로</div>
+            </BackTop>
         </div>
     );
 };

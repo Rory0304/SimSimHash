@@ -51,7 +51,9 @@ function Header() {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="#">어바웃어스</NavLink>
+                        <NavLink exact to="/aboutus">
+                            어바웃어스
+                        </NavLink>
                     </li>
                 </ul>
             </nav>

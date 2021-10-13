@@ -60,7 +60,7 @@ function SearchedMovieList({ keyword, setKeyword }) {
     });
 
     useEffect(() => {
-        setFilteredMovieList(sample.filter((movie) => movie.title.includes(keyword)));
+        setFilteredMovieList(sample.filter((movie) => movie.title.replace(/\s/gi, "").includes(keyword.replace(/\s/gi, ""))));
         setPagination({
             totalPage: filteredMovieList.length / pageSize,
             current: 1,

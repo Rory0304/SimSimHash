@@ -41,7 +41,7 @@ for i in range(1, N):
         source_site = review["source_site"]
         score = review["score"]
         
-        try:
+        try: # 간혹 score에 숫자가 아닌 값이 들어가서 예외 처리
             score_dict['total'].append(float(score))
             score_dict[source_site].append(float(score))
         except:
@@ -50,6 +50,7 @@ for i in range(1, N):
 
     movie = session.query(Movie).filter(Movie.id==i).first()
 
+    # zero division error 방지
     n_total = max(len(score_dict["total"]), 1)
     n_naver = max(len(score_dict["naver"]), 1)
     n_daum = max(len(score_dict["daum"]), 1)

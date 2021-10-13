@@ -112,21 +112,26 @@ const searchStyle = css`
 function SearchBar() {
     const [keyword, setKeyword] = useState("");
     const history = useHistory();
+
+    const onQueryString = (keyword) => {
+        keyword && history.push(`/search?keyword=${keyword}`)
+    }
+
     return (
         <>
             <div css={divStyle} >
                     <Input
                         size="large"
                         placeholder="영화 제목을 검색해보세요"
-                        css={inputStyle}
                         onChange={(e) => setKeyword(e.target.value)}
-                        onPressEnter={() => {history.push(`/search?keyword=${keyword}`)}}
+                        onPressEnter={() => {onQueryString(keyword)}}
+                        css={inputStyle}
                     />
                     <Button 
                         type="primary" 
                         shape="round" 
                         icon={<SearchOutlined />} 
-                        onClick={() => {history.push(`/search?keyword=${keyword}`)}}
+                        onClick={() => {onQueryString(keyword)}}
                         css={buttonStyle}
                     >
                         검색

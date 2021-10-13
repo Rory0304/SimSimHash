@@ -47,8 +47,9 @@ function SelectedTagList() {
     const dispatch = useDispatch();
     const { selectedTagList } = useSelector((state) => state.mainTagDataSlice);
 
-    const onRemoveSelectedTag = (tagIndex) => {
-        dispatch(removeTag({ tagIndex }));
+    const onRemoveSelectedTag = (selectedTag) => {
+        //selectedTag: 제거할 태그 이름
+        dispatch(removeTag({ selectedTag }));
     };
 
     return (
@@ -56,12 +57,12 @@ function SelectedTagList() {
             <div css={SelectedTagListInner}>
                 {selectedTagList.map((selectedTag) => (
                     <Tag
-                        key={selectedTag.key}
-                        onClose={() => onRemoveSelectedTag(selectedTag.key)}
+                        key={selectedTag}
+                        onClose={() => onRemoveSelectedTag(selectedTag)}
                         closable
                         css={CustomSelectedTagStyle}
                     >
-                        {selectedTag.name}
+                        #{selectedTag}
                     </Tag>
                 ))}
             </div>

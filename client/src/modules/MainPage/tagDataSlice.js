@@ -1,6 +1,6 @@
+import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { sample } from "../../assets/Sample";
-import { api } from "../../config";
 
 const initialState = {
     tagList: [],
@@ -11,54 +11,40 @@ const initialState = {
 };
 
 //[메인페이지] 15개씩 랜덤 태그를 받아온다.
-export const getTagList = createAsyncThunk("GET_TAG_DATA", (args, ThunkAPI) => {
-    const requested = [
-        { key: 1, name: "#재미있는" },
-        { key: 2, name: "#독특한" },
-        { key: 3, name: "#유쾌한" },
-        { key: 4, name: "#감동적인" },
-        { key: 5, name: "#의미있는" },
-        { key: 6, name: "#재치있는" },
-        { key: 7, name: "#웅장한" },
-        { key: 8, name: "#멋있는" },
-        { key: 9, name: "#거대한" },
-        { key: 10, name: "#위대한" },
-        { key: 11, name: "#절망적인" },
-        { key: 12, name: "#비극적인" },
-        { key: 13, name: "#광기의" },
-        { key: 14, name: "#블랙코미디" },
-        { key: 15, name: "#가족" }
+export const getRandomTagList = createAsyncThunk("GET_TAG_DATA", async (args, ThunkAPI) => {
+    let result = [
+        "재미있는",
+        "독특한",
+        "유쾌한",
+        "감동적인",
+        "의미있는",
+        "재치있는",
+        "웅장한",
+        "멋있는",
+        "거대한",
+        "위대한",
+        "절망적인",
+        "비극적인"
     ];
-    return requested;
-});
-
-//임시 테스트 용으로 생성한 함수 => api 연동 시, getTagList로 기능 대체
-export const getNewTagList = createAsyncThunk("GET_NEWTAG_DATA", (args, ThunkAPI) => {
-    const requested = [
-        { key: 1, name: "#재미있는" },
-        { key: 2, name: "#독특한" },
-        { key: 3, name: "#유쾌한" },
-        { key: 4, name: "#감동적인" },
-        { key: 7, name: "#웅장한" },
-        { key: 5, name: "#의미있는" },
-        { key: 6, name: "#재치있는" },
-        { key: 8, name: "#멋있는" },
-        { key: 9, name: "#거대한" },
-        { key: 20, name: "#아름다운" },
-        { key: 21, name: "#공포스러운" },
-        { key: 22, name: "#희극의" },
-        { key: 23, name: "무서운" },
-        { key: 24, name: "인연" },
-        { key: 25, name: "공포" }
-    ];
-    return requested;
+    try {
+        let requestedTags = await axios.get("/api/tag");
+        //현재 백엔드에서 3개씩 태그를 보내주기 때문에, sample tag 12개에 합친다.
+        requestedTags = requestedTags.data.map((tag) => tag.trim());
+        result = result.concat(requestedTags);
+        return result;
+    } catch (err) {
+        console.log("태그 요청에 실패했습니다.", err);
+        return [];
+    }
 });
 
 /* [메인 페이지] 태그와 관련된 영화 리스트를 불러옴 */
 export const getMovieListByTag = createAsyncThunk("GET_MOVIE_DATA", (args, ThunkAPI) => {
     const { mainTagDataSlice } = ThunkAPI.getState();
-    const selectedTagNames = mainTagDataSlice.selectedTagList.map((item) => item.name);
-    return sample.filter((movie) => selectedTagNames.includes(movie.total));
+    const filteredMovies = sample.filter((movie) =>
+        mainTagDataSlice.selectedTagList.includes(movie.total)
+    );
+    return filteredMovies;
 });
 
 export const mainTagDataSlice = createSlice({
@@ -66,11 +52,13 @@ export const mainTagDataSlice = createSlice({
     initialState,
     reducers: {
         addTag(state, action) {
+            //action.payload.tag: 선택한 태그 이름
             state.selectedTagList.push(action.payload.tag);
         },
         removeTag(state, action) {
+            //acton.payload.selectedTag: 제거할 태그 이름
             const filteredTagList = state.selectedTagList.filter(
-                (item) => item.key !== action.payload.tagIndex
+                (item) => item !== action.payload.selectedTag
             );
             state.selectedTagList = filteredTagList;
         },
@@ -79,6 +67,23 @@ export const mainTagDataSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+        /* 랜덤 태그를 받아오는 함수 상태 */
+        builder.addCase(getRandomTagList.rejected, (state, action) => {
+            state.loading = false;
+            state.tagList = [];
+            state.error = action.payload;
+        });
+        builder.addCase(getRandomTagList.pending, (state, action) => {
+            state.loading = true;
+            state.tagList = [];
+            state.error = "";
+        });
+        builder.addCase(getRandomTagList.fulfilled, (state, action) => {
+            state.tagList = action.payload;
+            state.loading = false;
+            state.error = "";
+        });
+        /* 태그와 관련된 영화 리스트를 받아오는 함수 상태 */
         builder.addCase(getMovieListByTag.rejected, (state, action) => {
             state.loading = false;
             state.movieList = [];
@@ -92,6 +97,8 @@ export const mainTagDataSlice = createSlice({
         });
         builder.addCase(getMovieListByTag.fulfilled, (state, action) => {
             state.movieList = action.payload;
+            state.loading = false;
+            state.error = "";
         });
     }
 });

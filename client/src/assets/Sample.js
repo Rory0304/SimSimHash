@@ -7,13 +7,14 @@ export const sample = [
         director: "캐리 후쿠나가",
         summary: `가장 강력한 운명의 적과 마주하게된 제임스 본드의 마지막 미션이 시작된다`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20211001_121/16330536363187liBB_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20211001_121/16330536363187liBB_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 9.29,
-        total: "#웅장한",
-        noreview: {네이버: 132, 다음: 37, 왓챠: 63, 씨네21: 12},
+        total: "잔인한",
+        noreview: { 네이버: 132, 다음: 37, 왓챠: 63, 씨네21: 12 },
         noreviewarr: [132, 37, 63, 12]
     },
     {
@@ -41,13 +42,14 @@ export const sample = [
         상상이상으로 치밀하게 조직화된 보이스피싱의 실체!
         끝까지 쫓아 반드시 되찾는다!`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210831_152/1630371935224qy9s6_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210831_152/1630371935224qy9s6_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 3.42,
-        total: "#감동적인",
-        noreview: {네이버: 62, 다음: 53, 왓챠: 16, 씨네21: 72},
+        total: "감동적인",
+        noreview: { 네이버: 62, 다음: 53, 왓챠: 16, 씨네21: 72 },
         noreviewarr: [62, 53, 16, 72]
     },
     {
@@ -72,13 +74,14 @@ export const sample = [
         포기란 없다
         기차가 서는 그날까지!`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210917_60/16318534287592XLg8_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210917_60/16318534287592XLg8_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 8.49,
-        total: "#재치있는",
-        noreview: {네이버: 84, 다음: 23, 왓챠: 42, 씨네21: 15},
+        total: "재치있는",
+        noreview: { 네이버: 84, 다음: 23, 왓챠: 42, 씨네21: 15 },
         noreviewarr: [84, 23, 42, 15]
     },
     {
@@ -98,13 +101,14 @@ export const sample = [
         마블의 새로운 시대,
         세상에 없던 힘이 탄생한다!`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210825_8/1629879510900xEwsL_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210825_8/1629879510900xEwsL_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 9.49,
-        total: "#의미있는",
-        noreview: {네이버: 115, 다음: 97, 왓챠: 52, 씨네21: 20},
+        total: "의미있는",
+        noreview: { 네이버: 115, 다음: 97, 왓챠: 52, 씨네21: 20 },
         noreviewarr: [115, 97, 52, 20]
     },
     {
@@ -122,13 +126,14 @@ export const sample = [
         현실 생존에선 그동안 배운 것은 모두 무쓸모!
         지금부턴 실전이다! 본능대로 살아남아라!`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210831_7/1630399407921MTlDg_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210831_7/1630399407921MTlDg_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 6.29,
-        total: "#독특한",
-        noreview: {네이버: 222, 다음: 156, 왓챠: 102, 씨네21: 125},
+        total: "독특한",
+        noreview: { 네이버: 222, 다음: 156, 왓챠: 102, 씨네21: 125 },
         noreviewarr: [222, 156, 102, 125]
     },
     {
@@ -148,13 +153,14 @@ export const sample = [
         
         목표는 하나, 모가디슈에서 탈출해야 한다!`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210820_122/1629448997924YXUCv_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210820_122/1629448997924YXUCv_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 5.29,
-        total: "#화려한",
-        noreview: {네이버: 662, 다음: 523, 왓챠: 552, 씨네21: 412},
+        total: "화려한",
+        noreview: { 네이버: 662, 다음: 523, 왓챠: 552, 씨네21: 412 },
         noreviewarr: [662, 523, 552, 412]
     },
     {
@@ -164,12 +170,13 @@ export const sample = [
         actor: "송창의(강성구 대위), 송영규(백영철 중령), 이현균(김택진 군의관)",
         director: "김민섭",
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210930_111/1632990544838Hy8aq_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210930_111/1632990544838Hy8aq_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 7.29,
-        total: "#멋있는",
+        total: "멋있는",
         summary: `억울하게 죽은 영혼들의 무덤 DMZ
         어두운 밤 총성이 울린 후 파견 나온 교육장교가 사망하는 사건이 일어난다.
         같은 시각 출입통제구역 DMZ로 탈영병이 도주하는 일이 발생하고
@@ -178,7 +185,7 @@ export const sample = [
         그곳에서 대원들은 탈영병도, 수색 대원도 아닌 정체불명의 병사를 목격한다.
         그리고 알 수 없는 죽음의 릴레이가 시작되는데...
         모든 건 바로 그날 시작되었다!`,
-        noreview: {네이버: 1362, 다음: 923, 왓챠: 652, 씨네21: 712},
+        noreview: { 네이버: 1362, 다음: 923, 왓챠: 652, 씨네21: 712 },
         noreviewarr: [1362, 923, 652, 712]
     },
     {
@@ -203,13 +210,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210824_61/1629789980296uFIEw_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210824_61/1629789980296uFIEw_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 5.79,
-        total: "#재미있는",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "재미있는",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -234,13 +242,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20170202_116/1486004158091MFJ0i_PNG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20170202_116/1486004158091MFJ0i_PNG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 7.42,
-        total: "#위대한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "위대한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -265,13 +274,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210923_298/1632376015399DWJAd_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210923_298/1632376015399DWJAd_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 9.53,
-        total: "#절망적인",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "절망적인",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -296,13 +306,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210908_94/1631068988562Ij4FM_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210908_94/1631068988562Ij4FM_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 2.63,
-        total: "#비극적인",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "비극적인",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -327,13 +338,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210915_97/16316820287099vGmY_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210915_97/16316820287099vGmY_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 1.73,
-        total: "#광기의",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "광기의",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -358,13 +370,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210929_275/1632903680953494p8_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210929_275/1632903680953494p8_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 8.24,
-        total: "#블랙코미디",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "블랙코미디",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -389,13 +402,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210810_289/1628563106681xBLuF_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210810_289/1628563106681xBLuF_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 4.62,
-        total: "#가족",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "가족",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -420,13 +434,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210831_22/1630376990938i8hiK_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210831_22/1630376990938i8hiK_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 7.24,
-        total: "#유쾌한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "유쾌한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -451,13 +466,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210903_72/16306527324725T7qE_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210903_72/16306527324725T7qE_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 9.96,
-        total: "#웅장한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "웅장한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -482,13 +498,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210923_272/16323630541200iQPb_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210923_272/16323630541200iQPb_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 4.15,
-        total: "#절망적인",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "절망적인",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -513,13 +530,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210917_247/1631854202877hx03Y_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210917_247/1631854202877hx03Y_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 5.13,
-        total: "#거대한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "거대한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -544,13 +562,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210917_227/1631842790698OTIjB_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210917_227/1631842790698OTIjB_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 1.15,
-        total: "#재미있는",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "재미있는",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -575,13 +594,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210927_103/1632722351432YILwe_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210927_103/1632722351432YILwe_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 6.62,
-        total: "#재치있는",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "재치있는",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -606,13 +626,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20211006_115/163349582167887Dkr_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20211006_115/163349582167887Dkr_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 8.82,
-        total: "#멋있는",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "멋있는",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -637,13 +658,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20211006_259/1633512362860VmpOw_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20211006_259/1633512362860VmpOw_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 3.53,
-        total: "#웅장한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "웅장한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -668,13 +690,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210928_86/16327951839736fzkS_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210928_86/16327951839736fzkS_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 7.72,
-        total: "#웅장한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "웅장한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -699,13 +722,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210915_104/1631681279096sdjNA_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210915_104/1631681279096sdjNA_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 6.23,
-        total: "#광기의",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "광기의",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -730,13 +754,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210923_215/1632375900577WD1lR_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210923_215/1632375900577WD1lR_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 8.24,
-        total: "#재미있는",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "재미있는",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -761,13 +786,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210927_93/1632732650895zgP9f_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210927_93/1632732650895zgP9f_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 5.37,
-        total: "#독특한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "독특한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -792,13 +818,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210915_261/1631670024795pzRWY_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210915_261/1631670024795pzRWY_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 3.52,
-        total: "#재미있는",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "재미있는",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -823,13 +850,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210913_162/1631511438538bd2g6_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210913_162/1631511438538bd2g6_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 7.77,
-        total: "#재미있는",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "재미있는",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -854,13 +882,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210927_255/1632709073509nTSYx_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210927_255/1632709073509nTSYx_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 8.88,
-        total: "#웅장한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "웅장한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -885,13 +914,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210915_42/1631681851949ai8uO_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210915_42/1631681851949ai8uO_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 4.44,
-        total: "#웅장한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "웅장한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -916,13 +946,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210813_212/1628819598280454Cq_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210813_212/1628819598280454Cq_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 6.66,
-        total: "#감동적인",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "감동적인",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -947,13 +978,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20200914_150/1600046531864xvhtF_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20200914_150/1600046531864xvhtF_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 2.72,
-        total: "#의미있는",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "의미있는",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -978,13 +1010,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20190115_228/1547528180168jgEP7_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20190115_228/1547528180168jgEP7_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 7.42,
-        total: "#독특한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "독특한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -1009,13 +1042,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210416_118/1618536200110fLn7g_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210416_118/1618536200110fLn7g_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 6.63,
-        total: "#가족",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "가족",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -1040,13 +1074,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210721_243/1626844891093xnPK1_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210721_243/1626844891093xnPK1_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 8.84,
-        total: "#거대한",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "거대한",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -1071,13 +1106,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20201028_26/1603847095093Wxf0J_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20201028_26/1603847095093Wxf0J_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 7.73,
-        total: "#블랙코미디",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "블랙코미디",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -1102,13 +1138,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210901_230/1630457861075lqoPa_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210901_230/1630457861075lqoPa_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 4.26,
-        total: "#비극적인",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "비극적인",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -1133,13 +1170,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210331_104/1617166166627wzUHH_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210331_104/1617166166627wzUHH_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 5.67,
-        total: "#절망적인",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "절망적인",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -1164,13 +1202,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20201019_102/1603091480629jwYkk_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20201019_102/1603091480629jwYkk_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 8.62,
-        total: "#재미있는",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "재미있는",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     },
     {
@@ -1195,13 +1234,14 @@ export const sample = [
         위험한 인간들의 발소리가 들려오기 시작한다!
         정글의 아이 ‘코코’는 친구들과 힘을 모아 숲을 지킬 수 있을까?`,
         running_time: 126,
-        poster: "https://movie-phinf.pstatic.net/20210429_50/1619658051996HIPXs_JPEG/movie_image.jpg",
+        poster:
+            "https://movie-phinf.pstatic.net/20210429_50/1619658051996HIPXs_JPEG/movie_image.jpg",
         genre: "액션",
         rating: null,
         nation: "USA",
         score: 5.53,
-        total: "#희극의",
-        noreview: {네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312},
+        total: "희극의",
+        noreview: { 네이버: 2062, 다음: 1223, 왓챠: 1552, 씨네21: 312 },
         noreviewarr: [2062, 1223, 1552, 312]
     }
 ];

@@ -92,10 +92,12 @@ def mongo_insert(data, source):  # input == DataFrame
     for (title, release_date, score, write_date, content, source_site) in fordata:
         
         movie_id = get_movie_id(title, release_date)
-        # print(title, release_date, score, write_date, content, source_site)
-        insert_data = Review(movie_id= movie_id, score= score, content= content, write_date= write_date, source_site= source_site)
         if source == 'watcha':
-            insert_data = Review(movie_id= movie_id, score = score*2, content= content, write_date= write_date, source_site= source_site)
+            try: 
+                score = float(score)*2
+            except:
+                pass
+        insert_data = Review(movie_id= movie_id, score= score, content= content, write_date= write_date, source_site= source_site)
         review_col.insert_one(insert_data.to_json())
         
     return 

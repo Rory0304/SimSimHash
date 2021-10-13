@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import TagList from "./TagList";
@@ -9,7 +9,7 @@ import SelectedTagList from "./SelectedTagList";
 import MainIntro from "./MainIntro";
 import MovieSlider from "./MovieSlider";
 import MovieListModal from "./MovieListModal";
-import { getMovieListByTag } from "../../modules/MainPage/tagDataSlice";
+import { getMovieListByTag, getInitialMovieList } from "../../modules/MainPage/tagDataSlice";
 
 import { TagFilled } from "@ant-design/icons";
 
@@ -34,15 +34,23 @@ const mainWrapperStyle = css`
 
 function MainPage() {
     const dispatch = useDispatch();
+    const [initialCall, setInitialCall] = useState(false);
     const { selectedTagList, movieList } = useSelector((state) => state.mainTagDataSlice);
 
     useEffect(() => {
-        const debounce = setTimeout(() => {
-            return dispatch(getMovieListByTag());
-        }, 1000);
-        return () => {
-            clearTimeout(debounce);
-        };
+        dispatch(getInitialMovieList());
+        setInitialCall(true);
+    }, []);
+
+    useEffect(() => {
+        if (initialCall) {
+            const debounce = setTimeout(() => {
+                return dispatch(getMovieListByTag());
+            }, 1000);
+            return () => {
+                clearTimeout(debounce);
+            };
+        }
     }, [selectedTagList]);
 
     return (

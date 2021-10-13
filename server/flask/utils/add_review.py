@@ -1,5 +1,5 @@
 import sys
-from os import path
+from os import path, listdir
 sys.path.append(path.dirname( path.dirname( path.abspath(__file__) ) ))
 
 from sqlalchemy.orm import sessionmaker
@@ -10,9 +10,15 @@ import pandas as pd
 from models.review import Review
 from models.movie import Movie
 
-FILE_PATH = "./review_sample.csv"
 from config import MONGO_URI
 from config import SQLALCHEMY_DATABASE_URI
+
+engine = create_engine(SQLALCHEMY_DATABASE_URI)
+Session = sessionmaker(bind=engine)
+session = Session()
+
+
+
 
 def convert_datetime(dt):
     from datetime import datetime
@@ -23,12 +29,10 @@ def convert_datetime(dt):
     return datetime(year=year, month=month, day=day, hour=hour, minute=minute).isoformat()
 
 def get_movie_id(title, date):
-    engine = create_engine(SQLALCHEMY_DATABASE_URI)
-    Session = sessionmaker(bind=engine)
-    session = Session()
+    
 
     movie_id = session.query(Movie).filter(Movie.title == title and Movie.release_date == date).first()
-    #검색 결과 없는 영화 id -1로 처리, 데이터 완성되면 삭제
+
     if movie_id == None:
         movie_id = -1
     else:
@@ -60,5 +64,12 @@ def mongo_insert(data):
     client.close()
     return "0"
 
-sample_data = pd.read_csv(FILE_PATH) 
-mongo_insert(sample_data)
+dir = './total/'
+
+for file in listdir(dir):
+    
+    FILE_PATH = path.join(dir, file)
+    sample_data = pd.read_csv(FILE_PATH) 
+    mongo_insert(sample_data)
+
+session.close()

@@ -4,17 +4,14 @@ sys.path.append(path.dirname( path.dirname( path.abspath(__file__) ) ))
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from pymongo import MongoClient
 import pandas as pd
 from datetime import date, datetime
 
 from models.review import Review
 from models.movie import Movie
 
-from config import MONGO_URI
 from config import SQLALCHEMY_DATABASE_URI
-
-from app import ranking_col, hashtag_col, review_col
+from app import review_col
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 Session = sessionmaker(bind=engine)
@@ -85,7 +82,6 @@ def get_movie_id(title, date):
 
 def mongo_insert(data, source):  # input == DataFrame
     
-    
     data['release_date'] = data['release_date'].apply(convert_release_date)
     data['write_date'] = data['write_date'].fillna('none')
 
@@ -98,6 +94,8 @@ def mongo_insert(data, source):  # input == DataFrame
         movie_id = get_movie_id(title, release_date)
         # print(title, release_date, score, write_date, content, source_site)
         insert_data = Review(movie_id= movie_id, score= score, content= content, write_date= write_date, source_site= source_site)
+        if source == 'watcha':
+            insert_data = Review(movie_id= movie_id, score = score*2, content= content, write_date= write_date, source_site= source_site)
         review_col.insert_one(insert_data.to_json())
         
     return 
@@ -106,7 +104,7 @@ dir = './data/total/'
 files = listdir(dir)
 print("작업 파일:\t", files)
 
-for file in files[1:]:
+for file in files:
     print(f'{file} 작업 시작')
     FILE_PATH = path.join(dir, file)
     df = pd.read_csv(FILE_PATH)

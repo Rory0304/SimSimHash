@@ -22,15 +22,18 @@ function DefaultMovieList({ setKeyword }) {
     const { currentMovieList } = useSelector((state) => state.searchMovieSlice);
 
     useEffect(() => {
-        dispatch(clearState());
-        dispatch(getMovieList());
+        //기존에 불러온 영화 리스트가 있다면 api를 호출하지 않는다.
+        if (currentMovieList.length === 0) {
+            dispatch(clearState());
+            dispatch(getMovieList());
+        }
         window.addEventListener("scroll", infiniteScroll, true);
         return () => {
-            console.log("remove scroll event");
             window.removeEventListener("scroll", infiniteScroll);
         };
     }, []);
 
+    //작품 검색 첫 화면 무한 스크롤 적용
     const infiniteScroll = () => {
         let scrollHeight = Math.max(
             document.documentElement.scrollHeight,

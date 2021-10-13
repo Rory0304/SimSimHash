@@ -65,23 +65,17 @@ for file_path in files:
     print(file_path)
     data = pd.read_csv(path.join(dir,file_path), encoding='utf-8')
 
-    
-
     data['release_date'] = data['release_date'].apply(convert_release_date)
     data['running_time'] = data['running_time'].apply(convert_running_time)
-    # data['release_date'] = data['release'].apply(convert_release_date)
-    # data['running_time'] = data['running'].apply(convert_running_time)
 
     for i in range(len(data)):
         title = data.loc[i,"title"]
         release_date = data.loc[i,"release_date"]
         actor = data.loc[i,"actor"]
         director = data.loc[i,"director"]
-        # summary = data.loc[i,"story"]
         summary = data.loc[i,"summary"]
         running_time = data.loc[i,"running_time"]
         genre = data.loc[i,"genre"]
-        # rating = data.loc[i,"rating"]
         rating = data.loc[i,"grade"]
         poster = data.loc[i,"poster"]
         nation = data.loc[i,"nation"]

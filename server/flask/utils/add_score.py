@@ -22,10 +22,8 @@ session = Session()
 
 N = len(session.query(Movie).all())
 
-
-
 projection = {"_id": False}
-for i in range(1, N):
+for i in range(1, N+1):
     
     score_dict = {
         'total' : [],
@@ -40,6 +38,7 @@ for i in range(1, N):
         
         source_site = review["source_site"]
         score = review["score"]
+        print(source_site, score)
         
         try: # 간혹 score에 숫자가 아닌 값이 들어가서 예외 처리
             score_dict['total'].append(float(score))
@@ -49,7 +48,7 @@ for i in range(1, N):
             
 
     movie = session.query(Movie).filter(Movie.id==i).first()
-
+    print(movie.id)
     # zero division error 방지
     n_total = max(len(score_dict["total"]), 1)
     n_naver = max(len(score_dict["naver"]), 1)
@@ -57,10 +56,7 @@ for i in range(1, N):
     n_watchpedia = max(len(score_dict["watchapedia"]), 1)
     n_cine21 = max(len(score_dict["cine21"]), 1)
     
-    try:
-        total_score = sum(score_dict["total"]) / n_total
-    except:
-        print(score_dict["total"])
+    total_score = sum(score_dict["total"]) / n_total
     naver_score = sum(score_dict["naver"]) / n_naver
     daum_score = sum(score_dict["daum"]) / n_daum
     watcha_score = sum(score_dict["watchapedia"]) / n_watchpedia

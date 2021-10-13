@@ -12,6 +12,7 @@ client = MongoClient(MONGO_URI)
 mongodb = client.simsimhash
 ranking_col = mongodb.ranking
 hashtag_col = mongodb.tags
+review_col = mongodb.review
 
 def create_app():
     app = Flask(__name__)

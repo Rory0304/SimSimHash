@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import { Pagination } from "antd";
 
@@ -59,6 +59,8 @@ function SearchedMovieList({ keyword, setKeyword }) {
         maxIndex: pageSize
     });
 
+    const history = useHistory();
+
     useEffect(() => {
         setFilteredMovieList(sample.filter((movie) => movie.title.replace(/\s/gi, "").includes(keyword.replace(/\s/gi, ""))));
         setPagination({
@@ -75,6 +77,7 @@ function SearchedMovieList({ keyword, setKeyword }) {
             minIndex: (page - 1) * pageSize,
             maxIndex: page * pageSize
         });
+        history.push(`/search?keyword=${keyword}&page=${page}`);
     };
 
     return (
@@ -88,16 +91,14 @@ function SearchedMovieList({ keyword, setKeyword }) {
                                 return <Poster item={item} setKeyword={setKeyword} page="search" />;
                             })}
                     </ul>
-                    <Link to={`/search?page=${pagination.current}`}>
-                        <Pagination
-                            size="small"
-                            pageSize={pageSize}
-                            current={pagination.current}
-                            total={filteredMovieList.length}
-                            onChange={handleChange}
-                            css={paginationStyle}
-                        />
-                    </Link>
+                    <Pagination
+                        size="small"
+                        pageSize={pageSize}
+                        current={pagination.current}
+                        total={filteredMovieList.length}
+                        onChange={handleChange}
+                        css={paginationStyle}
+                    />
                 </>
             ) : (
                 <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>

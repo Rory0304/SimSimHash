@@ -30,13 +30,14 @@ const SearchResultWrapper = css`
 
 function SearchPage({ location }) {
     const [keyword, setKeyword] = useState("");
-    var searchParams = new URLSearchParams(location.search);
-    const query = searchParams.get("keyword")
-    console.log(query)
+    const [query, setQuery] = useState("");
+    const searchParams = new URLSearchParams(location.search);
+    const queryParams = searchParams.get("keyword") === null ? "" : searchParams.get("keyword");
 
     useEffect(() => {
-        setKeyword(query)
-    }, [query]);
+        setQuery(queryParams);
+        setKeyword(queryParams);
+    }, [queryParams]);
 
     return (
         <div css={SearchResultWrapper}>
@@ -48,7 +49,7 @@ function SearchPage({ location }) {
                 {keyword.length === 0 ? (
                     <DefaultMovieList setKeyword={setKeyword} />
                 ) : (
-                    <SearchedMovieList keyword={keyword} setKeyword={setKeyword} />
+                    <SearchedMovieList keyword={query} setKeyword={setKeyword} />
                 )}
             </div>
         </div>

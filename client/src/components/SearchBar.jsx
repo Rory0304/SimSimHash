@@ -68,23 +68,23 @@ function SearchBar() {
     }
 
     return (
-            <div css={divStyle} >
-                <Input
-                    size="large"
-                    placeholder="영화 제목을 검색해보세요"
-                    onChange={(e) => setKeyword(e.target.value)}
-                    onPressEnter={() => {onQueryString(keyword)}}
-                    css={inputStyle}
-                />
-                <Button 
-                    type="primary" 
-                    shape="round" 
-                    icon={<SearchOutlined />} 
-                    onClick={() => {onQueryString(keyword)}}
-                    css={buttonStyle}
-                >
-                    검색
-                </Button>
+        <div css={divStyle} >
+            <Input
+                size="large"
+                placeholder="영화 제목을 검색해보세요"
+                onChange={(e) => setKeyword(e.target.value)}
+                onPressEnter={() => {onQueryString(keyword)}}
+                css={inputStyle}
+            />
+            <Button 
+                type="primary" 
+                shape="round" 
+                icon={<SearchOutlined />} 
+                onClick={() => {onQueryString(keyword)}}
+                css={buttonStyle}
+            >
+                검색
+            </Button>
         </div>
     );
 }

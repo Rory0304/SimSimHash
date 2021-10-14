@@ -104,19 +104,17 @@ const hiddenPlatformInfo = ({ expanded, name }) => css`
 `;
 
 function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title }) {
-    
     const dispatch = useDispatch();
     const { words } = useSelector((state) => state.wordCloudSlice);
 
     const [expanded, setExpanded] = useState(false);
-    const [tagList, setTagList] = useState([]);
 
     useEffect(() => {
         if (expanded) {
-            /* Todo: 백엔드에 플랫폼 분석 정보 요청 */
-            dispatch(setPlatformName({name}))
-            if(words[name].length === 0){
-                dispatch(getPlatformWord())
+            /* 백엔드에 플랫폼 분석 정보 요청 */
+            dispatch(setPlatformName({ name }));
+            if (words[name].length === 0) {
+                dispatch(getPlatformWord());
             }
         }
     }, [expanded]);
@@ -148,10 +146,8 @@ function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title })
                     <p>
                         {name} 유저들은 <br /> "{title}"을 이렇게 평가했어요!
                     </p>
-                    <div
-                        style={{ height: "200px", width: "100%", border: "1px solid white" }}
-                    >
-                        <WordCloud name={name}/>
+                    <div style={{ height: "200px", width: "100%", border: "1px solid white" }}>
+                        <WordCloud name={name} />
                     </div>
                 </div>
                 {/* 더 많은 태그 목록 */}
@@ -166,46 +162,50 @@ function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title })
                 aria-controls={`content-${enName}`}
                 aria-expanded={expanded}
                 id={`accordion-control-${enName}`}
-                onClick={() => { setExpanded(!expanded)}}
+                onClick={() => {
+                    setExpanded(!expanded);
+                }}
             >
                 {expanded ? "접기" : "더보기"}
             </button>
         </li>
     );
 }
-const PlatformAnalysis = React.forwardRef(({ movie }, ref) => {
+const PlatformAnalysis = React.forwardRef(({ props }, ref) => {
+    const { movieInfo, loading } = useSelector((state) => state.movieInfoSlice);
+    console.log(movieInfo);
     const platforms = [
         {
             name: "네이버",
             enName: "naver",
-            score: 4.8,
+            score: movieInfo.platform_summary.naver,
             wholeScore: 10,
-            noreview: 137,
-            tags: ["웅장한", "재미있는", "신기한"]
+            noreview: movieInfo.platform_summary.naver_count,
+            tags: movieInfo.platform_summary.naver_tag
         },
         {
             name: "다음",
             enName: "daum",
-            score: 4.8,
+            score: movieInfo.platform_summary.daum,
             wholeScore: 10,
-            noreview: 137,
-            tags: ["웅장한", "재미있는", "신기한"]
+            noreview: movieInfo.platform_summary.naver.daum_count,
+            tags: movieInfo.platform_summary.daum_tag
         },
         {
             name: "왓챠",
-            enName: "whatcha",
-            score: 4.8,
+            enName: "watcha",
+            score: movieInfo.platform_summary.watcha,
             wholeScore: 10,
-            noreview: 12,
-            tags: ["웅장한", "재미있는", "신기한"]
+            noreview: movieInfo.platform_summary.naver.watcha_count,
+            tags: movieInfo.platform_summary.watcha_tag
         },
         {
             name: "씨네21",
             enName: "cine21",
-            score: 4.8,
+            score: movieInfo.platform_summary.cine21,
             wholeScore: 10,
-            noreview: 12,
-            tags: ["웅장한", "재미있는", "신기한"]
+            noreview: movieInfo.platform_summary.naver.cine21_count,
+            tags: movieInfo.platform_summary.cine21_tag
         }
     ];
 
@@ -221,7 +221,7 @@ const PlatformAnalysis = React.forwardRef(({ movie }, ref) => {
                         wholeScore={platform.wholeScore}
                         noreview={platform.noreview}
                         tags={platform.tags}
-                        title={movie.title}
+                        title={movieInfo.movie.title}
                     />
                 ))}
             </ul>

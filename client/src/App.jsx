@@ -8,6 +8,7 @@ import mainTagDataSlice from "./modules/MainPage/tagDataSlice";
 import DefaultMovieSlice from "./modules/SearchPage/DefaultMovieSlice";
 import SearchedMovieSlice from "./modules/SearchPage/SearchedMovieSlice";
 import wordCloudSlice from "./modules/DetailPage/wordCloudSlice";
+import movieInfoSlice from "./modules/DetailPage/movieInfoSlice";
 
 import "./App.css";
 
@@ -16,7 +17,8 @@ function App() {
         mainTagDataSlice: mainTagDataSlice,
         DefaultMovieSlice: DefaultMovieSlice,
         SearchedMovieSlice: SearchedMovieSlice,
-        wordCloudSlice: wordCloudSlice
+        wordCloudSlice: wordCloudSlice,
+        movieInfoSlice: movieInfoSlice
     });
 
     const store = configureStore({

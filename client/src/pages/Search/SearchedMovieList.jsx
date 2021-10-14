@@ -60,7 +60,7 @@ const RadioGroup = css`
         font-size: 1rem;
     }
 `
-function SearchedMovieList({ keyword, setKeyword }) {
+function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();

@@ -7,12 +7,13 @@ class Tag(mongodb.Document):
     watcha = mongodb.StringField(Required=True)
     cine21 = mongodb.StringField(Required=True)
     
-    def __init__(self, total, naver, daum, watcha, cine21):
-        self.total = total
-        self.naver = naver
-        self.daum = daum
-        self.watcha = watcha
-        self.cine21 = cine21
+    # def __init__(self, movie_id,total, naver, daum, watcha, cine21):
+    #     self.movie_id = movie_id
+    #     self.total = total
+    #     self.naver = naver
+    #     self.daum = daum
+    #     self.watcha = watcha
+    #     self.cine21 = cine21
     
     def to_json(self):
         return {"movie_id": self.movie_id,

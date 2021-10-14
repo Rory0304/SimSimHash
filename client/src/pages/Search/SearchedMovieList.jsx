@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Pagination } from "antd";
+import { Pagination, Radio } from "antd";
 
 import Poster from "../../components/Poster";
-import { getMovieListByTitle, setPage } from "../../modules/SearchPage/SearchedMovieSlice";
+import { getMovieListByTitle, setPage, setSort } from "../../modules/SearchPage/SearchedMovieSlice";
 import { sample } from "../../assets/Sample";
 
 const paginationStyle = css`
@@ -48,6 +48,16 @@ const movieListWrapper = css`
     justify-items: center;
 `;
 
+
+const RadioGroup = css`
+    margin-bottom: 30px;
+    text-align: right;
+
+    label{
+        color: white;
+        font-size: 1rem;
+    }
+`
 function SearchedMovieList({ keyword, setKeyword }) {
     const pageSize = 10;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
@@ -63,6 +73,8 @@ function SearchedMovieList({ keyword, setKeyword }) {
         maxIndex: pageSize
     });
 
+    const [option, setOption] = useState("");
+
     const history = useHistory();
 
     useEffect(() => {
@@ -75,7 +87,7 @@ function SearchedMovieList({ keyword, setKeyword }) {
         });
     }, [keyword]);
 
-    const handleChange = (page) => {
+    const handlePageChange = (page) => {
         setPagination({
             current: page,
             minIndex: (page - 1) * pageSize,
@@ -85,8 +97,18 @@ function SearchedMovieList({ keyword, setKeyword }) {
         dispatch(setPage({ page }));
     };
 
+    const onClickSortOption = (e) => {
+        dispatch(setSort(e.target.value))
+    }
+
     return (
         <>
+            <div css={RadioGroup}>
+                <Radio.Group onChange={onClickSortOption} value={option}>
+                    <Radio value={'abc'}>가나다순</Radio>
+                    <Radio value={'recent'}>최신순</Radio>
+                </Radio.Group>
+            </div>
             {filteredMovieList.length > 0 ? (
                 <>
                     <ul css={movieListWrapper}>
@@ -101,7 +123,7 @@ function SearchedMovieList({ keyword, setKeyword }) {
                         pageSize={pageSize}
                         current={pagination.current}
                         total={filteredMovieList.length}
-                        onChange={handleChange}
+                        onChange={handlePageChange}
                         css={paginationStyle}
                     />
                 </>

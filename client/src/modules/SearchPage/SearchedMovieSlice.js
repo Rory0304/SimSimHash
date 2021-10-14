@@ -46,6 +46,10 @@ export const searchedMovieSlice = createSlice({
             state.page = action.payload;
             console.log(state.page);
             console.log(state.matchedMovieList);
+        }, 
+        setSort(state, action){
+            state.sort = action.payload;
+            console.log(state.sort);
         }
     },
     extraReducers: (builder) => {
@@ -68,5 +72,5 @@ export const searchedMovieSlice = createSlice({
     }
 });
 
-export const { clearState, setTitle, setPage } = searchedMovieSlice.actions;
+export const { clearState, setTitle, setPage, setSort } = searchedMovieSlice.actions;
 export default searchedMovieSlice.reducer;

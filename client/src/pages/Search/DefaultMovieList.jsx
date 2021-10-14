@@ -4,11 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Poster from "../../components/Poster";
-import {
-    getMovieList,
-    addMovie,
-    clearState
-} from "../../modules/SearchPage/DefaultsearchMovieSlice";
+import { getMovieList, addMovie, clearState } from "../../modules/SearchPage/DefaultMovieSlice";
 
 const movieListWrapper = css`
     display: grid;
@@ -19,7 +15,7 @@ const movieListWrapper = css`
 
 function DefaultMovieList({ setKeyword }) {
     const dispatch = useDispatch();
-    const { currentMovieList } = useSelector((state) => state.searchMovieSlice);
+    const { currentMovieList } = useSelector((state) => state.DefaultMovieSlice);
 
     useEffect(() => {
         //기존에 불러온 영화 리스트가 있다면 api를 호출하지 않는다.

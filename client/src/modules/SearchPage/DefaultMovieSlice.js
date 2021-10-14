@@ -15,8 +15,8 @@ export const getMovieList = createAsyncThunk("GET_MOVIE_LIST", (args, ThunkAPI) 
     return sample.slice(0, 25);
 });
 
-export const DefaultsearchMovieSlice = createSlice({
-    name: "searchMovieSlice",
+export const DefaultMovieSlice = createSlice({
+    name: "defaultMovieSlice",
     initialState,
     reducers: {
         clearState(state, action) {
@@ -58,5 +58,5 @@ export const DefaultsearchMovieSlice = createSlice({
     }
 });
 
-export const { clearState, addMovie } = DefaultsearchMovieSlice.actions;
-export default DefaultsearchMovieSlice.reducer;
+export const { clearState, addMovie } = DefaultMovieSlice.actions;
+export default DefaultMovieSlice.reducer;

@@ -5,6 +5,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import Router from "./Router";
 import mainTagDataSlice from "./modules/MainPage/tagDataSlice";
 import DefaultsearchMovieSlice from "./modules/SearchPage/DefaultsearchMovieSlice";
+import SearchedMovieSlice from "./modules/SearchPage/SearchedMovieSlice";
 import { css, jsx } from "@emotion/react";
 
 import "./App.css";
@@ -12,7 +13,8 @@ import "./App.css";
 function App() {
     const rootReducer = combineReducers({
         mainTagDataSlice: mainTagDataSlice,
-        searchMovieSlice: DefaultsearchMovieSlice
+        searchMovieSlice: DefaultsearchMovieSlice,
+        SearchedMovieSlice: SearchedMovieSlice
     });
 
     const store = configureStore({

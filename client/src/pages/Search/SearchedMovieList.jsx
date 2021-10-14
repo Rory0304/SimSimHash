@@ -2,10 +2,12 @@
 import { css, jsx } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Pagination } from "antd";
 
 import Poster from "../../components/Poster";
+import { getMovieListByTitle, setPage } from "../../modules/SearchPage/SearchedMovieSlice";
 import { sample } from "../../assets/Sample";
 
 const paginationStyle = css`
@@ -49,8 +51,10 @@ const movieListWrapper = css`
 function SearchedMovieList({ keyword, setKeyword }) {
     const pageSize = 10;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
+    const dispatch = useDispatch();
+    // const { matchedMovieList } = useSelector((state) => state.searchedMovieSlice);
 
-    // const target = (filteredMovieList.length >= 1 && filteredMovieList);
+    // console.log(matchedMovieList)
 
     const [pagination, setPagination] = useState({
         totalPage: filteredMovieList.length / pageSize,
@@ -78,6 +82,7 @@ function SearchedMovieList({ keyword, setKeyword }) {
             maxIndex: page * pageSize
         });
         history.push(`/search?keyword=${keyword}&page=${page}`);
+        dispatch(setPage({ page }));
     };
 
     return (

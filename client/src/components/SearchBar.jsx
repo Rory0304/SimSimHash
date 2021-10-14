@@ -34,9 +34,7 @@ const inputStyle = css`
         box-shadow: 0 0 0 2px rgb(246 45 168 / 24%);
     }
     &:hover {
-        background-color: #444444;
-        box-shadow: 0 1px 6px 0 #171717;
-        border-color: rgba(223, 225, 229, 0);
+        border-color: rgb(246 45 168 / 60%);
     }
 `;
 

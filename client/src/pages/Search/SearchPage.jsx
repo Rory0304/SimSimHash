@@ -2,11 +2,12 @@
 import { css, jsx } from "@emotion/react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import SearchBar from "../../components/SearchBar";
 import DefaultMovieList from "./DefaultMovieList";
 import SearchedMovieList from "./SearchedMovieList";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
+// import { getMovieList } from "../../modules/MainPage/searchedMovieSlice";
 
 const searchBannerStyle = css`
     display: flex;

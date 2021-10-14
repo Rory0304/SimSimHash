@@ -1,11 +1,13 @@
 /** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { addTag, getRandomTagList } from "../../modules/MainPage/tagDataSlice";
+
 import { Tag } from "antd";
 import { ReloadOutlined } from "@ant-design/icons";
-import { setTagList, addTag, getTagList, getNewTagList } from "../../modules/MainPage/tagDataSlice";
-import { css } from "@emotion/react";
 
 const ReloadBtnStyle = css`
     color: rgba(255, 255, 255, 0.8);
@@ -41,27 +43,21 @@ function TagList() {
     const { tagList, selectedTagList } = useSelector((state) => state.mainTagDataSlice);
     const { CheckableTag } = Tag;
 
-    const getInitialTagList = async () => {
-        const initialTagList = await dispatch(getTagList());
-        dispatch(setTagList({ tagList: initialTagList.payload }));
-    };
-
-    //임시 테스트 용 (#이슈 : reaload 후, checked값이 반영 안 되고 있는 문제)
-    const reloadTagList = async () => {
-        const initialTagList = await dispatch(getNewTagList());
-        dispatch(setTagList({ tagList: initialTagList.payload }));
+    const getlTagList = async () => {
+        dispatch(getRandomTagList());
     };
 
     useEffect(() => {
-        getInitialTagList();
+        getlTagList();
     }, []);
 
+    //선택한 태그 리스트에 해당 태그가 포함되어 있는지 확인하는 함수
     const isInSelectedTagList = (tag) => {
-        const selectedTagListIndex = selectedTagList.map((selectedTag) => selectedTag.key);
-        return selectedTagListIndex.includes(tag.key);
+        return selectedTagList.includes(tag);
     };
 
     const onSelectTag = (tag) => {
+        //tag: 선택한 태그 이름
         if (!isInSelectedTagList(tag)) {
             dispatch(addTag({ tag }));
         }
@@ -71,15 +67,15 @@ function TagList() {
         <div css={TagListWrapper}>
             {tagList.map((tag) => (
                 <CheckableTag
-                    key={tag.key}
+                    key={tag}
                     onClick={() => onSelectTag(tag)}
                     checked={isInSelectedTagList(tag)}
                     css={customTagStyle({ checked: isInSelectedTagList(tag) })}
                 >
-                    {tag.name}
+                    #{tag}
                 </CheckableTag>
             ))}
-            <ReloadOutlined onClick={() => reloadTagList()} css={ReloadBtnStyle} />
+            <ReloadOutlined onClick={() => getlTagList()} css={ReloadBtnStyle} />
         </div>
     );
 }

@@ -50,7 +50,7 @@ function SearchPage({ location }) {
                 {keyword.length === 0 ? (
                     <DefaultMovieList setKeyword={setKeyword} />
                 ) : (
-                    <SearchedMovieList keyword={query} setKeyword={setKeyword} />
+                    <SearchedMovieList keyword={query} setKeyword={setKeyword} location={location} />
                 )}
             </div>
         </div>

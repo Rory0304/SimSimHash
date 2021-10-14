@@ -1,17 +1,20 @@
 /** @jsxImportSource @emotion/react */
+import { css, jsx } from "@emotion/react";
 
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getMovieListByTag } from "../../modules/MainPage/tagDataSlice";
-import { css, jsx } from "@emotion/react";
+import { Rate } from "antd";
+import { sample } from "../../assets/Sample";
+
+/* 영화 포스터 슬라이더 */
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import { Rate } from "antd";
-import { sample } from "../../assets/Sample";
+/* 영화 포스터 로딩 시, 레이지 로딩 적용 */
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const sliderWrapperStyle = css`
     width: 65rem;
@@ -27,49 +30,53 @@ const sliderWrapperStyle = css`
 
 const sliderImgStyle = css`
     position: relative;
+    background-color: #222222;
     width: 180px;
-    height: 260px;
+    height: 257px;
     margin: 0 auto;
 
     img {
         width: 100%;
         height: 100%;
-        transform: scale(1); //default값
-        -webkit-transform: scale(1); ////default값
-        -moz-transform: scale(1); //crome
+        transform: scale(1);
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
         transition: all 0.2s ease-in-out;
     }
 
     &:hover div {
-        display: grid;
-        background-color: rgb(30 30 30 / 75%);
-        align-items: center;
-        align-content: center;
-        justify-content: center;
-        gap: 0.5rem;
-        transform: scale(1.1); //hover시 확대되는 범위 조정
+        z-index: 1;
+        visibility: visible;
+        transform: scale(1.1);
         -webkit-transform: scale(1.1);
         -moz-transform: scale(1.1);
     }
 
     &:hover img {
-        transform: scale(1.1); //hover시 확대되는 범위 조정
+        transform: scale(1.1);
         -webkit-transform: scale(1.1);
         -moz-transform: scale(1.1);
     }
 `;
 
 const sliderImgLayerStyle = css`
-    display: none;
+    z-index: -1;
+    visibility: hidden;
+    display: grid;
+    background-color: rgb(30 30 30 / 75%);
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    gap: 0.5rem;
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
     text-align: center;
-    transform: scale(1); //default값
-    -webkit-transform: scale(1); ////default값
-    -moz-transform: scale(1); //crome
+    transform: scale(1);
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
 `;
 
 const rateStyle = css`
@@ -131,16 +138,20 @@ function MovieSlider() {
                         <>
                             <div css={sliderImgStyle}>
                                 <Link to={`/movie/${item.id}`}>
-                                    <img src={item.img} alt={item.title} />
+                                    <LazyLoadImage
+                                        effect="blur"
+                                        src={`${item.poster}?type=m203_290_2`}
+                                        alt={item.title}
+                                    />
                                     <div css={sliderImgLayerStyle}>
                                         <p css={fontStyle}>{item.title}</p>
                                         <Rate
                                             disabled
                                             allowHalf
-                                            defaultValue={Math.round(item.star / 2)}
+                                            defaultValue={Math.round(item.score / 2)}
                                             css={rateStyle}
                                         />
-                                        <p css={fontStyle}>{item.tag}</p>
+                                        <p css={fontStyle}>{item.total}</p>
                                     </div>
                                 </Link>
                             </div>

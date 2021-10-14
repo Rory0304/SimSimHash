@@ -11,7 +11,7 @@ from config import MONGO_URI
 client = MongoClient(MONGO_URI)
 mongodb = client.simsimhash
 ranking_col = mongodb.ranking
-hashtag_col = mongodb.tags
+hashtag_col = mongodb.tag
 review_col = mongodb.review
 
 def create_app():

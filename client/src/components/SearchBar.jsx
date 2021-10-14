@@ -61,7 +61,7 @@ function SearchBar() {
     const dispatch = useDispatch();
 
     const onQueryString = (keyword) => {
-        keyword && history.push(`/search?keyword=${keyword}`)
+        keyword && history.push(`/search?keyword=${keyword}&page=1`)
         dispatch(setTitle({ keyword }));
     }
 

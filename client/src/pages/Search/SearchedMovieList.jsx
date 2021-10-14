@@ -64,6 +64,8 @@ function SearchedMovieList({ keyword, setKeyword }) {
     const pageSize = 12;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();
+    const history = useHistory();
+
     // const { matchedMovieList } = useSelector((state) => state.searchedMovieSlice);
 
     // console.log(matchedMovieList)
@@ -77,16 +79,24 @@ function SearchedMovieList({ keyword, setKeyword }) {
 
     const [option, setOption] = useState("");
 
-    const history = useHistory();
+    const searchParams = new URLSearchParams(location.search);
+    const queryPage = searchParams.get("page");
+
+    console.log(queryPage)
+
+    useEffect(() => {
+        if (queryPage > 2) {
+            setPagination({
+                totalPage: filteredMovieList.length / pageSize,
+                current: queryPage,
+                minIndex: (queryPage - 1) * pageSize,
+                maxIndex: queryPage * pageSize
+            });
+        }
+    }, [queryPage]);
 
     useEffect(() => {
         setFilteredMovieList(sample.filter((movie) => movie.title.replace(/\s/gi, "").includes(keyword.replace(/\s/gi, ""))));
-        setPagination({
-            totalPage: filteredMovieList.length / pageSize,
-            current: 1,
-            minIndex: 0,
-            maxIndex: pageSize
-        });
     }, [keyword]);
 
     const handlePageChange = (page) => {

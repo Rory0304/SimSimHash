@@ -15,7 +15,7 @@ const initialState = {
 export const getMovieListByTitle = createAsyncThunk("GET_MOVIE_DATA", async (args, ThunkAPI) => {
     const { searchedMovieSlice } = ThunkAPI.getState();
     try {
-        const filteredMovies = await axios.post("/api/movie", {
+        const filteredMovies = await axios.post("/api/search", {
                 title: searchedMovieSlice.title,
                 page: searchedMovieSlice.page,
             });
@@ -58,7 +58,6 @@ export const searchedMovieSlice = createSlice({
             state.matchedMovieList = [];
             state.error = action.payload;
         });
-
         builder.addCase(getMovieListByTitle.pending, (state) => {
             state.loading = true;
             state.matchedMovieList = [];

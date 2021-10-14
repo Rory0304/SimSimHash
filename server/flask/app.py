@@ -5,7 +5,7 @@ import config
 import pymysql
 pymysql.install_as_MySQLdb()
 db = SQLAlchemy()
-
+cors = CORS()
 from pymongo import MongoClient
 from config import MONGO_URI
 client = MongoClient(MONGO_URI)
@@ -16,7 +16,7 @@ review_col = mongodb.review
 
 def create_app():
     app = Flask(__name__)
-    CORS(app)
+    
     app.config.from_object(config)
 
     # Blueprints
@@ -30,7 +30,7 @@ def create_app():
     
     # ORM
     db.init_app(app)
-
+    cors.init_app(app)
     return app
 
 if __name__ == "__main__":

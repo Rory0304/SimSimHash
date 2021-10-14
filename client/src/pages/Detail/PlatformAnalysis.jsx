@@ -2,6 +2,10 @@
 import { css, jsx } from "@emotion/react";
 
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getPlatformWord, setPlatformName } from "../../modules/DetailPage/wordCloudSlice";
+
+import WordCloud from "./WordCloud";
 
 const platformAreaWrapper = css`
     h3 {
@@ -100,13 +104,20 @@ const hiddenPlatformInfo = ({ expanded, name }) => css`
 `;
 
 function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title }) {
+    
+    const dispatch = useDispatch();
+    const { words } = useSelector((state) => state.wordCloudSlice);
+
     const [expanded, setExpanded] = useState(false);
-    const [tagCloud, setTagCloud] = useState([]);
     const [tagList, setTagList] = useState([]);
 
     useEffect(() => {
-        if (expanded && tagCloud === [] && tagList === []) {
+        if (expanded) {
             /* Todo: 백엔드에 플랫폼 분석 정보 요청 */
+            dispatch(setPlatformName({name}))
+            if(words[name].length === 0){
+                dispatch(getPlatformWord())
+            }
         }
     }, [expanded]);
 
@@ -139,7 +150,9 @@ function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title })
                     </p>
                     <div
                         style={{ height: "200px", width: "100%", border: "1px solid white" }}
-                    ></div>
+                    >
+                        <WordCloud name={name}/>
+                    </div>
                 </div>
                 {/* 더 많은 태그 목록 */}
                 <div>
@@ -153,7 +166,7 @@ function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title })
                 aria-controls={`content-${enName}`}
                 aria-expanded={expanded}
                 id={`accordion-control-${enName}`}
-                onClick={() => setExpanded(!expanded)}
+                onClick={() => { setExpanded(!expanded)}}
             >
                 {expanded ? "접기" : "더보기"}
             </button>

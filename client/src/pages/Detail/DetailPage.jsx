@@ -2,11 +2,14 @@
 import { css, jsx } from "@emotion/react";
 
 import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import MovieInfo from "./MovieInfo";
 import IntegratedAnalysis from "./IntegratedAnalysis";
 import PlatformAnalysis from "./PlatformAnalysis";
+import { clearPlatformData } from "../../modules/DetailPage/wordCloudSlice";
+
 import { Button, BackTop } from "antd";
 import { sample } from "../../assets/Sample";
 
@@ -77,6 +80,7 @@ const getMovieById = (id) => {
 };
 
 const DetailPage = ({ history, match }) => {
+    const dispatch = useDispatch();
     const [movie, setMovie] = useState({});
     const { id } = match.params;
     let integratedAnalysisRef = useRef(null);
@@ -88,13 +92,13 @@ const DetailPage = ({ history, match }) => {
     }
 
     useEffect(() => {
+        dispatch(clearPlatformData);
         setMovie(getMovieById(id));
     }, []);
 
     return (
         <div css={detailPageWrapper}>
             <MovieInfo movie={movie} />
-
             <ul css={tabStyle}>
                 <li onClick={() => scrollTo(integratedAnalysisRef)}>통합 분석</li>
                 <li onClick={() => scrollTo(PlatformAnalysisRef)}>플랫폼 분석</li>

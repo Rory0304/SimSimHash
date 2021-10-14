@@ -30,11 +30,7 @@ print("연결 성공")
 Movie.__table__.drop(bind=engine)
 Movie.__table__.create(bind=engine)
 
-for file_path in files:
-    print(file_path)
-    data = pd.read_csv(path.join(dir,file_path), encoding='utf-8')
-
-    def convert_release_date(release_date):
+def convert_release_date(release_date):
         '''
         '2021 .09.09 재개봉, 2020 .05.21 재개봉, 2019 .10.30 개봉'으로 써진 개봉일의
         개행문자, 한글, 특수문자를 지우고 년, 월, 일로 나눈 뒤에
@@ -58,27 +54,28 @@ for file_path in files:
         release_date = date(year, month, day).isoformat()
         return release_date
 
-    def convert_running_time(running_time):
-        '''
-        xxx분 으로 써진 상영시간의 분을 떼고 INT로 변환
-        '''
-        return int(running_time[:-1])
+def convert_running_time(running_time):
+    '''
+    xxx분 으로 써진 상영시간의 분을 떼고 INT로 변환
+    '''
+    return int(running_time[:-1])
+
+
+for file_path in files:
+    print(file_path)
+    data = pd.read_csv(path.join(dir,file_path), encoding='utf-8')
 
     data['release_date'] = data['release_date'].apply(convert_release_date)
     data['running_time'] = data['running_time'].apply(convert_running_time)
-    # data['release_date'] = data['release'].apply(convert_release_date)
-    # data['running_time'] = data['running'].apply(convert_running_time)
 
     for i in range(len(data)):
         title = data.loc[i,"title"]
         release_date = data.loc[i,"release_date"]
         actor = data.loc[i,"actor"]
         director = data.loc[i,"director"]
-        # summary = data.loc[i,"story"]
         summary = data.loc[i,"summary"]
         running_time = data.loc[i,"running_time"]
         genre = data.loc[i,"genre"]
-        # rating = data.loc[i,"rating"]
         rating = data.loc[i,"grade"]
         poster = data.loc[i,"poster"]
         nation = data.loc[i,"nation"]

@@ -1,6 +1,7 @@
 from re import search
 from flask import Blueprint, jsonify, request
 from models.movie import Movie
+from app import hashtag_col
 
 bp = Blueprint('detail',__name__)
 
@@ -53,3 +54,16 @@ def get_total_detail(movie_id):
     }
 
     return searched_movie
+
+@bp.route('/detail/wc')
+def wc():
+    movie_id = request.json.get('movie_id')
+
+    cur = hashtag_col.find({"movie_id": movie_id})
+    return jsonify({
+        'total': cur['total'],
+        'naver':cur['naver'],
+        'daum':cur['daum'],
+        'watcha':cur['watcha'],
+        'cine21':cur['cine21']
+    })

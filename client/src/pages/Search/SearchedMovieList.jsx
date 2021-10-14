@@ -41,13 +41,15 @@ const noresult = css`
     margin-top: 150px;
 `;
 
-const movieListWrapper = css`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 5.3rem 2.5rem;
-    justify-items: center;
-`;
 
+const movieListWrapper = css`
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 4vw;
+    width: calc(100vw - 28vw);
+    margin: 0 auto;
+`;
 
 const RadioGroup = css`
     margin-bottom: 30px;
@@ -59,7 +61,7 @@ const RadioGroup = css`
     }
 `
 function SearchedMovieList({ keyword, setKeyword }) {
-    const pageSize = 10;
+    const pageSize = 12;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();
     // const { matchedMovieList } = useSelector((state) => state.searchedMovieSlice);

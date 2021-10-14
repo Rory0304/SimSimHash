@@ -17,8 +17,11 @@ const movieInfoStyle = css`
     }
 
     p:first-of-type {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         font-weight: bold;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     p:last-of-type {
@@ -27,10 +30,14 @@ const movieInfoStyle = css`
 `;
 
 const lazyImageStyle = ({ page }) => css`
-    width: 100%;
-    height: ${page === "main" ? "251px" : "389px"};
+    // min-width: 15vw;
+    min-height: 20vh;
     border-radius: 12px 12px 0 0;
     background-color: #3f4555d6;
+
+    span{
+        display: block;
+    }
 `;
 
 const rateStyle = css`
@@ -42,20 +49,19 @@ function LazyPoster({ page, item }) {
 
     return (
         <>
-            <div css={lazyImageStyle({ page })}>
-                <div ref={imgRef}>
+                <div ref={imgRef} css={lazyImageStyle({ page })}>
                     <LazyLoadImage
                         effect="opacity"
                         src={`${imgSrc}?type=m203_290_2`}
                         placeholderSrc={item.poster}
                         alt={item.title}
+                        wrapperProps={{style:{display:'block'}}}
                         style={{
-                            width: page === "main" ? "11rem" : "17rem",
-                            height: page === "main" ? "251px" : "389px"
+                            width: page === "main" ? "11rem" : "100%",
+                            height: page === "main" ? "251px" : "100%"
                         }}
                     />
                 </div>
-            </div>
             <div css={movieInfoStyle}>
                 <p>{item.title}</p>
                 {page === "search" && (

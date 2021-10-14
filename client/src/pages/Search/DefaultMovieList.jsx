@@ -7,10 +7,12 @@ import Poster from "../../components/Poster";
 import { getMovieList, addMovie, clearState } from "../../modules/SearchPage/DefaultMovieSlice";
 
 const movieListWrapper = css`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 5.3rem 2.5rem;
-    justify-items: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4vw;
+    width: calc(100vw - 20vw);
+    margin: 0 auto;
 `;
 
 function DefaultMovieList({ setKeyword }) {

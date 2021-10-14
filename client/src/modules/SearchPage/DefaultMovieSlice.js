@@ -12,7 +12,7 @@ const initialState = {
 
 //[작품 검색] 처음 화면에 보여줄 영화 24개를 요청한다.
 export const getMovieList = createAsyncThunk("GET_MOVIE_LIST", (args, ThunkAPI) => {
-    return sample.slice(0, 25);
+    return sample.slice(0, 24);
 });
 
 export const DefaultMovieSlice = createSlice({

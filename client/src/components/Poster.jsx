@@ -9,7 +9,7 @@ import LoadingPoster from "./LoadingPoster";
 
 const imgStyle = ({ page }) => css`
     text-align: center;
-    width: ${page === "main" ? "11rem" : "17rem"};
+    width: ${page === "main" ? "11rem" : "15vw"};
     border-radius: 12px 12px 0 0;
 
     img {
@@ -18,7 +18,7 @@ const imgStyle = ({ page }) => css`
 `;
 
 const posterWrapperStyle = ({ page }) => css`
-    width: ${page === "main" ? "11rem" : "17rem"};
+    width: ${page === "main" ? "11rem" : "15vw"};
     border-radius: 17px;
     background-color: #2c313f;
     transition: 0.3s ease-in-out;

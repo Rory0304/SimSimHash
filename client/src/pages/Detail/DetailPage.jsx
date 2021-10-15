@@ -83,7 +83,7 @@ const DetailPage = ({ history, match }) => {
         ref.current.scrollIntoView();
     }
 
-    useEffect(async () => {
+    useEffect(() => {
         dispatch(getMovieInfo({ id }));
         return () => {
             dispatch(clearPlatformData);

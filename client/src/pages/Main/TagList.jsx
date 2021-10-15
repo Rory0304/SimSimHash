@@ -15,13 +15,14 @@ const ReloadBtnStyle = css`
 `;
 
 const TagListWrapper = css`
-    width: 51rem;
+    width: 64%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
     gap: 9px;
+    padding-bottom: 30px;
 `;
 
 const customTagStyle = ({ checked }) => css`

@@ -40,12 +40,12 @@ const posterWrapperStyle = ({ page }) => css`
 
 const LazyPoster = lazy(() => import("./LazyPoster"));
 
-function Poster({ item, setKeyword, page }) {
+function Poster({ item, setKeyword, page, movie_id }) {
     return (
         <li css={posterWrapperStyle({ page: page })}>
             <div>
                 {page === "search" && <form onChange={(e) => setKeyword(e.target.value)} />}
-                <Link to={`/movie/${item.movie_id}`}>
+                <Link to={`/movie/${movie_id}`}>
                     <div css={imgStyle({ page: page })}>
                         <Suspense fallback={<LoadingPoster />}>
                             <LazyPoster page={page} item={item} />

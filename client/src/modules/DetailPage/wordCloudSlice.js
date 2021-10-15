@@ -4,46 +4,42 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
     movie_id: "",
     selectedPlatform: "",
+    hashtags: {
+        naver: [],
+        watcha: [],
+        daum: [],
+        cine21: []
+    },
     words: {
-        "네이버": [],
-        "왓챠": [],
-        "다음": [],
-        "씨네21": []
+        naver: [],
+        watcha: [],
+        daum: [],
+        cine21: []
     },
     loading: "",
     error: ""
 };
 
-export const getPlatformWord = createAsyncThunk("GET_PLATFORM_WORDCLOUD", async (args, ThunkAPI) => {
-    /* 백엔드 [GET] /platform_detail 요청 */
-    console.log('get platform word');
-    const words = [
-        {
-          text: '영화',
-          value: 64,
-        },
-        {
-          text: '우정',
-          value: 11,
-        },
-        {
-          text: '미친',
-          value: 16,
-        },
-        {
-          text: '대박',
-          value: 17,
-        },
-    ]
-    return words;
-})
-
+/* 플랫폼 별 워드 클라우드 데이터 요청 */
+export const getPlatformWord = createAsyncThunk("GET_PLATFORM_WORD", async (args, ThunkAPI) => {
+    /* 백엔드 [GET] /detail/<movie_id> 요청 */
+    try {
+        let response = await axios.post("/api/detail/get_platform", {
+            movie_id: args.movie_id,
+            platform: args.platform
+        });
+        return response.data;
+    } catch (err) {
+        console.log(`${args.platform}데이터를 얻어오는데 실패했습니다.`, err);
+        return [];
+    }
+});
 
 export const wordCloudSlice = createSlice({
     name: "wordCloudSlice",
     initialState,
     reducers: {
-        clearPlatformData(state,action){
+        clearPlatformData(state, action) {
             state.movie_id = "";
             state.words = {
                 naver: [],
@@ -51,12 +47,18 @@ export const wordCloudSlice = createSlice({
                 daum: [],
                 cine: []
             };
-            state.selectedPlatform = ""
+            state.hashtags = {
+                naver: [],
+                watcha: [],
+                daum: [],
+                cine21: []
+            };
+            state.selectedPlatform = "";
         },
         setPlatformName(state, action) {
-            //action.payload: 선택한 플랫폼 한글 이름
+            //action.payload: 선택한 플랫폼 영어 이름
             state.selectedPlatform = action.payload.name;
-        },
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getPlatformWord.rejected, (state, action) => {
@@ -72,10 +74,13 @@ export const wordCloudSlice = createSlice({
         });
 
         builder.addCase(getPlatformWord.fulfilled, (state, action) => {
-            console.log(state.selectedPlatform, action.payload);
-            state.words[state.selectedPlatform] = action.payload;
+            const wordList = Object.keys(action.payload).map((wordText) => ({
+                text: wordText,
+                value: action.payload[wordText]
+            }));
+            state.words[state.selectedPlatform] = wordList;
             state.loading = false;
-            state.error = ""
+            state.error = "";
         });
     }
 });

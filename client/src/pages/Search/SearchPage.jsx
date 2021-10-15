@@ -11,7 +11,8 @@ import { setTitle, getMovieListByTitle } from "../../modules/SearchPage/Searched
 
 const searchBannerStyle = css`
     display: flex;
-    height: 17.5rem;
+    border-bottom: 1px solid #444;
+    height: 20rem;
     text-align: center;
     flex-direction: column;
     justify-content: center;
@@ -21,11 +22,11 @@ const searchBannerStyle = css`
     p {
         font-size: 2rem;
         color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 18px;
+        margin-bottom: 27px;
     }
 `;
 
-const SearchResultWrapper = css`
+const movieListWrapper = css`
     padding: 30px;
 `;
 
@@ -44,12 +45,12 @@ function SearchPage({ location }) {
     }, [queryParams]);
 
     return (
-        <div css={SearchResultWrapper}>
+        <div>
             <div css={searchBannerStyle}>
                 <p>심심해시에서 다양한 영화를 검색해보세요!</p>
                 <SearchBar value={queryParams} />
             </div>
-            <div>
+            <div css={movieListWrapper}>
                 {keyword.length === 0 ? (
                     <DefaultMovieList setKeyword={setKeyword} />
                 ) : (

@@ -9,7 +9,7 @@ bp = Blueprint('movie',__name__)
 def get_movies():
     if request.method == 'GET':
         search_list = list(ranking_col.find_one({"collection": "ranking"}).values())[2:]
-
+        
     if request.method == 'POST':
         selected_tags = request.json['selectedTags']
         search_option = request.json['searchOption']
@@ -19,9 +19,18 @@ def get_movies():
     searched_movie = {}
     index = 0
     for search in search_list:
+        
         filtered_movie = Movie.query.filter(Movie.id == search).first()
         filtered_hashtags = hashtag_col.find_one({"movie_id": search})
-
+        if filtered_hashtags == None:
+            filtered_hashtags = {
+                "total": None,
+                "naver": None,
+                "daum": None,
+                "watcha": None,
+                "cine21": None,
+            }
+        
         searched_movie[index] = {
             "movie_id": filtered_movie.id,
             "title": filtered_movie.title,

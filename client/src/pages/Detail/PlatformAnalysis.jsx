@@ -103,7 +103,7 @@ const hiddenPlatformInfo = ({ expanded, name }) => css`
     }
 `;
 
-function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title }) {
+function PlatformBox({ movie_id, name, enName, score, wholeScore, noreview, tags, title }) {
     const dispatch = useDispatch();
     const { words } = useSelector((state) => state.wordCloudSlice);
 
@@ -112,9 +112,10 @@ function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title })
     useEffect(() => {
         if (expanded) {
             /* 백엔드에 플랫폼 분석 정보 요청 */
-            dispatch(setPlatformName({ name }));
-            if (words[name].length === 0) {
-                dispatch(getPlatformWord());
+            console.log(enName);
+            dispatch(setPlatformName({ name: enName }));
+            if (words[enName].length === 0) {
+                dispatch(getPlatformWord({ movie_id: movie_id, platform: enName }));
             }
         }
     }, [expanded]);
@@ -130,9 +131,10 @@ function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title })
                     </p>
                 </div>
                 <div>
-                    {tags.map((tag) => (
-                        <span css={tagStyle({ name: name })}>{tag}</span>
-                    ))}
+                    {tags.map(
+                        (tag, index) =>
+                            index < 5 && <span css={tagStyle({ name: name })}>{tag}</span>
+                    )}
                 </div>
             </div>
             {/* 숨겨진 플랫폼 분석 정보 : 아코디언 박스 접근성 규칙 준수 http://web-accessibility.carnegiemuseums.org/code/accordions/*/}
@@ -147,15 +149,25 @@ function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title })
                         {name} 유저들은 <br /> "{title}"을 이렇게 평가했어요!
                     </p>
                     <div style={{ height: "200px", width: "100%", border: "1px solid white" }}>
-                        <WordCloud name={name} />
+                        <WordCloud name={enName} />
                     </div>
                 </div>
                 {/* 더 많은 태그 목록 */}
                 <div>
                     <p>{name} 유저들은 아래의 키워드로 표현했어요!</p>
                     <div
-                        style={{ height: "200px", width: "100%", border: "1px solid white" }}
-                    ></div>
+                        style={{
+                            height: "200px",
+                            width: "100%",
+                            border: "1px solid white",
+                            overflow: "auto"
+                        }}
+                    >
+                        {" "}
+                        {tags.map((tag, index) => (
+                            <span css={tagStyle({ name: name })}>{tag}</span>
+                        ))}
+                    </div>
                 </div>
             </div>
             <button
@@ -172,8 +184,8 @@ function PlatformBox({ name, enName, score, wholeScore, noreview, tags, title })
     );
 }
 const PlatformAnalysis = React.forwardRef(({ props }, ref) => {
-    const { movieInfo, loading } = useSelector((state) => state.movieInfoSlice);
-    console.log(movieInfo);
+    const { movie_id, movieInfo, loading } = useSelector((state) => state.movieInfoSlice);
+
     const platforms = [
         {
             name: "네이버",
@@ -188,7 +200,7 @@ const PlatformAnalysis = React.forwardRef(({ props }, ref) => {
             enName: "daum",
             score: movieInfo.platform_summary.daum,
             wholeScore: 10,
-            noreview: movieInfo.platform_summary.naver.daum_count,
+            noreview: movieInfo.platform_summary.daum_count,
             tags: movieInfo.platform_summary.daum_tag
         },
         {
@@ -196,7 +208,7 @@ const PlatformAnalysis = React.forwardRef(({ props }, ref) => {
             enName: "watcha",
             score: movieInfo.platform_summary.watcha,
             wholeScore: 10,
-            noreview: movieInfo.platform_summary.naver.watcha_count,
+            noreview: movieInfo.platform_summary.watcha_count,
             tags: movieInfo.platform_summary.watcha_tag
         },
         {
@@ -204,7 +216,7 @@ const PlatformAnalysis = React.forwardRef(({ props }, ref) => {
             enName: "cine21",
             score: movieInfo.platform_summary.cine21,
             wholeScore: 10,
-            noreview: movieInfo.platform_summary.naver.cine21_count,
+            noreview: movieInfo.platform_summary.cine21_count,
             tags: movieInfo.platform_summary.cine21_tag
         }
     ];
@@ -215,13 +227,14 @@ const PlatformAnalysis = React.forwardRef(({ props }, ref) => {
             <ul aria-label="아코디언 컨트롤 버튼">
                 {platforms.map((platform) => (
                     <PlatformBox
+                        movie_id={movie_id}
                         name={platform.name}
                         enName={platform.enName}
-                        score={platform.score}
+                        score={Math.round(platform.score) / 2}
                         wholeScore={platform.wholeScore}
                         noreview={platform.noreview}
                         tags={platform.tags}
-                        title={movieInfo.movie.title}
+                        title={movieInfo.detail.title}
                     />
                 ))}
             </ul>

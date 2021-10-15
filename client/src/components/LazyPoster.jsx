@@ -46,6 +46,7 @@ const rateStyle = css`
 
 function LazyPoster({ page, item }) {
     let { imgSrc, imgRef } = useLazyImageHandler({ src: item.poster });
+    console.log(item);
 
     return (
         <>
@@ -67,7 +68,6 @@ function LazyPoster({ page, item }) {
                 {page === "search" && (
                     <Rate disabled allowHalf value={Math.round(item.score) / 2} css={rateStyle} />
                 )}
-                <p>{item.total}</p>
             </div>
         </>
     );

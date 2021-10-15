@@ -9,7 +9,7 @@ def get_tags():
     QUERY = 15 # 넘겨줘야 할 태그 수
     
     # 전체 태그 수
-    last_num = hashtag_col.find_one({}, {"content": {"$slice": -1}})['content'][0]['index']
+    last_num = hashtag_col.find_one({"total_tag": "true"}, {"content": {"$slice": -1}})['content'][0]['index']
 
     #넘겨줄 태그 수 만큼 전체 태그 수에서 번호 랜덤 추출
     random_num = sample(range(0, int(last_num)), QUERY)

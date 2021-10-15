@@ -8,7 +8,7 @@ bp = Blueprint('detail',__name__)
 @bp.route("/detail/get_detail", methods=['GET'])
 def get_detail():
     movie_id = request.args.get('movie_id')
-
+    
     movie_detail = get_movie_detail(movie_id)
     total_detail = get_total_detail(movie_id)
     platform_summary = get_platform_summary(movie_id)
@@ -60,10 +60,10 @@ def get_platform_summary(movie_id):
         "daum": filtered_movie.daum,
         "watcha": filtered_movie.watcha,
         "cine21": filtered_movie.cine21,
-        # "naver_count": ,
-        # "daum_count":,
-        # "watcha_count":,
-        # "cine21_count":,
+        "naver_count": get_review_num(movie_id, "naver"), ## 리뷰 개수 반환해주는 로직으로 변경
+        "daum_count":get_review_num(movie_id, "daum"),
+        "watcha_count":get_review_num(movie_id, "watchapedia"),
+        "cine21_count":get_review_num(movie_id, "cine21"),
         "naver_tag": list(get_platform_tag(movie_id, "naver"))[0: 6],
         "daum_tag": list(get_platform_tag(movie_id, "daum"))[0: 6],
         "watcha_tag": list(get_platform_tag(movie_id, "watcha"))[0: 6],
@@ -78,3 +78,9 @@ def get_platform_tag(movie_id, platform):
     platform_tags = tags[platform]
 
     return platform_tags
+    
+def get_review_num(movie_id, platform):
+    #movie_id int처리
+    reviews = review_col.find({"movie_id": int(movie_id), "source_site": platform})
+
+    return reviews.count()

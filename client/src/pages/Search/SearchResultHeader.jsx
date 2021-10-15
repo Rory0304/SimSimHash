@@ -4,7 +4,7 @@ import { css, jsx } from "@emotion/react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setSort } from "../../modules/SearchPage/SearchedMovieSlice";
+import { setSort, getMovieListByTitle } from "../../modules/SearchPage/SearchedMovieSlice";
 
 import { Radio } from "antd";
 
@@ -30,6 +30,7 @@ function SearchResultHeader({ keyword }) {
 
     const onClickSortOption = (e) => {
         dispatch(setSort(e.target.value));
+        dispatch(getMovieListByTitle());;
     };
 
     const { matchedMovieList, length } = useSelector((state) => state.SearchedMovieSlice);

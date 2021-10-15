@@ -145,7 +145,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
                     />
                 </>
             ) : (
-                <NoResult css={noresult} keyword={keyword} />
+                <NoResult keyword={keyword} />
             )}
         </>
     );

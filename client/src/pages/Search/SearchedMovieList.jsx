@@ -8,7 +8,7 @@ import { Pagination } from "antd";
 
 import Poster from "../../components/Poster";
 import SearchResultHeader from "./SearchResultHeader";
-import { setPage, getMovieListByTitle } from "../../modules/SearchPage/SearchedMovieSlice";
+import { setPage } from "../../modules/SearchPage/SearchedMovieSlice";
 import { setPagination } from "../../modules/SearchPage/PaginationSlice";
 import { sample } from "../../assets/Sample";
 
@@ -70,6 +70,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();
+    const { matchedMovieList } = useSelector((state) => state.SearchedMovieSlice);
     const { minIndex, maxIndex } = useSelector((state) => state.PaginationSlice);
     const history = useHistory();
 
@@ -98,26 +99,26 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
             maxIndex: page * pageSize
         }));
         history.push(`/search?keyword=${keyword}&page=${page}`);
-        dispatch(setPage({ page }));
+        dispatch(setPage({ page } - 1));
     };
 
     return (
         <>
             <SearchResultHeader keyword={keyword} />
-            {filteredMovieList.length > 0 ? (
+            {matchedMovieList.length > 0 ? (
                 <>
                     <ul css={movieListWrapper}>
-                        {filteredMovieList
+                        {matchedMovieList
                             .slice(minIndex, maxIndex)
-                            .map((item) => {
-                                return <Poster item={item} setKeyword={setKeyword} page="search" />;
+                            .map(([key, movie]) => {
+                                return <Poster item={movie} setKeyword={setKeyword} page="search" />;
                             })}
                     </ul>
                     <Pagination
                         size="small"
                         pageSize={pageSize}
                         defaultCurrent={queryPage}
-                        total={filteredMovieList.length}
+                        total={matchedMovieList.length}
                         onChange={handlePageChange}
                         css={paginationStyle}
                     />

@@ -7,22 +7,22 @@ const initialState = {
     page: 0,
     sort: "recent",
     N: 12,
-    length: 0,
     loading: false,
     error: ""
 };
 
 /* [검색 페이지] 제목으로 검색된 영화 리스트를 불러옴 */
 export const getMovieListByTitle = createAsyncThunk("GET_MOVIE_DATA_TITLE", async (args, ThunkAPI) => {
-    const { searchedMovieSlice } = ThunkAPI.getState();
+    const { SearchedMovieSlice } = ThunkAPI.getState();
     try {
-        const filteredMoviesTest = await axios.post("/api/search", {
-            title: searchedMovieSlice.title,
-            page: searchedMovieSlice.page,
-            sort: searchedMovieSlice.sort,
-            N: searchedMovieSlice.N
+        const filteredMovies = await axios.post("/api/search", {
+            title: SearchedMovieSlice.title,
+            page: SearchedMovieSlice.page,
+            sort: SearchedMovieSlice.sort,
+            N: SearchedMovieSlice.N
         });
-        const entry = Object.entries(filteredMoviesTest.data);
+        const entry = Object.entries(filteredMovies.data);
+        console.log(entry)
         return entry;
     } catch (err) {
         console.log("제목과 관련된 영화 정보를 얻는데 실패했습니다", err);
@@ -30,8 +30,8 @@ export const getMovieListByTitle = createAsyncThunk("GET_MOVIE_DATA_TITLE", asyn
     }
 });
 
-export const searchedMovieSlice = createSlice({
-    name: "searchedMovieSlice",
+export const SearchedMovieSlice = createSlice({
+    name: "SearchedMovieSlice",
     initialState,
     reducers: {
         clearState(state, action) {
@@ -43,12 +43,10 @@ export const searchedMovieSlice = createSlice({
         setTitle(state, action) {
             state.title = action.payload.keyword;
             console.log(state.title);
-            console.log(state.matchedMovieList);
         },
         setPage(state, action) {
             state.page = action.payload.page;
             console.log(state.page);
-            console.log(state.matchedMovieList);
         }, 
         setSort(state, action){
             state.sort = action.payload;
@@ -74,5 +72,5 @@ export const searchedMovieSlice = createSlice({
     }
 });
 
-export const { clearState, setTitle, setPage, setSort } = searchedMovieSlice.actions;
-export default searchedMovieSlice.reducer;
+export const { clearState, setTitle, setPage, setSort } = SearchedMovieSlice.actions;
+export default SearchedMovieSlice.reducer;

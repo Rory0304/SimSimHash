@@ -69,7 +69,7 @@ const NoResult = ({ keyword }) => {
 function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
     const dispatch = useDispatch();
-    const { matchedMovieList } = useSelector((state) => state.SearchedMovieSlice);
+    const { matchedMovieList, length } = useSelector((state) => state.SearchedMovieSlice);
     const { minIndex, maxIndex } = useSelector((state) => state.PaginationSlice);
     const history = useHistory();
 
@@ -78,7 +78,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
 
     useEffect(() => {
         dispatch(setPagination({
-            totalPage: matchedMovieList.length / pageSize,
+            totalPage: length / pageSize,
             current: queryPage,
             minIndex: (queryPage - 1) * pageSize,
             maxIndex: queryPage * pageSize
@@ -102,8 +102,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
                 <>
                     <ul css={movieListWrapper}>
                         {matchedMovieList
-                            .slice(minIndex, maxIndex)
-                            .map(([key, movie]) => {
+                            .map((movie) => {
                                 return <Poster item={movie} setKeyword={setKeyword} page="search" />;
                             })}
                     </ul>
@@ -111,7 +110,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
                         size="small"
                         pageSize={pageSize}
                         defaultCurrent={queryPage}
-                        total={matchedMovieList.length}
+                        total={length}
                         onChange={handlePageChange}
                         css={paginationStyle}
                     />

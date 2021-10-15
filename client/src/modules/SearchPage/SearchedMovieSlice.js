@@ -7,6 +7,7 @@ const initialState = {
     page: 0,
     sort: "recent",
     N: 12,
+    length: 0,
     loading: false,
     error: ""
 };
@@ -21,9 +22,8 @@ export const getMovieListByTitle = createAsyncThunk("GET_MOVIE_DATA_TITLE", asyn
             sort: SearchedMovieSlice.sort,
             N: SearchedMovieSlice.N
         });
-        const entry = Object.entries(filteredMovies.data);
-        console.log(entry)
-        return entry;
+        console.log(filteredMovies.data)
+        return filteredMovies.data;
     } catch (err) {
         console.log("제목과 관련된 영화 정보를 얻는데 실패했습니다", err);
         return [];
@@ -65,7 +65,8 @@ export const SearchedMovieSlice = createSlice({
             state.error = "";
         });
         builder.addCase(getMovieListByTitle.fulfilled, (state, action) => {
-            state.matchedMovieList = action.payload;
+            state.matchedMovieList = action.payload.content;
+            state.length = action.payload.length;
             state.loading = false;
             state.error = "";
         });

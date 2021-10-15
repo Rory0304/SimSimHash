@@ -140,7 +140,6 @@ function MovieSlider() {
     };
 
     // const target = (movieList.length >= 1 && movieList) || sample;
-
     return (
         <div css={sliderWrapperStyle}>
             {loading ? (
@@ -151,7 +150,7 @@ function MovieSlider() {
                 </>
             ) : (
                 <Slider {...settings}>
-                    {movieList.map(([key, movie]) => {
+                    {movieList.slice(0, 24).map(([key, movie]) => {
                         return (
                             <>
                                 <div css={sliderImgStyle}>
@@ -170,7 +169,7 @@ function MovieSlider() {
                                                 value={Math.round(movie.score) / 2}
                                                 css={rateStyle}
                                             />
-                                            {/* <p css={fontStyle}>{movie.hashtags.total}</p> */}
+                                            <p css={fontStyle}>{Math.round(movie.score) / 2}</p>
                                         </div>
                                     </Link>
                                 </div>

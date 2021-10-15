@@ -31,7 +31,7 @@ const modalStyle = css`
         display: flex;
         grid-template-columns: repeat(4, 1fr);
         justify-content: center;
-        gap: 12px;
+        gap: 50px;
         flex-wrap: wrap;
         align-items: flex-start;
     }

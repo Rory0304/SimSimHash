@@ -196,7 +196,7 @@ function AboutSimSimHash() {
                         문제점에 대한 해결책이 될 수 있습니다.
                     </li>
                     <li>
-                        <span>마지막으로,</span> 코로나 전후 상황을 비교했을 때 특정 콘텐츠에 대한
+                        <span>마지막으로,</span> 코로나 상황을 고려했을 때 특정 콘텐츠에 대한
                         선호도나 이용자들의 평가와 반응에서 뚜렷한 차이를 발견한다면, 코로나 시대
                         유의미한 인사이트를 제공할 수 있을 것입니다.
                     </li>
@@ -211,7 +211,7 @@ function OTTwithCovid() {
 }
 
 const profileStyle = css`
-    width: 300px;
+    width: 200px;
     padding: 20px;
     background-color: #e8e8e8;
     border-radius: 10px;
@@ -264,11 +264,12 @@ function Profile({ name, role }) {
 const TeamListStyle = css`
     display: flex;
     flex-wrap: wrap;
-    width: 1000px;
-    justify-content: space-between;
+    width: 960px;
+    justify-content: space-around;
     flex-direction: row;
     margin: 0 auto;
-    gap: 30px;
+    gap: 70px;
+    font-size: 1.2rem;
 `;
 
 function TeamList() {
@@ -326,15 +327,10 @@ function AboutPage() {
             <article css={ArticleStyle}>
                 <AboutSimSimHash />
                 <Divider css={DividerStyle}>
-                    <h2>OTT 서비스와 코로나</h2>
-                </Divider>
-                <OTTwithCovid />
-                <Divider css={DividerStyle}>
                     <h2>팀 Lucky Seven의 팀원을 소개합니다!</h2>
                 </Divider>
                 <TeamList />
             </article>
-            <footer css={footerStyle}>github</footer>
         </div>
     );
 }

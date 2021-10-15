@@ -38,6 +38,7 @@ const mainInnerWrapperStyle = css`
 function MainPage() {
     const dispatch = useDispatch();
     const [initialCall, setInitialCall] = useState(false);
+
     const { selectedTagList, movieList } = useSelector((state) => state.mainTagDataSlice);
 
     useEffect(() => {
@@ -65,10 +66,23 @@ function MainPage() {
                         <MovieListModal />
                         <MovieSlider />
                         <p css={selectedInfo}>
-                            <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
-                            {selectedTagList.length < 2
-                                ? "해시태그를 2개 이상 선택하세요!"
-                                : `해당 키워드를 가진 영화의 개수는 ${movieList.length}개 입니다.`}
+                            {selectedTagList.length === 0 ? (
+                                <>
+                                    {" "}
+                                    <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
+                                    해시태그를 선택하세요!
+                                </>
+                            ) : (
+                                movieList.length === 0 && (
+                                    <>
+                                        {" "}
+                                        <TagFilled
+                                            style={{ color: "#fff", marginRight: "0.625rem" }}
+                                        />
+                                        관련된 영화 정보가 없습니다!
+                                    </>
+                                )
+                            )}
                         </p>
                         <SelectedTagList />
                         <TagList />

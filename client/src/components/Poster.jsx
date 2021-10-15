@@ -21,7 +21,7 @@ const posterWrapperStyle = ({ page }) => css`
     width: ${page === "main" ? "11rem" : "15vw"};
     border-radius: 17px;
     background-color: #2c313f;
-    transition: 0.3s ease-in-out;
+    transition: 0.5s ease-in-out;
 
     ${page === "search" &&
     `&:hover {

@@ -146,21 +146,28 @@ function PlatformBox({ movie_id, name, enName, score, wholeScore, noreview, tags
                 {/* 워드 클라우드 정보 */}
                 <div>
                     <p>
-                        {name} 유저들은 <br /> "{title}"을 이렇게 평가했어요!
+                        {words[enName].length === 0
+                            ? `${name} 관련 리뷰 데이터가 없습니다!`
+                            : `${name} 유저들은 "${title}"을 이렇게 평가했어요!`}
                     </p>
                     <div style={{ height: "200px", width: "100%", border: "1px solid white" }}>
-                        <WordCloud name={enName} />
+                        {words[enName].length !== 0 && <WordCloud name={enName} />}
                     </div>
                 </div>
                 {/* 더 많은 태그 목록 */}
                 <div>
-                    <p>{name} 유저들은 아래의 키워드로 표현했어요!</p>
+                    <p>
+                        {tags.length === 0
+                            ? `${name} 리뷰 데이터가 없습니다!`
+                            : `${name} 유저들은 아래의 키워드로 표현했어요!`}
+                    </p>
                     <div
                         style={{
                             height: "200px",
                             width: "100%",
                             border: "1px solid white",
-                            overflow: "auto"
+                            overflowY: "auto",
+                            padding: "20px"
                         }}
                     >
                         {" "}

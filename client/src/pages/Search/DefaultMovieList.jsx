@@ -24,14 +24,15 @@ const SpecialMovieList = css`
     margin: 30px 0;
     font-size: 1.3rem;
     color: white;
+    text-decoration: underline;
 
     p {
         font-weight: bold;
     }
-`;
 
-const highligher = css`
-    background: linear-gradient(to top, rgb(246, 45, 168) 50%, transparent 50%);
+    span {
+        color: rgb(246, 45, 168);
+    }
 `;
 
 function DefaultMovieList({ setKeyword }) {
@@ -67,7 +68,7 @@ function DefaultMovieList({ setKeyword }) {
     return (
         <>
             <div css={SpecialMovieList}>
-                <p css={highligher}>
+                <p>
                     #심심해시가 선정한 <span>"코로나"</span>가 가장 많이 언급된 영화들
                 </p>
             </div>

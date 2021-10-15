@@ -18,18 +18,21 @@ const selectedInfo = css`
     font-weight: bold;
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
-    margin: 35px 0 15px 0;
+    margin: 50px 0 15px 0;
 `;
 
-const mainWrapperStyle = css`
+const mainPageWrapperStype = css`
     height: 91vh;
+`;
+
+const mainInnerWrapperStyle = css`
+    height: 100%;
     display: flex;
     align-content: center;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
-    overflow: hidden;
 `;
 
 function MainPage() {
@@ -54,12 +57,10 @@ function MainPage() {
     }, [selectedTagList]);
 
     return (
-        <div>
-            <main css={mainWrapperStyle}>
-                <div>
-                    <div>
-                        <MainIntro />
-                    </div>
+        <div css={mainPageWrapperStype}>
+            <main css={mainInnerWrapperStyle}>
+                <div style={{ height: "100%" }}>
+                    <MainIntro />
                     <div>
                         <MovieListModal />
                         <MovieSlider />

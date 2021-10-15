@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { Rate } from "antd";
 import { sample } from "../../assets/Sample";
 
+import { Spin } from "antd";
+
 /* 영화 포스터 슬라이더 */
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -17,7 +19,8 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const sliderWrapperStyle = css`
-    width: 65rem;
+    width: 900px;
+    height: auto;
     margin: 0 auto;
 
     .slick-prev:before,
@@ -31,8 +34,7 @@ const sliderWrapperStyle = css`
 const sliderImgStyle = css`
     position: relative;
     background-color: #222222;
-    width: 180px;
-    height: 257px;
+    width: 60%;
     margin: 0 auto;
 
     img {
@@ -89,8 +91,17 @@ const fontStyle = css`
     color: #ffffff;
 `;
 
+const loadingWrapper = css`
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+`;
+
 function MovieSlider() {
-    const { movieList } = useSelector((state) => state.mainTagDataSlice);
+    const { movieList, loading } = useSelector((state) => state.mainTagDataSlice);
 
     var settings = {
         dots: true,
@@ -99,7 +110,7 @@ function MovieSlider() {
         slidesToShow: 4,
         slidesToScroll: 4,
         initialSlide: 0,
-
+        lazyLoad: true,
         responsive: [
             {
                 breakpoint: 1024,
@@ -132,34 +143,42 @@ function MovieSlider() {
 
     return (
         <div css={sliderWrapperStyle}>
-            <Slider {...settings}>
-                {movieList.map(([key, movie]) => {
-                    return (
-                        <>
-                            <div css={sliderImgStyle}>
-                                <Link to={`/movie/${movie.movie_id}`}>
-                                    <LazyLoadImage
-                                        effect="blur"
-                                        src={movie.poster}
-                                        alt={movie.title}
-                                        key={movie.movie_id}
-                                    />
-                                    <div css={sliderImgLayerStyle}>
-                                        <p css={fontStyle}>{movie.title}</p>
-                                        <Rate
-                                            disabled
-                                            allowHalf
-                                            value={Math.round(movie.score) / 2}
-                                            css={rateStyle}
+            {loading ? (
+                <>
+                    <div css={loadingWrapper}>
+                        <p>심심해시의 영화를 불러오는 중입니다..</p>
+                    </div>
+                </>
+            ) : (
+                <Slider {...settings}>
+                    {movieList.map(([key, movie]) => {
+                        return (
+                            <>
+                                <div css={sliderImgStyle}>
+                                    <Link to={`/movie/${movie.movie_id}`}>
+                                        <LazyLoadImage
+                                            effect="blur"
+                                            src={movie.poster}
+                                            alt={movie.title}
+                                            key={movie.movie_id}
                                         />
-                                        {/* <p css={fontStyle}>{movie.hashtags.total}</p> */}
-                                    </div>
-                                </Link>
-                            </div>
-                        </>
-                    );
-                })}
-            </Slider>
+                                        <div css={sliderImgLayerStyle}>
+                                            <p css={fontStyle}>{movie.title}</p>
+                                            <Rate
+                                                disabled
+                                                allowHalf
+                                                value={Math.round(movie.score) / 2}
+                                                css={rateStyle}
+                                            />
+                                            {/* <p css={fontStyle}>{movie.hashtags.total}</p> */}
+                                        </div>
+                                    </Link>
+                                </div>
+                            </>
+                        );
+                    })}
+                </Slider>
+            )}
         </div>
     );
 }

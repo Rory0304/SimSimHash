@@ -16,10 +16,10 @@ export const getMovieListByTitle = createAsyncThunk("GET_MOVIE_DATA", async (arg
     const { searchedMovieSlice } = ThunkAPI.getState();
     try {
         const filteredMovies = await axios.post("/api/search", {
-                title: searchedMovieSlice.title,
-                page: searchedMovieSlice.page,
-            });
-            console.log(filteredMovies);
+            title: searchedMovieSlice.title,
+            page: searchedMovieSlice.page
+        });
+        console.log(filteredMovies);
         return filteredMovies;
     } catch (err) {
         console.log("제목과 관련된 영화 정보를 얻는데 실패했습니다", err);
@@ -38,7 +38,7 @@ export const searchedMovieSlice = createSlice({
             state.error = "";
         },
         setTitle(state, action) {
-            state.title = action.payload;
+            state.title = action.payload.keyword;
             console.log(state.title);
             console.log(state.matchedMovieList);
         },
@@ -46,8 +46,8 @@ export const searchedMovieSlice = createSlice({
             state.page = action.payload;
             console.log(state.page);
             console.log(state.matchedMovieList);
-        }, 
-        setSort(state, action){
+        },
+        setSort(state, action) {
             state.sort = action.payload;
             console.log(state.sort);
         }

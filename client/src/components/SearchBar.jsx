@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -52,10 +52,16 @@ const buttonStyle = css`
     }
 `;
 
-function SearchBar({ value }) {
-    const [keyword, setKeyword] = useState("");
+function SearchBar() {
     const history = useHistory();
     const dispatch = useDispatch();
+
+    const { title } = useSelector((state) => state.SearchedMovieSlice);
+    const [keyword, setKeyword] = useState(title);
+
+    useEffect(() => {
+        setKeyword(title);
+    }, [title]);
 
     const onQueryString = (keyword) => {
         keyword && history.push(`/search?keyword=${keyword}&page=1`);
@@ -71,7 +77,7 @@ function SearchBar({ value }) {
                 onPressEnter={() => {
                     onQueryString(keyword);
                 }}
-                value={value}
+                value={keyword}
                 css={inputStyle}
             />
             <Button

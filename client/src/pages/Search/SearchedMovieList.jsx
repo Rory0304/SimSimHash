@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Pagination } from "antd";
 
 import Poster from "../../components/Poster";
-import SearchResultBar from "./SearchResultHeader";
+import SearchResultHeader from "./SearchResultHeader";
 import { setPage } from "../../modules/SearchPage/SearchedMovieSlice";
 import { sample } from "../../assets/Sample";
 
@@ -51,6 +51,20 @@ const movieListWrapper = css`
     margin: 0 auto;
 `;
 
+const RadioGroup = css`
+    margin-bottom: 30px;
+    text-align: right;
+
+    label {
+        color: white;
+        font-size: 1rem;
+    }
+`;
+
+const NoResult = ({ keyword }) => {
+    return <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>;
+};
+
 function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
@@ -68,21 +82,17 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
     const queryPage = searchParams.get("page");
 
     useEffect(() => {
-        if (queryPage > 2) {
-            setPagination({
-                totalPage: filteredMovieList.length / pageSize,
-                current: queryPage,
-                minIndex: (queryPage - 1) * pageSize,
-                maxIndex: queryPage * pageSize
-            });
-        }
+        setPagination({
+            totalPage: filteredMovieList.length / pageSize,
+            current: queryPage,
+            minIndex: (queryPage - 1) * pageSize,
+            maxIndex: queryPage * pageSize
+        });
     }, [queryPage]);
 
     useEffect(() => {
         setFilteredMovieList(
-            sample.filter((movie) =>
-                movie.title.replace(/\s/gi, "").includes(keyword.replace(/\s/gi, ""))
-            )
+            sample.filter((movie) => movie.title.includes(keyword.replace(/\s/gi, "")))
         );
     }, [keyword]);
 
@@ -98,7 +108,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
 
     return (
         <>
-            <SearchResultBar keyword={keyword} />
+            <SearchResultHeader keyword={keyword} />
             {filteredMovieList.length > 0 ? (
                 <>
                     <ul css={movieListWrapper}>
@@ -111,14 +121,14 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
                     <Pagination
                         size="small"
                         pageSize={pageSize}
-                        current={pagination.current}
+                        defaultCurrent={queryPage}
                         total={filteredMovieList.length}
                         onChange={handlePageChange}
                         css={paginationStyle}
                     />
                 </>
             ) : (
-                <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>
+                <NoResult keyword={keyword} />
             )}
         </>
     );

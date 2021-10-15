@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "../../components/SearchBar";
 import DefaultMovieList from "./DefaultMovieList";
 import SearchedMovieList from "./SearchedMovieList";
-// import { getMovieList } from "../../modules/MainPage/searchedMovieSlice";
+import { setTitle } from "../../modules/SearchPage/SearchedMovieSlice";
 
 const searchBannerStyle = css`
     display: flex;
@@ -30,6 +30,7 @@ const SearchResultWrapper = css`
 `;
 
 function SearchPage({ location }) {
+    const dispatch = useDispatch();
     const [keyword, setKeyword] = useState("");
     const [query, setQuery] = useState("");
     const searchParams = new URLSearchParams(location.search);
@@ -38,13 +39,14 @@ function SearchPage({ location }) {
     useEffect(() => {
         setQuery(queryParams);
         setKeyword(queryParams);
+        dispatch(setTitle({ keyword: queryParams }));
     }, [queryParams]);
 
     return (
         <div css={SearchResultWrapper}>
             <div css={searchBannerStyle}>
                 <p>심심해시에서 다양한 영화를 검색해보세요!</p>
-                <SearchBar value={keyword} />
+                <SearchBar value={queryParams} />
             </div>
             <div>
                 {keyword.length === 0 ? (

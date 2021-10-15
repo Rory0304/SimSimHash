@@ -60,7 +60,7 @@ def get_platform_summary(movie_id):
         "daum": filtered_movie.daum,
         "watcha": filtered_movie.watcha,
         "cine21": filtered_movie.cine21,
-        "naver_count": get_review_num(movie_id, "naver"), ## 리뷰 개수 반환해주는 로직으로 변경
+        "naver_count": get_review_num(movie_id, "naver"),
         "daum_count":get_review_num(movie_id, "daum"),
         "watcha_count":get_review_num(movie_id, "watchapedia"),
         "cine21_count":get_review_num(movie_id, "cine21"),

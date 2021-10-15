@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from models.movie import Movie
-from app import db
-
+from app import db, review_col
+from collections import defaultdict
 
 bp = Blueprint('search', __name__)
 
@@ -15,6 +15,9 @@ def search_title():
     
     # title의 키워드가 들어있는 영화를 모두 검색    
     query_result = db.session.query(Movie).filter(Movie.title.like(f"%{title}%"))
+    query_length = len(query_result.all())
+    if not query_result: # 검색결과가 없을 때
+        return "no result!", 204
     
     # sort 최신순이 있는 경우, 개봉일을 기준으로 정렬
     if sort == "recent":
@@ -24,7 +27,42 @@ def search_title():
     query_result = query_result.limit(N).offset(N*page)
     query_result = [i.to_dict() for i in query_result]
 
-    if not query_result:
-        return "", 204
+    result = {
+        "length" : query_length,
+        "content": query_result
+    }
     
-    return jsonify(query_result), 200
+    return jsonify(result), 200
+
+@bp.route('/search-tags')
+def search_tag():
+    query_tags = request.args.get('tags').split('-')
+    
+    ################
+    # 합집합 
+    # ids = []
+    # for tag in query_tags:
+    #     cursor = review_col.find({'content': {"$regex" : tag}})
+    #     for cur in cursor:
+    #         ids.append(cur['_id'])
+    # ids = set(ids) # 중복 제거
+    
+    ##################
+    
+    ##################
+    # 교집합
+    
+    id_dic = defaultdict(int)
+    n = len(query_tags)
+    for tag in query_tags:
+        cursor = review_col.find({'full_tags': {"$regex" : tag}})
+        for cur in cursor:
+            id_dic[cur['movie_id']] += 1
+    ids = [i for i in id_dic.keys() if id_dic[i]==n]  # 교집합 객체들의 object_id
+    
+    
+    result = []
+    for id in ids:
+        result.append(Movie.query.filter(Movie.id == id).first().to_dict())
+    
+    return result

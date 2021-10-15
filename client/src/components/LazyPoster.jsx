@@ -35,7 +35,7 @@ const lazyImageStyle = ({ page }) => css`
     border-radius: 12px 12px 0 0;
     background-color: #3f4555d6;
 
-    span{
+    span {
         display: block;
     }
 `;
@@ -49,28 +49,23 @@ function LazyPoster({ page, item }) {
 
     return (
         <>
-                <div ref={imgRef} css={lazyImageStyle({ page })}>
-                    <LazyLoadImage
-                        effect="opacity"
-                        src={`${imgSrc}?type=m203_290_2`}
-                        placeholderSrc={item.poster}
-                        alt={item.title}
-                        wrapperProps={{style:{display:'block'}}}
-                        style={{
-                            width: page === "main" ? "11rem" : "100%",
-                            height: page === "main" ? "251px" : "100%"
-                        }}
-                    />
-                </div>
+            <div ref={imgRef} css={lazyImageStyle({ page })}>
+                <LazyLoadImage
+                    effect="opacity"
+                    src={`${imgSrc}`}
+                    placeholderSrc={item.poster}
+                    alt={item.title}
+                    wrapperProps={{ style: { display: "block" } }}
+                    style={{
+                        width: page === "main" ? "11rem" : "100%",
+                        height: page === "main" ? "251px" : "100%"
+                    }}
+                />
+            </div>
             <div css={movieInfoStyle}>
                 <p>{item.title}</p>
                 {page === "search" && (
-                    <Rate
-                        disabled
-                        allowHalf
-                        value={Math.round(item.score) / 2}
-                        css={rateStyle}
-                    />
+                    <Rate disabled allowHalf value={Math.round(item.score) / 2} css={rateStyle} />
                 )}
                 <p>{item.total}</p>
             </div>

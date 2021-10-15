@@ -65,9 +65,9 @@ function TagList() {
 
     return (
         <div css={TagListWrapper}>
-            {tagList.map((tag) => (
+            {tagList.map((tag, index) => (
                 <CheckableTag
-                    key={tag}
+                    key={`tag${index}`}
                     onClick={() => onSelectTag(tag)}
                     checked={isInSelectedTagList(tag)}
                     css={customTagStyle({ checked: isInSelectedTagList(tag) })}

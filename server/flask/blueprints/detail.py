@@ -20,9 +20,9 @@ def get_platform():
     movie_id = request.json['movie_id']
     platform = request.json['platform']
 
-    get_platform_tag(movie_id, platform)
     
-    return jsonify()
+    
+    return jsonify(get_platform_tag(movie_id, platform))
 
 
 def get_movie_detail(movie_id):
@@ -64,10 +64,10 @@ def get_platform_summary(movie_id):
         "daum_count":get_review_num(movie_id, "daum"),
         "watcha_count":get_review_num(movie_id, "watchapedia"),
         "cine21_count":get_review_num(movie_id, "cine21"),
-        "naver_tag": list(get_platform_tag(movie_id, "naver"))[0: 6],
-        "daum_tag": list(get_platform_tag(movie_id, "daum"))[0: 6],
-        "watcha_tag": list(get_platform_tag(movie_id, "watcha"))[0: 6],
-        "cine21_tag": list(get_platform_tag(movie_id, "cine21"))[0: 6]
+        "naver_tag": list(get_platform_tag(movie_id, "naver"))[0:6],
+        "daum_tag": list(get_platform_tag(movie_id, "daum"))[0:6],
+        "watcha_tag": list(get_platform_tag(movie_id, "watcha"))[0:6],
+        "cine21_tag": list(get_platform_tag(movie_id, "cine21"))[0:6]
     }
 
     return searched_movie
@@ -75,6 +75,8 @@ def get_platform_summary(movie_id):
 def get_platform_tag(movie_id, platform):
     #movie_id int처리
     tags = hashtag_col.find_one({"movie_id": int(movie_id)})
+    if tags is None:
+        return ["","","","","",""]
     platform_tags = tags[platform]
 
     return platform_tags

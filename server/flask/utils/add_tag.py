@@ -8,13 +8,13 @@ from sqlalchemy import create_engine
 from models.movie import Movie
 from models.tag import Tag
 
-from collections import Counter, defaultdict
+from collections import defaultdict
 import pandas as pd
+import time 
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 Session = sessionmaker(bind=engine)
 session = Session()
-
 
 '''
 1. 딕셔너리들을 담는 리스트 insert_data
@@ -32,110 +32,108 @@ session = Session()
     cine21: ,
 }
 
-id는 1918까지
+movie_id는 1918까지 있음
 '''
 N = len(session.query(Movie).all())
 
-insert_data_list = [{"movie_id": i, 
+insert_data_list = [{"movie_id": i+1, 
                      "total" : defaultdict(int), 
                      'naver':defaultdict(int),
                      'daum':defaultdict(int), 
                      'watcha':defaultdict(int), 
                      'cine21':defaultdict(int)} for i in range(N)]
 
+def main(dataFrame, platform):
+    '''
+    최초 삽입용 코드
+    '''
+    print(f"{platform} 작업 시작")
+    s = time.time()
+    for title in dataFrame['title']:
+        movie = session.query(Movie).filter(Movie.title==title).first()
+        if movie == None:
+            continue
+        movie_id = movie.id
+    
+        nouns = dataFrame.loc[dataFrame['title']==title,'noun']
+        counts = dataFrame.loc[dataFrame['title']==title,'count']
+        print(movie_id, title)
+        
+        for word, freq in zip(nouns, counts):
+            insert_data_list[movie_id-1][platform][word] = freq
+            insert_data_list[movie_id-1]['total'][word] += freq
+            
+    print(f"{platform} 작업 완료")
+    print("소요시간: ", s-time.time())
+    
+
 
 daum_csv = pd.read_csv('./data/review/Okt_keyword_50daum.csv')
 naver_csv = pd.read_csv('./data/review/Okt_keyword50.csv')
 
-# def main(dataFrame, platform):
-    
-#     for title in dataFrame['title']:
-#         movie = session.query(Movie).filter(Movie.title==title).first()
-#         if movie == None:
-#             continue
-#         movie_id = movie.id
-        
-#         nouns = dataFrame.loc[dataFrame['title']==title,'noun']
-#         counts = dataFrame.loc[dataFrame['title']==title,'count']
-        
-#         word_freq_pairs = [(word+'.'+str(freq)) for word, freq in zip(nouns, counts)]
-#         insert_data_list[movie_id][platform] += str(word_freq_pairs)
-
-def main(dataFrame, platform):
-    
-    title = '모가디슈'
-    movie = session.query(Movie).filter(Movie.title==title).first()
-    if movie == None:
-        return
-    
-    
-    movie_id = movie.id
-    
-    nouns = dataFrame.loc[dataFrame['title']==title,'noun']
-    counts = dataFrame.loc[dataFrame['title']==title,'count']
-    
-    
-    for word, freq in zip(nouns, counts):
-        insert_data_list[movie_id][platform][word] = freq
-        insert_data_list[movie_id]['total'][word] += freq
-        
-
 main(daum_csv,'daum')
 main(naver_csv, 'naver')
+hashtag_col.insert_many(insert_data_list)
 
 
 
+def update(dataFrame, platform):
+    '''
+    기존 값 삭제하지 않고 업데이트
+    '''
+    
+    print(f"{platform} 작업 시작")
+    s = time.time()
+    
+    for title in dataFrame['title']:
+        ids = [] # 갱신할 id만 넣어두는 코드, 속도를 위해 필요
+        movie = session.query(Movie).filter(Movie.title==title).first()
+        if movie == None:
+            continue
+        movie_id = movie.id
+        ids.append(movie_id)
         
-
-
-
-# N = len(session.query(Movie).all())
-# target_tags = ['NNG', 'NNP','NR', 'NNB']
-# projection = {"_id": False}
-
-# insert_data_list = []
-# for i in range(1, N+1):
-    
-#     cur = review_col.find({'movie_id': i}, projection)
-    
-#     text_dict = {
-#         'total' : "",
-#         'naver' : "",
-#         'daum' : "",
-#         'watchapedia' : "",
-#         'cine21' : "",
-#     }
-    
-#     for review in cur:
-    
-#         text = review["content"]
-#         source_site = review["source_site"]
+        nouns = dataFrame.loc[dataFrame['title']==title,'noun']
+        counts = dataFrame.loc[dataFrame['title']==title,'count']
         
-#         text_dict['total'] += text
-#         text_dict[source_site] += text
         
-    
-#     tag_dict=defaultdict(dict)
-    
-#     tag_dict['total'] = counter_to_dict(Counter(get_tags(text_dict['total'])).most_common(25))
-#     tag_dict['naver'] = counter_to_dict(Counter(get_tags(text_dict['naver'])).most_common(25))
-#     tag_dict['daum'] = counter_to_dict(Counter(get_tags(text_dict['daum'])).most_common(25))
-#     tag_dict['watchapedia'] = counter_to_dict(Counter(get_tags(text_dict['watchapedia'])).most_common(25))
-#     tag_dict['cine21'] = counter_to_dict(Counter(get_tags(text_dict['cine21'])).most_common(25))
+        
+        for word, freq in zip(nouns, counts):
+            insert_data_list[movie_id][platform][word] = freq
+            insert_data_list[movie_id]['total'][word] += freq
             
-#     insert_data = Tag(movie_id= i, 
-#                          total=tag_dict['total'], 
-#                          naver=tag_dict['naver'], 
-#                          daum=tag_dict['daum'], 
-#                          watcha=tag_dict['watchapedia'],
-#                          cine21=tag_dict['cine21'])
-    
-#     insert_data_list.append(insert_data)
-    
-# # 전체 삭제
-# # d = hashtag_col.delete_many({})
-# # print(d.deleted_count)
-# # 
+            
+    for id in ids:
+        update_data = insert_data_list[id]
+        
+        update_data
+        hashtag_col.update({})
+        
+            
+    print(f"{platform} 작업 완료")
+    print("소요시간: ", s-time.time())
 
-# hashtag_col.insert_many([i.to_json() for i in insert_data_list])
+
+
+
 session.close()
+
+
+# def main(dataFrame, platform):
+#     print(f"{platform} 작업 시작")
+#     s = time.time()
+    
+#     title = '모가디슈'
+#     movie = session.query(Movie).filter(Movie.title==title).first()
+#     if movie == None:
+#         return
+#     movie_id = movie.id
+#     nouns = dataFrame.loc[dataFrame['title']==title,'noun']
+#     counts = dataFrame.loc[dataFrame['title']==title,'count']
+    
+#     for word, freq in zip(nouns, counts):
+#         insert_data_list[movie_id][platform][word] = freq
+#         insert_data_list[movie_id]['total'][word] += freq
+            
+#     print(f"{platform} 작업 완료")
+#     print("소요시간: ", s-time.time())

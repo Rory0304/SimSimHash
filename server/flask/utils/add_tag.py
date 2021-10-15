@@ -34,8 +34,15 @@ session = Session()
 
 movie_id는 1918까지 있음
 '''
+
+daum_csv = pd.read_csv('./data/review/Okt_keyword_50daum.csv')
+naver_csv = pd.read_csv('./data/review/Okt_keyword50.csv')
+#watcha_csv = pd.read_csv()
+
+# 영화 전체 개수
 N = len(session.query(Movie).all())
 
+### 삽입용 코드
 insert_data_list = [{"movie_id": i+1, 
                      "total" : defaultdict(int), 
                      'naver':defaultdict(int),
@@ -57,7 +64,6 @@ def main(dataFrame, platform):
     
         nouns = dataFrame.loc[dataFrame['title']==title,'noun']
         counts = dataFrame.loc[dataFrame['title']==title,'count']
-        print(movie_id, title)
         
         for word, freq in zip(nouns, counts):
             insert_data_list[movie_id-1][platform][word] = freq
@@ -68,15 +74,25 @@ def main(dataFrame, platform):
     
 
 
-daum_csv = pd.read_csv('./data/review/Okt_keyword_50daum.csv')
-naver_csv = pd.read_csv('./data/review/Okt_keyword50.csv')
+
 
 main(daum_csv,'daum')
 main(naver_csv, 'naver')
+print("데이터 처리 완료")
 hashtag_col.insert_many(insert_data_list)
+print("삽입 완료")
 
 
 
+### update용 코드
+
+update_data_list = [{"movie_id": i+1, 
+                     "total" : defaultdict(int), 
+                     'naver':defaultdict(int),
+                     'daum':defaultdict(int), 
+                     'watcha':defaultdict(int), 
+                     'cine21':defaultdict(int)} for i in range(N)]
+update_ids = [] # 갱신할 id만 넣어두는 코드, 속도를 위해 필요
 def update(dataFrame, platform):
     '''
     기존 값 삭제하지 않고 업데이트
@@ -86,12 +102,12 @@ def update(dataFrame, platform):
     s = time.time()
     
     for title in dataFrame['title']:
-        ids = [] # 갱신할 id만 넣어두는 코드, 속도를 위해 필요
+
         movie = session.query(Movie).filter(Movie.title==title).first()
         if movie == None:
             continue
         movie_id = movie.id
-        ids.append(movie_id)
+        update_ids.append(movie_id)
         
         nouns = dataFrame.loc[dataFrame['title']==title,'noun']
         counts = dataFrame.loc[dataFrame['title']==title,'count']
@@ -99,41 +115,27 @@ def update(dataFrame, platform):
         
         
         for word, freq in zip(nouns, counts):
-            insert_data_list[movie_id][platform][word] = freq
-            insert_data_list[movie_id]['total'][word] += freq
+            update_data_list[movie_id-1][platform][word] = freq
+            update_data_list[movie_id-1]['total'][word] += freq
             
             
-    for id in ids:
-        update_data = insert_data_list[id]
-        
-        update_data
-        hashtag_col.update({})
-        
+    
             
     print(f"{platform} 작업 완료")
     print("소요시간: ", s-time.time())
+    return
+    
+update(daum_csv,'daum')
+update(naver_csv, 'naver')
+print("데이터 처리 완료")
 
-
-
+for id in update_ids:
+    # movie_id는 인덱싱의 id보다 1 크다. -> update_data_list를 인덱싱 할 때는 -1을 하여 인덱싱해야 된다.
+        
+    query = {"movie_id":id}
+    update_data = update_data_list[id-1]
+    
+    hashtag_col.update_one(query, update_data)
+    print(f"{id}\t업데이트 완료")
 
 session.close()
-
-
-# def main(dataFrame, platform):
-#     print(f"{platform} 작업 시작")
-#     s = time.time()
-    
-#     title = '모가디슈'
-#     movie = session.query(Movie).filter(Movie.title==title).first()
-#     if movie == None:
-#         return
-#     movie_id = movie.id
-#     nouns = dataFrame.loc[dataFrame['title']==title,'noun']
-#     counts = dataFrame.loc[dataFrame['title']==title,'count']
-    
-#     for word, freq in zip(nouns, counts):
-#         insert_data_list[movie_id][platform][word] = freq
-#         insert_data_list[movie_id]['total'][word] += freq
-            
-#     print(f"{platform} 작업 완료")
-#     print("소요시간: ", s-time.time())

@@ -148,7 +148,7 @@ function MovieSlider() {
                                         <Rate
                                             disabled
                                             allowHalf
-                                            defaultValue={Math.round(item.score / 2)}
+                                            value={Math.round(item.score) / 2}
                                             css={rateStyle}
                                         />
                                         <p css={fontStyle}>{item.total}</p>

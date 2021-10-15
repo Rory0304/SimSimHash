@@ -60,13 +60,20 @@ const RadioGroup = css`
         font-size: 1rem;
     }
 `
+
+const NoResult = ({keyword}) => {
+    return (
+        <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>
+    )
+}
+
 function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // const { matchedMovieList } = useSelector((state) => state.searchedMovieSlice);
+    // const { matchedMovieList } = useSelector((state) => state.SearchedMovieSlice);
 
     // console.log(matchedMovieList)
 
@@ -85,18 +92,16 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
     console.log(queryPage)
 
     useEffect(() => {
-        if (queryPage > 2) {
-            setPagination({
-                totalPage: filteredMovieList.length / pageSize,
-                current: queryPage,
-                minIndex: (queryPage - 1) * pageSize,
-                maxIndex: queryPage * pageSize
-            });
-        }
+        setPagination({
+            totalPage: filteredMovieList.length / pageSize,
+            current: queryPage,
+            minIndex: (queryPage - 1) * pageSize,
+            maxIndex: queryPage * pageSize
+        });
     }, [queryPage]);
 
     useEffect(() => {
-        setFilteredMovieList(sample.filter((movie) => movie.title.replace(/\s/gi, "").includes(keyword.replace(/\s/gi, ""))));
+        setFilteredMovieList(sample.filter((movie) => movie.title.includes(keyword.replace(/\s/gi, ""))));
     }, [keyword]);
 
     const handlePageChange = (page) => {
@@ -133,14 +138,14 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
                     <Pagination
                         size="small"
                         pageSize={pageSize}
-                        current={pagination.current}
+                        defaultCurrent={queryPage}
                         total={filteredMovieList.length}
                         onChange={handlePageChange}
                         css={paginationStyle}
                     />
                 </>
             ) : (
-                <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>
+                <NoResult css={noresult} keyword={keyword} />
             )}
         </>
     );

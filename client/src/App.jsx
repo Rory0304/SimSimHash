@@ -11,6 +11,7 @@ import PaginationSlice from "./modules/SearchPage/PaginationSlice";
 import wordCloudSlice from "./modules/DetailPage/wordCloudSlice";
 import movieInfoSlice from "./modules/DetailPage/movieInfoSlice";
 
+
 import "./App.css";
 
 function App() {

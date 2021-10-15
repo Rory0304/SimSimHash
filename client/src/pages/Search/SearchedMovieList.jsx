@@ -70,7 +70,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();
-    const { totalPage, current, minIndex, maxIndex } = useSelector((state) => state.PaginationSlice);
+    const { minIndex, maxIndex } = useSelector((state) => state.PaginationSlice);
     const history = useHistory();
 
     const searchParams = new URLSearchParams(location.search);

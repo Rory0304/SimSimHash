@@ -16,7 +16,7 @@ export const PaginationSlice = createSlice({
             state.totalPage = 0;
             state.current = 1;
             state.minIndex = 0;
-            state.maxIndex = 0;
+            state.maxIndex = 11;
         },
         setPagination(state, action) {
             state.totalPage = action.payload.totalPage;

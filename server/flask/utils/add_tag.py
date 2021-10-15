@@ -87,7 +87,7 @@ insert_data_list = [{"movie_id": i+1,
 ### update용 코드
 
 update_data_list = [{"movie_id": i+1, 
-                     "total" : defaultdict(int), 
+                     "total" : defaultdict(float), 
                      'naver':defaultdict(int),
                      'daum':defaultdict(int), 
                      'watcha':defaultdict(int), 
@@ -114,7 +114,7 @@ def update(dataFrame, platform):
         
         for noun, count in zip(nouns, counts):
             update_data_list[movie_id-1][platform][noun] = count
-            update_data_list[movie_id-1]['total'][noun] += int(count/len(nouns))
+            update_data_list[movie_id-1]['total'][noun] += count/len(nouns)
             
     print(f"{platform} 작업 완료")
     print("소요시간: ", time.time() - s)

@@ -8,77 +8,131 @@ from sqlalchemy import create_engine
 from models.movie import Movie
 from models.tag import Tag
 
-from collections import Counter, defaultdict
-
-from konlpy.tag import Mecab
-mecab = Mecab()
+from collections import defaultdict
+import pandas as pd
+import time 
 
 engine = create_engine(SQLALCHEMY_DATABASE_URI)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-def get_tags(text):
-    morphus = mecab.pos(text)
-    tags = []
-    for (keyword, pos) in morphus:
-        if pos in target_tags:
-            tags.append(keyword)
-    return tags
+'''
+1. 딕셔너리들을 담는 리스트 insert_data
+1. dataframe을 넣어준다 (title,noun,count)
+2. add tag(df, source_site): return nothing
+2. title로 Movie에 쿼리해서 id를 알아낸다. (아디 틀렸을 경우도 있어서 None이면 continue)
+3. 
 
-def counter_to_dict(counter):
-    dic = {}
-    for k, v in counter:
-        dic[k] = v
-    return dic
-    
+{
+    movie_id: n,
+    total: ,
+    naver: ,
+    daum: ,
+    watcha: ,
+    cine21: ,
+}
 
+movie_id는 1918까지 있음
+'''
+
+daum_csv = pd.read_csv('./data/review/Okt_keyword_50daum.csv')
+naver_csv = pd.read_csv('./data/review/Okt_keyword50.csv')
+watcha_csv = pd.read_csv('./data/review/Okt_Wa_keyword_last.csv')
+cine21_csv = pd.read_csv('./data/review/Okt_cine_keyword.csv')
+# 영화 전체 개수
 N = len(session.query(Movie).all())
-target_tags = ['NNG', 'NNP','NR', 'NNB']
-projection = {"_id": False}
 
-insert_data_list = []
-for i in range(1, N+1):
+### 삽입용 코드
+insert_data_list = [{"movie_id": i+1, 
+                     "total" : defaultdict(int), 
+                     'naver':defaultdict(int),
+                     'daum':defaultdict(int), 
+                     'watcha':defaultdict(int), 
+                     'cine21':defaultdict(int)} for i in range(N)]
+
+# def main(dataFrame, platform):
+#     '''
+#     최초 삽입용 코드
+#     '''
+#     print(f"{platform} 작업 시작")
+#     s = time.time()
+#     for title in dataFrame['title']:
+#         movie = session.query(Movie).filter(Movie.title==title).first()
+#         if movie == None:
+#             continue
+#         movie_id = movie.id
     
-    cur = review_col.find({'movie_id': i}, projection)
-    
-    text_dict = {
-        'total' : "",
-        'naver' : "",
-        'daum' : "",
-        'watchapedia' : "",
-        'cine21' : "",
-    }
-    
-    for review in cur:
-    
-        text = review["content"]
-        source_site = review["source_site"]
+#         nouns = dataFrame.loc[dataFrame['title']==title,'noun']
+#         counts = dataFrame.loc[dataFrame['title']==title,'count']
         
-        text_dict['total'] += text
-        text_dict[source_site] += text
-        
-    
-    tag_dict=defaultdict(dict)
-    
-    tag_dict['total'] = counter_to_dict(Counter(get_tags(text_dict['total'])).most_common(25))
-    tag_dict['naver'] = counter_to_dict(Counter(get_tags(text_dict['naver'])).most_common(25))
-    tag_dict['daum'] = counter_to_dict(Counter(get_tags(text_dict['daum'])).most_common(25))
-    tag_dict['watchapedia'] = counter_to_dict(Counter(get_tags(text_dict['watchapedia'])).most_common(25))
-    tag_dict['cine21'] = counter_to_dict(Counter(get_tags(text_dict['cine21'])).most_common(25))
+#         for word, freq in zip(nouns, counts):
+#             insert_data_list[movie_id-1][platform][word] = freq
+#             insert_data_list[movie_id-1]['total'][word] += freq
             
-    insert_data = Tag(movie_id= i, 
-                         total=tag_dict['total'], 
-                         naver=tag_dict['naver'], 
-                         daum=tag_dict['daum'], 
-                         watcha=tag_dict['watchapedia'],
-                         cine21=tag_dict['cine21'])
+#     print(f"{platform} 작업 완료")
+#     print("소요시간: ", time.time()-s)
     
-    insert_data_list.append(insert_data)
-    
-# 전체 삭제
-# d = hashtag_col.delete_many({})
-# print(d.deleted_count)
-# 
 
-hashtag_col.insert_many([i.to_json() for i in insert_data_list])
+
+
+
+# main(daum_csv,'daum')
+# main(naver_csv, 'naver')
+# print("데이터 처리 완료")
+# hashtag_col.insert_many(insert_data_list)
+# print("삽입 완료")
+
+
+
+### update용 코드
+
+update_data_list = [{"movie_id": i+1, 
+                     "total" : defaultdict(float), 
+                     'naver':defaultdict(int),
+                     'daum':defaultdict(int), 
+                     'watcha':defaultdict(int), 
+                     'cine21':defaultdict(int)} for i in range(N)]
+update_ids = [] # 갱신할 id만 넣어두는 코드, 속도를 위해 필요
+def update(dataFrame, platform):
+    '''
+    기존 값 삭제하지 않고 업데이트
+    '''
+    
+    print(f"{platform} 작업 시작")
+    s = time.time()
+    
+    for title in dataFrame['title']:
+
+        movie = session.query(Movie).filter(Movie.title==title).first()
+        if movie == None:
+            continue
+        movie_id = movie.id
+        update_ids.append(movie_id)
+        
+        nouns = dataFrame.loc[dataFrame['title']==title,'noun']
+        counts = dataFrame.loc[dataFrame['title']==title,'count']
+        
+        for noun, count in zip(nouns, counts):
+            update_data_list[movie_id-1][platform][noun] = count
+            update_data_list[movie_id-1]['total'][noun] += count/len(nouns)
+            
+    print(f"{platform} 작업 완료")
+    print("소요시간: ", time.time() - s)
+    return
+    
+update(daum_csv,'daum')
+update(naver_csv, 'naver')
+update(watcha_csv, 'watcha')
+update(cine21_csv, 'cine21')
+print("데이터 처리 완료")
+
+for id in update_ids:
+    # movie_id는 인덱싱의 id보다 1 크다. -> update_data_list를 인덱싱 할 때는 -1을 하여 인덱싱해야 된다.
+        
+    query = {"movie_id":id}
+    update_data = {"$set": update_data_list[id-1]}
+    
+    hashtag_col.update_one(query, update_data)
+    print(f"{id}\t업데이트 완료")
+
 session.close()

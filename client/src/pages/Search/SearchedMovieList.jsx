@@ -77,20 +77,24 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
     const queryPage = searchParams.get("page");
 
     useEffect(() => {
-        dispatch(setPagination({
-            totalPage: length / pageSize,
-            current: queryPage,
-            minIndex: (queryPage - 1) * pageSize,
-            maxIndex: queryPage * pageSize
-        }));
+        dispatch(
+            setPagination({
+                totalPage: length / pageSize,
+                current: queryPage,
+                minIndex: (queryPage - 1) * pageSize,
+                maxIndex: queryPage * pageSize
+            })
+        );
     }, [queryPage]);
 
     const handlePageChange = (page) => {
-        dispatch(setPagination({
-            current: page,
-            minIndex: (page - 1) * pageSize,
-            maxIndex: page * pageSize
-        }));
+        dispatch(
+            setPagination({
+                current: page,
+                minIndex: (page - 1) * pageSize,
+                maxIndex: page * pageSize
+            })
+        );
         history.push(`/search?keyword=${keyword}&page=${page}`);
         dispatch(setPage({ page } - 1));
     };
@@ -101,10 +105,16 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
             {matchedMovieList.length > 0 ? (
                 <>
                     <ul css={movieListWrapper}>
-                        {matchedMovieList
-                            .map((movie) => {
-                                return <Poster item={movie} setKeyword={setKeyword} page="search" />;
-                            })}
+                        {matchedMovieList.map((movie) => {
+                            return (
+                                <Poster
+                                    item={movie}
+                                    setKeyword={setKeyword}
+                                    page="search"
+                                    movie_id={movie.id}
+                                />
+                            );
+                        })}
                     </ul>
                     <Pagination
                         size="small"

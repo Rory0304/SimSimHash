@@ -73,7 +73,14 @@ function DefaultMovieList({ setKeyword }) {
             </div>
             <ul css={movieListWrapper}>
                 {currentMovieList.map(([key, movie]) => {
-                    return <Poster item={movie} setKeyword={setKeyword} page="search" />;
+                    return (
+                        <Poster
+                            item={movie}
+                            setKeyword={setKeyword}
+                            page="search"
+                            movie_id={movie.movie_id}
+                        />
+                    );
                 })}
             </ul>
         </>

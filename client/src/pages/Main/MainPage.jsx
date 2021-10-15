@@ -9,11 +9,16 @@ import SelectedTagList from "./SelectedTagList";
 import MainIntro from "./MainIntro";
 import MovieSlider from "./MovieSlider";
 import MovieListModal from "./MovieListModal";
-import { getMovieListByTag, getInitialMovieList } from "../../modules/MainPage/tagDataSlice";
+import {
+    getMovieListByTag,
+    getInitialMovieList,
+    clearTag
+} from "../../modules/MainPage/tagDataSlice";
 
 import { TagFilled } from "@ant-design/icons";
 
 const selectedInfo = css`
+    height: 20px;
     font-size: 1.25rem;
     font-weight: bold;
     color: rgba(255, 255, 255, 0.8);
@@ -39,11 +44,15 @@ function MainPage() {
     const dispatch = useDispatch();
     const [initialCall, setInitialCall] = useState(false);
 
-    const { selectedTagList, movieList } = useSelector((state) => state.mainTagDataSlice);
+    const { selectedTagList, movieList, loading } = useSelector((state) => state.mainTagDataSlice);
 
     useEffect(() => {
         dispatch(getInitialMovieList());
         setInitialCall(true);
+
+        return () => {
+            dispatch(clearTag());
+        };
     }, []);
 
     useEffect(() => {
@@ -62,20 +71,23 @@ function MainPage() {
             <main css={mainInnerWrapperStyle}>
                 <div style={{ height: "100%" }}>
                     <MainIntro />
-                    <div>
+                    <div style={{ height: "70%" }}>
                         <MovieListModal />
                         <MovieSlider />
                         <p css={selectedInfo}>
-                            {selectedTagList.length === 0 ? (
+                            {loading ? (
                                 <>
-                                    {" "}
+                                    <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
+                                    영화 정보를 불러오고 있습니다!
+                                </>
+                            ) : selectedTagList.length === 0 ? (
+                                <>
                                     <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
                                     해시태그를 선택하세요!
                                 </>
                             ) : (
                                 movieList.length === 0 && (
                                     <>
-                                        {" "}
                                         <TagFilled
                                             style={{ color: "#fff", marginRight: "0.625rem" }}
                                         />

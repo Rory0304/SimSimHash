@@ -86,8 +86,8 @@ const DetailPage = ({ history, match }) => {
     useEffect(() => {
         dispatch(getMovieInfo({ id }));
         return () => {
+            dispatch(clearMovieInfo());
             dispatch(clearPlatformData);
-            dispatch(clearMovieInfo);
         };
     }, []);
 

@@ -14,7 +14,7 @@ const MainIntroWrapStyle = css`
     text-align: center;
 
     div {
-        width: 40%;
+        width: 500px;
         margin: 0 auto;
     }
 

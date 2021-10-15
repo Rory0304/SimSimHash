@@ -41,9 +41,7 @@ const integratedResultWrapper = css`
 `;
 
 const integratedResultData = css`
-    width: 300px;
-    height: 300px;
-
+    width: 50%;
     p {
         text-align: center;
         padding: 40px;
@@ -116,7 +114,9 @@ const IntegratedAnalysis = React.forwardRef(({ movie }, ref) => {
                 />
                 <div css={integratedResultData}>
                     <h4>통합 평점</h4>
-                    <p>{Math.round(movieInfo.total.score) / 2} / 5</p>
+                    <p>
+                        <span>{Math.round(movieInfo.total.score) / 2}</span> / 5
+                    </p>
                     <h4>통합 리뷰</h4>
                     <div css={integratedReviews}>
                         {Object.entries(movieInfo.total.tags).map(

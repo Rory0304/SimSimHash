@@ -44,7 +44,7 @@ function TagList() {
     const { tagList, selectedTagList } = useSelector((state) => state.mainTagDataSlice);
     const { CheckableTag } = Tag;
 
-    const getlTagList = async () => {
+    const getlTagList = () => {
         dispatch(getRandomTagList());
     };
 

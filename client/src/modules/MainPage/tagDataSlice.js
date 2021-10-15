@@ -8,6 +8,7 @@ const initialState = {
     initialMovieList: [],
     movieList: [],
     loading: false,
+    tagLoading: false,
     error: ""
 };
 
@@ -71,6 +72,13 @@ export const mainTagDataSlice = createSlice({
     name: "mainTagDataSlice",
     initialState,
     reducers: {
+        clearTag(state, aciton) {
+            state.loading = false;
+            state.tagLoading = false;
+            state.tagList = [];
+            state.selectedTagList = [];
+            state.error = "";
+        },
         addTag(state, action) {
             //action.payload.tag: 선택한 태그 이름
             state.selectedTagList.push(action.payload.tag);
@@ -108,18 +116,18 @@ export const mainTagDataSlice = createSlice({
         });
         /* 랜덤 태그를 받아오는 함수 상태 */
         builder.addCase(getRandomTagList.rejected, (state, action) => {
-            state.loading = false;
+            state.tagLoading = false;
             state.tagList = [];
             state.error = action.payload;
         });
         builder.addCase(getRandomTagList.pending, (state, action) => {
-            state.loading = true;
+            state.tagLoading = true;
             state.tagList = [];
             state.error = "";
         });
         builder.addCase(getRandomTagList.fulfilled, (state, action) => {
             state.tagList = action.payload;
-            state.loading = false;
+            state.tagLoading = false;
             state.error = "";
         });
         /* 태그와 관련된 영화 리스트를 받아오는 함수 상태 */
@@ -142,5 +150,5 @@ export const mainTagDataSlice = createSlice({
     }
 });
 
-export const { addTag, removeTag, setTagList } = mainTagDataSlice.actions;
+export const { addTag, removeTag, setTagList, clearTag } = mainTagDataSlice.actions;
 export default mainTagDataSlice.reducer;

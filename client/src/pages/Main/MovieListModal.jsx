@@ -37,6 +37,17 @@ const modalStyle = css`
     }
 `;
 
+const modalInnerUl = css`
+    display: flex;
+    flex-wrap: wrap;
+    width: ;
+    gap: 50px;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-direction: row;
+    justify-content: center;
+`;
+
 function MovieListModal() {
     const { movieList } = useSelector((state) => state.mainTagDataSlice);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -69,9 +80,11 @@ function MovieListModal() {
                 css={modalStyle}
                 footer={null}
             >
-                {movieList.map(([key, movie]) => {
-                    return <Poster item={movie} page="main" />;
-                })}
+                <ul css={modalInnerUl}>
+                    {movieList.map(([key, movie]) => {
+                        return <Poster item={movie} page="main" />;
+                    })}
+                </ul>
             </Modal>
         </div>
     );

@@ -20,7 +20,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 const sliderWrapperStyle = css`
     width: 900px;
-    height: auto;
+    height: 195px;
     margin: 0 auto;
 
     .slick-prev:before,

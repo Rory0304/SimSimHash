@@ -83,6 +83,8 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
             minIndex: (queryPage - 1) * pageSize,
             maxIndex: queryPage * pageSize
         }));
+        dispatch(setPage({ page: queryPage }));
+        dispatch(getMovieListByTitle());
     }, [queryPage]);
 
     const handlePageChange = (page) => {
@@ -92,8 +94,6 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
             maxIndex: page * pageSize
         }));
         history.push(`/search?keyword=${keyword}&page=${page}`);
-        dispatch(setPage({ page }));
-        dispatch(getMovieListByTitle());
     };
 
     return (

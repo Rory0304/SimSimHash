@@ -96,7 +96,7 @@ function MovieInfo() {
         running_time,
         poster,
         genre
-    } = movieInfo.movie;
+    } = movieInfo.detail;
 
     return (
         <div css={movieInfoWrapper}>

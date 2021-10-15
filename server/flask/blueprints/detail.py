@@ -75,6 +75,8 @@ def get_platform_summary(movie_id):
 def get_platform_tag(movie_id, platform):
     #movie_id int처리
     tags = hashtag_col.find_one({"movie_id": int(movie_id)})
+    if tags is None:
+        return ""
     platform_tags = tags[platform]
 
     return platform_tags

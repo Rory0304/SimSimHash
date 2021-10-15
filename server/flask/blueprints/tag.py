@@ -6,7 +6,7 @@ bp = Blueprint('tag',__name__)
 
 @bp.route('/tag', methods=['GET'])
 def get_tags():
-    QUERY = 24 # 넘겨줘야 할 태그 수
+    QUERY = 15 # 넘겨줘야 할 태그 수
     
     # 전체 태그 수
     last_num = hashtag_col.find_one({}, {"content": {"$slice": -1}})['content'][0]['index']

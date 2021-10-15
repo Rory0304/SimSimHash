@@ -128,30 +128,31 @@ function MovieSlider() {
         ]
     };
 
-    const target = (movieList.length >= 1 && movieList) || sample;
+    // const target = (movieList.length >= 1 && movieList) || sample;
 
     return (
         <div css={sliderWrapperStyle}>
             <Slider {...settings}>
-                {target.map((item) => {
+                {movieList.map(([key, movie]) => {
                     return (
                         <>
                             <div css={sliderImgStyle}>
-                                <Link to={`/movie/${item.id}`}>
+                                <Link to={`/movie/${movie.movie_id}`}>
                                     <LazyLoadImage
                                         effect="blur"
-                                        src={`${item.poster}?type=m203_290_2`}
-                                        alt={item.title}
+                                        src={movie.poster}
+                                        alt={movie.title}
+                                        key={movie.movie_id}
                                     />
                                     <div css={sliderImgLayerStyle}>
-                                        <p css={fontStyle}>{item.title}</p>
+                                        <p css={fontStyle}>{movie.title}</p>
                                         <Rate
                                             disabled
                                             allowHalf
-                                            value={Math.round(item.score) / 2}
+                                            value={Math.round(movie.score) / 2}
                                             css={rateStyle}
                                         />
-                                        <p css={fontStyle}>{item.total}</p>
+                                        {/* <p css={fontStyle}>{movie.hashtags.total}</p> */}
                                     </div>
                                 </Link>
                             </div>

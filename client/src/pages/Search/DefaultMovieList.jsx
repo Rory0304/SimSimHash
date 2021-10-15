@@ -15,6 +15,25 @@ const movieListWrapper = css`
     margin: 0 auto;
 `;
 
+const SpecialMovieList = css`
+    text-align: center;
+    height: 13vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    font-size: 1.3rem;
+    color: white;
+
+    p {
+        font-weight: bold;
+    }
+`;
+
+const highligher = css`
+    background: linear-gradient(to top, rgb(246, 45, 168) 50%, transparent 50%);
+`;
+
 function DefaultMovieList({ setKeyword }) {
     const dispatch = useDispatch();
     const { currentMovieList } = useSelector((state) => state.DefaultMovieSlice);
@@ -47,9 +66,21 @@ function DefaultMovieList({ setKeyword }) {
 
     return (
         <>
+            <div css={SpecialMovieList}>
+                <p css={highligher}>
+                    #심심해시가 선정한 <span>"코로나"</span>가 가장 많이 언급된 영화들
+                </p>
+            </div>
             <ul css={movieListWrapper}>
-                {currentMovieList.map((movie) => {
-                    return <Poster item={movie} setKeyword={setKeyword} page="search" />;
+                {currentMovieList.map(([key, movie]) => {
+                    return (
+                        <Poster
+                            item={movie}
+                            setKeyword={setKeyword}
+                            page="search"
+                            movie_id={movie.movie_id}
+                        />
+                    );
                 })}
             </ul>
         </>

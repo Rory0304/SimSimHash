@@ -8,7 +8,8 @@ import { Pagination } from "antd";
 
 import Poster from "../../components/Poster";
 import SearchResultHeader from "./SearchResultHeader";
-import { setPage } from "../../modules/SearchPage/SearchedMovieSlice";
+import { setPage, getMovieListByTitle } from "../../modules/SearchPage/SearchedMovieSlice";
+import { setPagination } from "../../modules/SearchPage/PaginationSlice";
 import { sample } from "../../assets/Sample";
 
 const paginationStyle = css`
@@ -67,62 +68,60 @@ const NoResult = ({ keyword }) => {
 
 function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
-    const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();
+    const { matchedMovieList, length } = useSelector((state) => state.SearchedMovieSlice);
+    const { minIndex, maxIndex } = useSelector((state) => state.PaginationSlice);
     const history = useHistory();
-
-    const [pagination, setPagination] = useState({
-        totalPage: filteredMovieList.length / pageSize,
-        current: 1,
-        minIndex: 0,
-        maxIndex: pageSize
-    });
 
     const searchParams = new URLSearchParams(location.search);
     const queryPage = searchParams.get("page");
 
     useEffect(() => {
-        setPagination({
-            totalPage: filteredMovieList.length / pageSize,
-            current: queryPage,
-            minIndex: (queryPage - 1) * pageSize,
-            maxIndex: queryPage * pageSize
-        });
+        dispatch(
+            setPagination({
+                totalPage: length / pageSize,
+                current: queryPage,
+                minIndex: (queryPage - 1) * pageSize,
+                maxIndex: queryPage * pageSize
+            })
+        );
     }, [queryPage]);
 
-    useEffect(() => {
-        setFilteredMovieList(
-            sample.filter((movie) => movie.title.includes(keyword.replace(/\s/gi, "")))
-        );
-    }, [keyword]);
-
     const handlePageChange = (page) => {
-        setPagination({
-            current: page,
-            minIndex: (page - 1) * pageSize,
-            maxIndex: page * pageSize
-        });
+        dispatch(
+            setPagination({
+                current: page,
+                minIndex: (page - 1) * pageSize,
+                maxIndex: page * pageSize
+            })
+        );
         history.push(`/search?keyword=${keyword}&page=${page}`);
         dispatch(setPage({ page }));
+        dispatch(getMovieListByTitle());
     };
 
     return (
         <>
             <SearchResultHeader keyword={keyword} />
-            {filteredMovieList.length > 0 ? (
+            {length > 0 ? (
                 <>
                     <ul css={movieListWrapper}>
-                        {filteredMovieList
-                            .slice(pagination.minIndex, pagination.maxIndex)
-                            .map((item) => {
-                                return <Poster item={item} setKeyword={setKeyword} page="search" />;
-                            })}
+                        {matchedMovieList.map((movie) => {
+                            return (
+                                <Poster
+                                    item={movie}
+                                    setKeyword={setKeyword}
+                                    page="search"
+                                    movie_id={movie.id}
+                                />
+                            );
+                        })}
                     </ul>
                     <Pagination
                         size="small"
                         pageSize={pageSize}
                         defaultCurrent={queryPage}
-                        total={filteredMovieList.length}
+                        total={length}
                         onChange={handlePageChange}
                         css={paginationStyle}
                     />

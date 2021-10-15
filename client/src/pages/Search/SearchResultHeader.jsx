@@ -32,13 +32,13 @@ function SearchResultHeader({ keyword }) {
         dispatch(setSort(e.target.value));
     };
 
-    const { matchedMovieList } = useSelector((state) => state.SearchedMovieSlice);
+    const { matchedMovieList, length } = useSelector((state) => state.SearchedMovieSlice);
 
     return (
         <div css={SearchOptionWrapper}>
             <div>
                 <p>
-                    "{keyword}" 연관 검색 결과 <span>({matchedMovieList.length} 개)</span>
+                    "{keyword}" 연관 검색 결과 <span>({length} 개)</span>
                 </p>
             </div>
             <Radio.Group onChange={onClickSortOption} value={option} css={RadioGroup}>

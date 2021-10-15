@@ -68,7 +68,6 @@ const NoResult = ({ keyword }) => {
 
 function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
-    const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();
     const { matchedMovieList } = useSelector((state) => state.SearchedMovieSlice);
     const { minIndex, maxIndex } = useSelector((state) => state.PaginationSlice);
@@ -79,18 +78,12 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
 
     useEffect(() => {
         dispatch(setPagination({
-            totalPage: filteredMovieList.length / pageSize,
+            totalPage: matchedMovieList.length / pageSize,
             current: queryPage,
             minIndex: (queryPage - 1) * pageSize,
             maxIndex: queryPage * pageSize
         }));
     }, [queryPage]);
-
-    useEffect(() => {
-        setFilteredMovieList(
-            sample.filter((movie) => movie.title.includes(keyword.replace(/\s/gi, "")))
-        );
-    }, [keyword]);
 
     const handlePageChange = (page) => {
         dispatch(setPagination({

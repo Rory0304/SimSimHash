@@ -39,10 +39,12 @@ const laztTextStyle = css`
 `;
 
 const lazyImageStyle = ({ page }) => css`
-    width: 100%;
-    height: ${page === "main" ? "257px" : "389px"};
+    width: 15vw;
+    min-height: ${page === "main" ? "257px" : "200px"};
+    height: auto;
     content: "";
     background-color: #3f4555d6;
+    border-radius: 17px 17px 0 0;
 `;
 
 function LoadingPoster({ page }) {

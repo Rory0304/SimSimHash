@@ -4,22 +4,39 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Poster from "../../components/Poster";
-import {
-    getMovieList,
-    addMovie,
-    clearState
-} from "../../modules/SearchPage/DefaultsearchMovieSlice";
+import { getMovieList, addMovie, clearState } from "../../modules/SearchPage/DefaultMovieSlice";
 
 const movieListWrapper = css`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 5.3rem 2.5rem;
-    justify-items: center;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4vw;
+    width: calc(100vw - 20vw);
+    margin: 0 auto;
+`;
+
+const SpecialMovieList = css`
+    text-align: center;
+    height: 13vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    font-size: 1.3rem;
+    color: white;
+
+    p {
+        font-weight: bold;
+    }
+`;
+
+const highligher = css`
+    background: linear-gradient(to top, rgb(246, 45, 168) 50%, transparent 50%);
 `;
 
 function DefaultMovieList({ setKeyword }) {
     const dispatch = useDispatch();
-    const { currentMovieList } = useSelector((state) => state.searchMovieSlice);
+    const { currentMovieList } = useSelector((state) => state.DefaultMovieSlice);
 
     useEffect(() => {
         //기존에 불러온 영화 리스트가 있다면 api를 호출하지 않는다.
@@ -49,9 +66,21 @@ function DefaultMovieList({ setKeyword }) {
 
     return (
         <>
+            <div css={SpecialMovieList}>
+                <p css={highligher}>
+                    #심심해시가 선정한 <span>"코로나"</span>가 가장 많이 언급된 영화들
+                </p>
+            </div>
             <ul css={movieListWrapper}>
-                {currentMovieList.map((movie) => {
-                    return <Poster item={movie} setKeyword={setKeyword} page="search" />;
+                {currentMovieList.map(([key, movie]) => {
+                    return (
+                        <Poster
+                            item={movie}
+                            setKeyword={setKeyword}
+                            page="search"
+                            movie_id={movie.movie_id}
+                        />
+                    );
                 })}
             </ul>
         </>

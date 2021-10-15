@@ -2,10 +2,14 @@
 import { css, jsx } from "@emotion/react";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Pagination } from "antd";
 
 import Poster from "../../components/Poster";
+import SearchResultHeader from "./SearchResultHeader";
+import { setPage, getMovieListByTitle } from "../../modules/SearchPage/SearchedMovieSlice";
+import { setPagination } from "../../modules/SearchPage/PaginationSlice";
 import { sample } from "../../assets/Sample";
 
 const paginationStyle = css`
@@ -40,68 +44,90 @@ const noresult = css`
 `;
 
 const movieListWrapper = css`
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 5.3rem 2.5rem;
-    justify-items: center;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 4vw;
+    width: calc(100vw - 28vw);
+    margin: 0 auto;
 `;
 
-function SearchedMovieList({ keyword, setKeyword }) {
-    const pageSize = 10;
-    const [filteredMovieList, setFilteredMovieList] = useState([]);
+const RadioGroup = css`
+    margin-bottom: 30px;
+    text-align: right;
 
-    // const target = (filteredMovieList.length >= 1 && filteredMovieList);
+    label {
+        color: white;
+        font-size: 1rem;
+    }
+`;
 
-    const [pagination, setPagination] = useState({
-        totalPage: filteredMovieList.length / pageSize,
-        current: 1,
-        minIndex: 0,
-        maxIndex: pageSize
-    });
+const NoResult = ({ keyword }) => {
+    return <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>;
+};
 
+function SearchedMovieList({ keyword, setKeyword, location }) {
+    const pageSize = 12;
+    const dispatch = useDispatch();
+    const { matchedMovieList, length } = useSelector((state) => state.SearchedMovieSlice);
+    const { minIndex, maxIndex } = useSelector((state) => state.PaginationSlice);
     const history = useHistory();
 
-    useEffect(() => {
-        setFilteredMovieList(sample.filter((movie) => movie.title.replace(/\s/gi, "").includes(keyword.replace(/\s/gi, ""))));
-        setPagination({
-            totalPage: filteredMovieList.length / pageSize,
-            current: 1,
-            minIndex: 0,
-            maxIndex: pageSize
-        });
-    }, [keyword]);
+    const searchParams = new URLSearchParams(location.search);
+    const queryPage = searchParams.get("page");
 
-    const handleChange = (page) => {
-        setPagination({
-            current: page,
-            minIndex: (page - 1) * pageSize,
-            maxIndex: page * pageSize
-        });
+    useEffect(() => {
+        dispatch(
+            setPagination({
+                totalPage: length / pageSize,
+                current: queryPage,
+                minIndex: (queryPage - 1) * pageSize,
+                maxIndex: queryPage * pageSize
+            })
+        );
+    }, [queryPage]);
+
+    const handlePageChange = (page) => {
+        dispatch(
+            setPagination({
+                current: page,
+                minIndex: (page - 1) * pageSize,
+                maxIndex: page * pageSize
+            })
+        );
         history.push(`/search?keyword=${keyword}&page=${page}`);
+        dispatch(setPage({ page }));
+        dispatch(getMovieListByTitle());
     };
 
     return (
         <>
-            {filteredMovieList.length > 0 ? (
+            <SearchResultHeader keyword={keyword} />
+            {length > 0 ? (
                 <>
                     <ul css={movieListWrapper}>
-                        {filteredMovieList
-                            .slice(pagination.minIndex, pagination.maxIndex)
-                            .map((item) => {
-                                return <Poster item={item} setKeyword={setKeyword} page="search" />;
-                            })}
+                        {matchedMovieList.map((movie) => {
+                            return (
+                                <Poster
+                                    item={movie}
+                                    setKeyword={setKeyword}
+                                    page="search"
+                                    movie_id={movie.id}
+                                />
+                            );
+                        })}
                     </ul>
                     <Pagination
                         size="small"
                         pageSize={pageSize}
-                        current={pagination.current}
-                        total={filteredMovieList.length}
-                        onChange={handleChange}
+                        defaultCurrent={queryPage}
+                        total={length}
+                        onChange={handlePageChange}
                         css={paginationStyle}
                     />
                 </>
             ) : (
-                <p css={noresult}>'{keyword}'에 대한 검색 결과가 없습니다.</p>
+                <NoResult keyword={keyword} />
             )}
         </>
     );

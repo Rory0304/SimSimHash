@@ -2,11 +2,14 @@
 import { css, jsx } from "@emotion/react";
 
 import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import MovieInfo from "./MovieInfo";
 import IntegratedAnalysis from "./IntegratedAnalysis";
 import PlatformAnalysis from "./PlatformAnalysis";
+import { clearPlatformData } from "../../modules/DetailPage/wordCloudSlice";
+import { clearMovieInfo, getMovieInfo } from "../../modules/DetailPage/movieInfoSlice";
 import { Button, BackTop } from "antd";
 import { sample } from "../../assets/Sample";
 
@@ -59,48 +62,44 @@ const goBackBtnArea = css`
 const style = {
     height: 40,
     width: 70,
-    lineHeight: '40px',
+    lineHeight: "40px",
     borderRadius: 8,
-    backgroundColor: '#444444',
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 14,
-};
-
-const getMovieById = (id) => {
-    const array = sample.filter((movie) => String(movie.id) === id);
-
-    if (array.length === 1) {
-        return array[0];
-    }
-    return null;
+    backgroundColor: "#444444",
+    color: "#fff",
+    textAlign: "center",
+    fontSize: 14
 };
 
 const DetailPage = ({ history, match }) => {
-    const [movie, setMovie] = useState({});
+    const dispatch = useDispatch();
     const { id } = match.params;
+
     let integratedAnalysisRef = useRef(null);
     let PlatformAnalysisRef = useRef(null);
 
+    //통합 분석, 플랫폼 별 분석으로 바로 이동하기 위한 함수
     function scrollTo(ref) {
         if (!ref.current) return;
         ref.current.scrollIntoView();
     }
 
     useEffect(() => {
-        setMovie(getMovieById(id));
+        dispatch(getMovieInfo({ id }));
+        return () => {
+            dispatch(clearPlatformData);
+            dispatch(clearMovieInfo);
+        };
     }, []);
 
     return (
         <div css={detailPageWrapper}>
-            <MovieInfo movie={movie} />
-
+            <MovieInfo />
             <ul css={tabStyle}>
                 <li onClick={() => scrollTo(integratedAnalysisRef)}>통합 분석</li>
                 <li onClick={() => scrollTo(PlatformAnalysisRef)}>플랫폼 분석</li>
             </ul>
-            <IntegratedAnalysis movie={movie} ref={integratedAnalysisRef} />
-            <PlatformAnalysis movie={movie} ref={PlatformAnalysisRef} />
+            <IntegratedAnalysis ref={integratedAnalysisRef} />
+            <PlatformAnalysis ref={PlatformAnalysisRef} />
             <div css={goBackBtnArea}>
                 <Button onClick={() => history.goBack()}>목록으로 돌아가기</Button>
             </div>

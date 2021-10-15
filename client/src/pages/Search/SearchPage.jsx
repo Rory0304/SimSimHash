@@ -2,15 +2,17 @@
 import { css, jsx } from "@emotion/react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import SearchBar from "../../components/SearchBar";
 import DefaultMovieList from "./DefaultMovieList";
 import SearchedMovieList from "./SearchedMovieList";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { setTitle, getMovieListByTitle } from "../../modules/SearchPage/SearchedMovieSlice";
 
 const searchBannerStyle = css`
     display: flex;
-    height: 17.5rem;
+    border-bottom: 1px solid #444;
+    height: 20rem;
     text-align: center;
     flex-direction: column;
     justify-content: center;
@@ -24,11 +26,12 @@ const searchBannerStyle = css`
     }
 `;
 
-const SearchResultWrapper = css`
+const movieListWrapper = css`
     padding: 30px;
 `;
 
 function SearchPage({ location }) {
+    const dispatch = useDispatch();
     const [keyword, setKeyword] = useState("");
     const [query, setQuery] = useState("");
     const searchParams = new URLSearchParams(location.search);
@@ -37,19 +40,25 @@ function SearchPage({ location }) {
     useEffect(() => {
         setQuery(queryParams);
         setKeyword(queryParams);
+        dispatch(setTitle({ keyword: queryParams }));
+        dispatch(getMovieListByTitle());
     }, [queryParams]);
 
     return (
-        <div css={SearchResultWrapper}>
+        <div>
             <div css={searchBannerStyle}>
                 <p>심심해시에서 다양한 영화를 검색해보세요!</p>
-                <SearchBar />
+                <SearchBar value={queryParams} />
             </div>
-            <div>
+            <div css={movieListWrapper}>
                 {keyword.length === 0 ? (
                     <DefaultMovieList setKeyword={setKeyword} />
                 ) : (
-                    <SearchedMovieList keyword={query} setKeyword={setKeyword} />
+                    <SearchedMovieList
+                        keyword={query}
+                        setKeyword={setKeyword}
+                        location={location}
+                    />
                 )}
             </div>
         </div>

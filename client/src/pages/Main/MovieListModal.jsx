@@ -62,8 +62,8 @@ function MovieListModal() {
                 css={modalStyle}
                 footer={null}
             >
-                {movieList.map((item) => {
-                    return <Poster item={item} page="main" />;
+                {movieList.map(([key, movie]) => {
+                    return <Poster item={movie} page="main" />;
                 })}
             </Modal>
         </div>

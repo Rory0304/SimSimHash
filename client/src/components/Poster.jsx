@@ -9,7 +9,7 @@ import LoadingPoster from "./LoadingPoster";
 
 const imgStyle = ({ page }) => css`
     text-align: center;
-    width: ${page === "main" ? "11rem" : "17rem"};
+    width: ${page === "main" ? "11rem" : "15vw"};
     border-radius: 12px 12px 0 0;
 
     img {
@@ -18,7 +18,7 @@ const imgStyle = ({ page }) => css`
 `;
 
 const posterWrapperStyle = ({ page }) => css`
-    width: ${page === "main" ? "11rem" : "17rem"};
+    width: ${page === "main" ? "11rem" : "15vw"};
     border-radius: 17px;
     background-color: #2c313f;
     transition: 0.3s ease-in-out;
@@ -40,12 +40,12 @@ const posterWrapperStyle = ({ page }) => css`
 
 const LazyPoster = lazy(() => import("./LazyPoster"));
 
-function Poster({ item, setKeyword, page }) {
+function Poster({ item, setKeyword, page, movie_id }) {
     return (
         <li css={posterWrapperStyle({ page: page })}>
             <div>
                 {page === "search" && <form onChange={(e) => setKeyword(e.target.value)} />}
-                <Link to={`/movie/${item.id}`}>
+                <Link to={`/movie/${movie_id}`}>
                     <div css={imgStyle({ page: page })}>
                         <Suspense fallback={<LoadingPoster />}>
                             <LazyPoster page={page} item={item} />

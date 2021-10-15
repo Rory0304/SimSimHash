@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from "@emotion/react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const movieInfoWrapper = css`
     height: fit-content;
@@ -82,33 +83,45 @@ const movieInfoSpec = ({ open }) => css`
     }
 `;
 
-function MovieInfo({ movie }) {
+function MovieInfo() {
     const [movieInfoOpen, setMovieInfoOpen] = useState(false);
+    const { movieInfo, loading } = useSelector((state) => state.movieInfoSlice);
+
+    const {
+        title,
+        release_date,
+        actor,
+        director,
+        summary,
+        running_time,
+        poster,
+        genre
+    } = movieInfo.detail;
 
     return (
         <div css={movieInfoWrapper}>
             <div css={movieInfoContents({ open: movieInfoOpen })}>
-                <h2>{movie.title}</h2>
+                <h2>{title}</h2>
                 <div css={moviePoster({ open: movieInfoOpen })}>
-                    <img src={movie.poster} alt={movie.title} />
+                    <img src={poster} alt={title} />
                 </div>
                 <div css={movieInfoSpec({ open: movieInfoOpen })}>
                     <dl>
                         <dt>개요</dt>
                         <dd>
                             <p>
-                                <span>{movie.genre}</span>
-                                <span>2021.09.20 개봉</span>
+                                <span>{genre}</span>
+                                <span>{release_date} 개봉</span>
                             </p>
                         </dd>
                         <dt>감독</dt>
-                        <dd>{movie.director}</dd>
+                        <dd>{director}</dd>
                         <dt>출연</dt>
-                        <dd>{movie.actor}</dd>
+                        <dd>{actor}</dd>
                         <dt>러닝 타임</dt>
-                        <dd>{movie.running_time}</dd>
+                        <dd>{running_time}</dd>
                         <dt>줄거리</dt>
-                        <dd>{movie.summary}</dd>
+                        <dd>{summary}</dd>
                     </dl>
                 </div>
             </div>

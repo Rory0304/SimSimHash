@@ -44,13 +44,17 @@ function SearchPage({ location }) {
         <div css={SearchResultWrapper}>
             <div css={searchBannerStyle}>
                 <p>심심해시에서 다양한 영화를 검색해보세요!</p>
-                <SearchBar />
+                <SearchBar value={keyword} />
             </div>
             <div>
                 {keyword.length === 0 ? (
                     <DefaultMovieList setKeyword={setKeyword} />
                 ) : (
-                    <SearchedMovieList keyword={query} setKeyword={setKeyword} location={location} />
+                    <SearchedMovieList
+                        keyword={query}
+                        setKeyword={setKeyword}
+                        location={location}
+                    />
                 )}
             </div>
         </div>

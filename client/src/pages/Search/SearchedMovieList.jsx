@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Pagination, Radio } from "antd";
+import { Pagination } from "antd";
 
 import Poster from "../../components/Poster";
-import { getMovieListByTitle, setPage, setSort } from "../../modules/SearchPage/SearchedMovieSlice";
+import SearchResultBar from "./SearchResultHeader";
+import { setPage } from "../../modules/SearchPage/SearchedMovieSlice";
 import { sample } from "../../assets/Sample";
 
 const paginationStyle = css`
@@ -41,7 +42,6 @@ const noresult = css`
     margin-top: 150px;
 `;
 
-
 const movieListWrapper = css`
     display: flex;
     justify-content: flex-start;
@@ -51,24 +51,11 @@ const movieListWrapper = css`
     margin: 0 auto;
 `;
 
-const RadioGroup = css`
-    margin-bottom: 30px;
-    text-align: right;
-
-    label{
-        color: white;
-        font-size: 1rem;
-    }
-`
 function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();
     const history = useHistory();
-
-    // const { matchedMovieList } = useSelector((state) => state.searchedMovieSlice);
-
-    // console.log(matchedMovieList)
 
     const [pagination, setPagination] = useState({
         totalPage: filteredMovieList.length / pageSize,
@@ -77,12 +64,8 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
         maxIndex: pageSize
     });
 
-    const [option, setOption] = useState("");
-
     const searchParams = new URLSearchParams(location.search);
     const queryPage = searchParams.get("page");
-
-    console.log(queryPage)
 
     useEffect(() => {
         if (queryPage > 2) {
@@ -96,7 +79,11 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
     }, [queryPage]);
 
     useEffect(() => {
-        setFilteredMovieList(sample.filter((movie) => movie.title.replace(/\s/gi, "").includes(keyword.replace(/\s/gi, ""))));
+        setFilteredMovieList(
+            sample.filter((movie) =>
+                movie.title.replace(/\s/gi, "").includes(keyword.replace(/\s/gi, ""))
+            )
+        );
     }, [keyword]);
 
     const handlePageChange = (page) => {
@@ -109,18 +96,9 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
         dispatch(setPage({ page }));
     };
 
-    const onClickSortOption = (e) => {
-        dispatch(setSort(e.target.value))
-    }
-
     return (
         <>
-            <div css={RadioGroup}>
-                <Radio.Group onChange={onClickSortOption} value={option}>
-                    <Radio value={'abc'}>가나다순</Radio>
-                    <Radio value={'recent'}>최신순</Radio>
-                </Radio.Group>
-            </div>
+            <SearchResultBar keyword={keyword} />
             {filteredMovieList.length > 0 ? (
                 <>
                     <ul css={movieListWrapper}>

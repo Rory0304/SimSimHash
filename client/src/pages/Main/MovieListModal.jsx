@@ -15,7 +15,12 @@ const buttonDivStyle = css`
 `;
 
 const buttonStyle = css`
-    color: rgba(246, 45, 168, 0.93);
+    span {
+        color: rgba(246, 45, 168, 0.93);
+    }
+    &:hover {
+        color: rgba(246, 45, 168, 0.93);
+    }
 `;
 
 const modalStyle = css`
@@ -23,10 +28,12 @@ const modalStyle = css`
         height: 75vh;
         overflow-y: scroll;
         background-color: #333333;
-        display: grid;
+        display: flex;
         grid-template-columns: repeat(4, 1fr);
-        justify-items: center;
-        row-gap: 30px;
+        justify-content: center;
+        gap: 50px;
+        flex-wrap: wrap;
+        align-items: flex-start;
     }
 `;
 

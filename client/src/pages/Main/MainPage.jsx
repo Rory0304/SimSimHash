@@ -18,23 +18,27 @@ const selectedInfo = css`
     font-weight: bold;
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
-    margin: 35px 0 15px 0;
+    margin: 50px 0 15px 0;
 `;
 
-const mainWrapperStyle = css`
+const mainPageWrapperStype = css`
     height: 91vh;
+`;
+
+const mainInnerWrapperStyle = css`
+    height: 100%;
     display: flex;
     align-content: center;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     flex-wrap: wrap;
-    overflow: hidden;
 `;
 
 function MainPage() {
     const dispatch = useDispatch();
     const [initialCall, setInitialCall] = useState(false);
+
     const { selectedTagList, movieList } = useSelector((state) => state.mainTagDataSlice);
 
     useEffect(() => {
@@ -54,20 +58,31 @@ function MainPage() {
     }, [selectedTagList]);
 
     return (
-        <div>
-            <main css={mainWrapperStyle}>
-                <div>
-                    <div>
-                        <MainIntro />
-                    </div>
+        <div css={mainPageWrapperStype}>
+            <main css={mainInnerWrapperStyle}>
+                <div style={{ height: "100%" }}>
+                    <MainIntro />
                     <div>
                         <MovieListModal />
                         <MovieSlider />
                         <p css={selectedInfo}>
-                            <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
-                            {selectedTagList.length < 2
-                                ? "해시태그를 2개 이상 선택하세요!"
-                                : `해당 키워드를 가진 영화의 개수는 ${movieList.length}개 입니다.`}
+                            {selectedTagList.length === 0 ? (
+                                <>
+                                    {" "}
+                                    <TagFilled style={{ color: "#fff", marginRight: "0.625rem" }} />
+                                    해시태그를 선택하세요!
+                                </>
+                            ) : (
+                                movieList.length === 0 && (
+                                    <>
+                                        {" "}
+                                        <TagFilled
+                                            style={{ color: "#fff", marginRight: "0.625rem" }}
+                                        />
+                                        관련된 영화 정보가 없습니다!
+                                    </>
+                                )
+                            )}
                         </p>
                         <SelectedTagList />
                         <TagList />

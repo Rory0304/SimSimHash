@@ -22,7 +22,7 @@ const searchBannerStyle = css`
     p {
         font-size: 2rem;
         color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 18px;
+        margin-bottom: 27px;
     }
 `;
 

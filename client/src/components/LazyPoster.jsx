@@ -10,9 +10,9 @@ import "react-lazy-load-image-component/src/effects/opacity.css";
 
 const movieInfoStyle = css`
     padding: 7px 20px;
+    line-height: 25px;
 
     p {
-        margin: 14px 0;
         color: #ffffff;
     }
 
@@ -46,6 +46,7 @@ const rateStyle = css`
 
 function LazyPoster({ page, item }) {
     let { imgSrc, imgRef } = useLazyImageHandler({ src: item.poster });
+    console.log(item);
 
     return (
         <>
@@ -64,10 +65,8 @@ function LazyPoster({ page, item }) {
             </div>
             <div css={movieInfoStyle}>
                 <p>{item.title}</p>
-                {page === "search" && (
-                    <Rate disabled allowHalf value={Math.round(item.score) / 2} css={rateStyle} />
-                )}
-                <p>{item.total}</p>
+                <Rate disabled allowHalf value={Math.round(item.score) / 2} css={rateStyle} />
+                {page === "search" && <p>{item.genre}</p>}
             </div>
         </>
     );

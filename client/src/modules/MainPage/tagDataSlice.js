@@ -42,22 +42,23 @@ export const getInitialMovieList = createAsyncThunk(
 export const getMovieListByTag = createAsyncThunk("GET_MOVIE_DATA", async (args, ThunkAPI) => {
     const { mainTagDataSlice } = ThunkAPI.getState();
     try {
-        if (mainTagDataSlice.selectedTagList.length < 2) {
+        if (mainTagDataSlice.selectedTagList.length === 0) {
             console.log(
                 "이미 default 영화 리스트가 존재합니다.",
                 mainTagDataSlice.initialMovieList
             );
             return mainTagDataSlice.initialMovieList;
         } else {
-            const filteredMoviesTest = await axios.post("/api/movie", {
-                selectedTags: mainTagDataSlice.selectedTagList,
-                searchOption: ""
+            const convertedJson = { ...mainTagDataSlice.selectedTagList };
+            const response = await axios.post("/api/searchtag", {
+                page: 0,
+                sort: "",
+                N: 50,
+                tags: convertedJson
             });
-            console.log(
-                "태그와 관련된 영화 정보를 성공적으로 얻었습니다.",
-                filteredMoviesTest.data
-            );
-            const entry = Object.entries(filteredMoviesTest.data);
+            console.log("태그와 관련된 영화 정보를 성공적으로 얻었습니다.", response.data);
+            console.log(response.data.content);
+            const entry = Object.entries(response.data.content);
             return entry;
         }
     } catch (err) {

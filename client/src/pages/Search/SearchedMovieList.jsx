@@ -8,7 +8,7 @@ import { Pagination } from "antd";
 
 import Poster from "../../components/Poster";
 import SearchResultHeader from "./SearchResultHeader";
-import { setPage } from "../../modules/SearchPage/SearchedMovieSlice";
+import { setPage, getMovieListByTitle } from "../../modules/SearchPage/SearchedMovieSlice";
 import { setPagination } from "../../modules/SearchPage/PaginationSlice";
 import { sample } from "../../assets/Sample";
 

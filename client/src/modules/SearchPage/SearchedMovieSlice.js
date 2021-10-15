@@ -5,7 +5,7 @@ const initialState = {
     matchedMovieList: [],
     title: "",
     page: 0,
-    sort: "",
+    sort: "recent",
     N: 12,
     length: 0,
     loading: false,
@@ -13,17 +13,17 @@ const initialState = {
 };
 
 /* [검색 페이지] 제목으로 검색된 영화 리스트를 불러옴 */
-export const getMovieListByTitle = createAsyncThunk("GET_MOVIE_DATA", async (args, ThunkAPI) => {
+export const getMovieListByTitle = createAsyncThunk("GET_MOVIE_DATA_TITLE", async (args, ThunkAPI) => {
     const { searchedMovieSlice } = ThunkAPI.getState();
     try {
-        const filteredMovies = await axios.post("/api/search", {
-                title: searchedMovieSlice.title,
-                page: searchedMovieSlice.page,
-                sort: searchedMovieSlice.sort,
-                N: searchedMovieSlice.N,
-            });
-            console.log(filteredMovies);
-        return filteredMovies;
+        const filteredMoviesTest = await axios.post("/api/search", {
+            title: searchedMovieSlice.title,
+            page: searchedMovieSlice.page,
+            sort: searchedMovieSlice.sort,
+            N: searchedMovieSlice.N
+        });
+        const entry = Object.entries(filteredMoviesTest.data);
+        return entry;
     } catch (err) {
         console.log("제목과 관련된 영화 정보를 얻는데 실패했습니다", err);
         return [];
@@ -46,7 +46,7 @@ export const searchedMovieSlice = createSlice({
             console.log(state.matchedMovieList);
         },
         setPage(state, action) {
-            state.page = action.payload;
+            state.page = action.payload.page;
             console.log(state.page);
             console.log(state.matchedMovieList);
         }, 

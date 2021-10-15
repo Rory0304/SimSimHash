@@ -14,24 +14,24 @@ const initialState = {
 
 /* [검색 페이지] 제목으로 검색된 영화 리스트를 불러옴 */
 export const getMovieListByTitle = createAsyncThunk("GET_MOVIE_DATA_TITLE", async (args, ThunkAPI) => {
-    const { searchedMovieSlice } = ThunkAPI.getState();
+    const { SearchedMovieSlice } = ThunkAPI.getState();
     try {
-        const filteredMoviesTest = await axios.post("/api/search", {
-            title: searchedMovieSlice.title,
-            page: searchedMovieSlice.page,
-            sort: searchedMovieSlice.sort,
-            N: searchedMovieSlice.N
+        const filteredMovies = await axios.post("/api/search", {
+            title: SearchedMovieSlice.title,
+            page: SearchedMovieSlice.page,
+            sort: SearchedMovieSlice.sort,
+            N: SearchedMovieSlice.N
         });
-        const entry = Object.entries(filteredMoviesTest.data);
-        return entry;
+        console.log(filteredMovies.data)
+        return filteredMovies.data;
     } catch (err) {
         console.log("제목과 관련된 영화 정보를 얻는데 실패했습니다", err);
         return [];
     }
 });
 
-export const searchedMovieSlice = createSlice({
-    name: "searchedMovieSlice",
+export const SearchedMovieSlice = createSlice({
+    name: "SearchedMovieSlice",
     initialState,
     reducers: {
         clearState(state, action) {
@@ -43,12 +43,10 @@ export const searchedMovieSlice = createSlice({
         setTitle(state, action) {
             state.title = action.payload.keyword;
             console.log(state.title);
-            console.log(state.matchedMovieList);
         },
         setPage(state, action) {
             state.page = action.payload.page;
             console.log(state.page);
-            console.log(state.matchedMovieList);
         }, 
         setSort(state, action){
             state.sort = action.payload;
@@ -67,12 +65,13 @@ export const searchedMovieSlice = createSlice({
             state.error = "";
         });
         builder.addCase(getMovieListByTitle.fulfilled, (state, action) => {
-            state.matchedMovieList = action.payload;
+            state.matchedMovieList = action.payload.content;
+            state.length = action.payload.length;
             state.loading = false;
             state.error = "";
         });
     }
 });
 
-export const { clearState, setTitle, setPage, setSort } = searchedMovieSlice.actions;
-export default searchedMovieSlice.reducer;
+export const { clearState, setTitle, setPage, setSort } = SearchedMovieSlice.actions;
+export default SearchedMovieSlice.reducer;

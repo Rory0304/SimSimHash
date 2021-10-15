@@ -8,7 +8,7 @@ import { Pagination } from "antd";
 
 import Poster from "../../components/Poster";
 import SearchResultHeader from "./SearchResultHeader";
-import { setPage, getMovieListByTitle } from "../../modules/SearchPage/SearchedMovieSlice";
+import { setPage } from "../../modules/SearchPage/SearchedMovieSlice";
 import { setPagination } from "../../modules/SearchPage/PaginationSlice";
 import { sample } from "../../assets/Sample";
 
@@ -68,8 +68,8 @@ const NoResult = ({ keyword }) => {
 
 function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
-    const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();
+    const { matchedMovieList, length } = useSelector((state) => state.SearchedMovieSlice);
     const { minIndex, maxIndex } = useSelector((state) => state.PaginationSlice);
     const history = useHistory();
 
@@ -78,18 +78,12 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
 
     useEffect(() => {
         dispatch(setPagination({
-            totalPage: filteredMovieList.length / pageSize,
+            totalPage: length / pageSize,
             current: queryPage,
             minIndex: (queryPage - 1) * pageSize,
             maxIndex: queryPage * pageSize
         }));
     }, [queryPage]);
-
-    useEffect(() => {
-        setFilteredMovieList(
-            sample.filter((movie) => movie.title.includes(keyword.replace(/\s/gi, "")))
-        );
-    }, [keyword]);
 
     const handlePageChange = (page) => {
         dispatch(setPagination({
@@ -98,26 +92,25 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
             maxIndex: page * pageSize
         }));
         history.push(`/search?keyword=${keyword}&page=${page}`);
-        dispatch(setPage({ page }));
+        dispatch(setPage({ page } - 1));
     };
 
     return (
         <>
             <SearchResultHeader keyword={keyword} />
-            {filteredMovieList.length > 0 ? (
+            {matchedMovieList.length > 0 ? (
                 <>
                     <ul css={movieListWrapper}>
-                        {filteredMovieList
-                            .slice(minIndex, maxIndex)
-                            .map((item) => {
-                                return <Poster item={item} setKeyword={setKeyword} page="search" />;
+                        {matchedMovieList
+                            .map((movie) => {
+                                return <Poster item={movie} setKeyword={setKeyword} page="search" />;
                             })}
                     </ul>
                     <Pagination
                         size="small"
                         pageSize={pageSize}
                         defaultCurrent={queryPage}
-                        total={filteredMovieList.length}
+                        total={length}
                         onChange={handlePageChange}
                         css={paginationStyle}
                     />

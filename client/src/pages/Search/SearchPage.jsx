@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "../../components/SearchBar";
 import DefaultMovieList from "./DefaultMovieList";
 import SearchedMovieList from "./SearchedMovieList";
-import { setTitle } from "../../modules/SearchPage/SearchedMovieSlice";
+import { setTitle, getMovieListByTitle } from "../../modules/SearchPage/SearchedMovieSlice";
 
 const searchBannerStyle = css`
     display: flex;
@@ -41,6 +41,7 @@ function SearchPage({ location }) {
         setQuery(queryParams);
         setKeyword(queryParams);
         dispatch(setTitle({ keyword: queryParams }));
+        dispatch(getMovieListByTitle());
     }, [queryParams]);
 
     return (

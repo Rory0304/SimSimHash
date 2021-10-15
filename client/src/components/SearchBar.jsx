@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { setTitle, setPage, clearState } from "../modules/SearchPage/SearchedMovieSlice";
+import { setTitle, getMovieListByTitle } from "../modules/SearchPage/SearchedMovieSlice";
 
 import { Input, Button } from "antd";
 import { SearchOutlined } from "@ant-design/icons";
@@ -66,6 +66,7 @@ function SearchBar() {
     const onQueryString = (keyword) => {
         keyword && history.push(`/search?keyword=${keyword}&page=1`);
         dispatch(setTitle({ keyword }));
+        dispatch(getMovieListByTitle());
     };
 
     return (

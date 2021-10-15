@@ -8,7 +8,7 @@ import { Pagination } from "antd";
 
 import Poster from "../../components/Poster";
 import SearchResultHeader from "./SearchResultHeader";
-import { setPage } from "../../modules/SearchPage/SearchedMovieSlice";
+import { setPage, getMovieListByTitle } from "../../modules/SearchPage/SearchedMovieSlice";
 import { setPagination } from "../../modules/SearchPage/PaginationSlice";
 import { sample } from "../../assets/Sample";
 
@@ -92,13 +92,14 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
             maxIndex: page * pageSize
         }));
         history.push(`/search?keyword=${keyword}&page=${page}`);
-        dispatch(setPage({ page } - 1));
+        dispatch(setPage({ page }));
+        dispatch(getMovieListByTitle());
     };
 
     return (
         <>
             <SearchResultHeader keyword={keyword} />
-            {matchedMovieList.length > 0 ? (
+            {length > 0 ? (
                 <>
                     <ul css={movieListWrapper}>
                         {matchedMovieList

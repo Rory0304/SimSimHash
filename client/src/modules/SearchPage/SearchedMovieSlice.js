@@ -45,7 +45,7 @@ export const SearchedMovieSlice = createSlice({
             console.log(state.title);
         },
         setPage(state, action) {
-            state.page = action.payload.page;
+            state.page = action.payload.page - 1;
             console.log(state.page);
         }, 
         setSort(state, action){

@@ -7,6 +7,7 @@ import Router from "./Router";
 import mainTagDataSlice from "./modules/MainPage/tagDataSlice";
 import DefaultMovieSlice from "./modules/SearchPage/DefaultMovieSlice";
 import SearchedMovieSlice from "./modules/SearchPage/SearchedMovieSlice";
+import PaginationSlice from "./modules/SearchPage/PaginationSlice";
 import wordCloudSlice from "./modules/DetailPage/wordCloudSlice";
 import movieInfoSlice from "./modules/DetailPage/movieInfoSlice";
 
@@ -17,6 +18,7 @@ function App() {
         mainTagDataSlice: mainTagDataSlice,
         DefaultMovieSlice: DefaultMovieSlice,
         SearchedMovieSlice: SearchedMovieSlice,
+        PaginationSlice: PaginationSlice,
         wordCloudSlice: wordCloudSlice,
         movieInfoSlice: movieInfoSlice
     });

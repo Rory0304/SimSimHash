@@ -9,6 +9,7 @@ import { Pagination } from "antd";
 import Poster from "../../components/Poster";
 import SearchResultHeader from "./SearchResultHeader";
 import { setPage } from "../../modules/SearchPage/SearchedMovieSlice";
+import { setPagination } from "../../modules/SearchPage/PaginationSlice";
 import { sample } from "../../assets/Sample";
 
 const paginationStyle = css`
@@ -69,25 +70,19 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
     const pageSize = 12;
     const [filteredMovieList, setFilteredMovieList] = useState([]);
     const dispatch = useDispatch();
+    const { totalPage, current, minIndex, maxIndex } = useSelector((state) => state.PaginationSlice);
     const history = useHistory();
-
-    const [pagination, setPagination] = useState({
-        totalPage: filteredMovieList.length / pageSize,
-        current: 1,
-        minIndex: 0,
-        maxIndex: pageSize
-    });
 
     const searchParams = new URLSearchParams(location.search);
     const queryPage = searchParams.get("page");
 
     useEffect(() => {
-        setPagination({
+        dispatch(setPagination({
             totalPage: filteredMovieList.length / pageSize,
             current: queryPage,
             minIndex: (queryPage - 1) * pageSize,
             maxIndex: queryPage * pageSize
-        });
+        }));
     }, [queryPage]);
 
     useEffect(() => {
@@ -97,11 +92,11 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
     }, [keyword]);
 
     const handlePageChange = (page) => {
-        setPagination({
+        dispatch(setPagination({
             current: page,
             minIndex: (page - 1) * pageSize,
             maxIndex: page * pageSize
-        });
+        }));
         history.push(`/search?keyword=${keyword}&page=${page}`);
         dispatch(setPage({ page }));
     };
@@ -113,7 +108,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
                 <>
                     <ul css={movieListWrapper}>
                         {filteredMovieList
-                            .slice(pagination.minIndex, pagination.maxIndex)
+                            .slice(minIndex, maxIndex)
                             .map((item) => {
                                 return <Poster item={item} setKeyword={setKeyword} page="search" />;
                             })}

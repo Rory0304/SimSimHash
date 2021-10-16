@@ -82,7 +82,13 @@ function MovieListModal() {
             >
                 <ul css={modalInnerUl}>
                     {movieList.map(([key, movie]) => {
-                        return <Poster item={movie} page="main" />;
+                        return (
+                            <Poster
+                                item={movie}
+                                movie_id={movie.movie_id === undefined ? movie.id : movie.movie_id}
+                                page="main"
+                            />
+                        );
                     })}
                 </ul>
             </Modal>

@@ -154,12 +154,20 @@ function MovieSlider() {
                         return (
                             <>
                                 <div css={sliderImgStyle}>
-                                    <Link to={`/movie/${movie.movie_id}`}>
+                                    <Link
+                                        to={`/movie/${
+                                            movie.movie_id === undefined ? movie.id : movie.movie_id
+                                        }`}
+                                    >
                                         <LazyLoadImage
                                             effect="blur"
                                             src={movie.poster}
                                             alt={movie.title}
-                                            key={movie.movie_id}
+                                            key={
+                                                movie.movie_id === undefined
+                                                    ? movie.id
+                                                    : movie.movie_id
+                                            }
                                         />
                                         <div css={sliderImgLayerStyle}>
                                             <p css={fontStyle}>{movie.title}</p>

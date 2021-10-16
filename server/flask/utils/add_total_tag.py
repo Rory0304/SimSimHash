@@ -8,6 +8,7 @@ from app import hashtag_col
 naver = pd.read_csv("./data/review/Okt_keyword50.csv")
 daum = pd.read_csv("./data/review/Okt_keyword_50daum.csv")
 watcha = pd.read_csv("./data/review/Okt_Wa_keyword_last.csv")
+cine = pd.read_csv("./data/review/Okt_cine_keyword.csv")
 
 #중복처리
 naver = list(naver['noun'])
@@ -16,7 +17,9 @@ daum = list(daum['noun'])
 daum = list(dict.fromkeys(daum))
 watcha = list(watcha['noun'])
 watcha = list(dict.fromkeys(watcha))
-insert_data = naver + daum + watcha
+cine = list(cine['noun'])
+cine = list(dict.fromkeys(cine))
+insert_data = naver + daum + watcha + cine
 insert_data = list(dict.fromkeys(insert_data))
 
 index = 0
@@ -34,7 +37,7 @@ while index != len(insert_data):
     except:
         continue
 
-    print(index, insert_data[index])
+    print(index, len(insert_data))
     index = index + 1
 
 

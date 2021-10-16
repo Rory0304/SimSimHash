@@ -102,7 +102,7 @@ def mongo_insert(data, source):  # input == DataFrame
         
     return 
 
-dir = './data/total/'
+dir = './data/reviews/'
 files = listdir(dir)
 print("작업 파일:\t", files)
 

@@ -112,7 +112,6 @@ function PlatformBox({ movie_id, name, enName, score, wholeScore, noreview, tags
     useEffect(() => {
         if (expanded) {
             /* 백엔드에 플랫폼 분석 정보 요청 */
-            console.log(enName);
             dispatch(setPlatformName({ name: enName }));
             if (words[enName].length === 0) {
                 dispatch(getPlatformWord({ movie_id: movie_id, platform: enName }));

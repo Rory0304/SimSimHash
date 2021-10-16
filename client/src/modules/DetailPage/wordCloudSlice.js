@@ -45,7 +45,7 @@ export const wordCloudSlice = createSlice({
                 naver: [],
                 watcha: [],
                 daum: [],
-                cine: []
+                cine21: []
             };
             state.hashtags = {
                 naver: [],

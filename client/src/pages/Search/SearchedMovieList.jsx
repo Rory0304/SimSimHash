@@ -75,8 +75,10 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
 
     const searchParams = new URLSearchParams(location.search);
     const queryPage = searchParams.get("page");
+    const [currentPage, setCurrentpage] = useState(1);
 
     useEffect(() => {
+        setCurrentpage(Number(queryPage));
         dispatch(
             setPagination({
                 totalPage: length / pageSize,
@@ -124,6 +126,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
                         total={length}
                         onChange={handlePageChange}
                         css={paginationStyle}
+                        current={currentPage}
                     />
                 </>
             ) : (

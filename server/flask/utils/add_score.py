@@ -4,14 +4,13 @@ sys.path.append(path.dirname( path.dirname( path.abspath(__file__) ) ))
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-from pymongo import MongoClient
 import pymysql
 pymysql.install_as_MySQLdb()
 
 from sqlalchemy import desc
 from models.movie import Movie
 
-from app import ranking_col, hashtag_col, review_col
+from app import review_col
 from config import SQLALCHEMY_DATABASE_URI
 from pprint import pprint
 
@@ -64,7 +63,7 @@ for i in range(1, N+1):
     movie.score = total_score
     movie.naver = naver_score
     movie.daum = daum_score
-    movie.watcha = watcha_score/2
+    movie.watcha = watcha_score
     movie.cine21 = cine21_score
 
 

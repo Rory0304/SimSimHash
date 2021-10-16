@@ -247,9 +247,9 @@ function Profile({ name, role }) {
     return (
         <li css={profileStyle}>
             <div>
-                <div css={profileImgStyle}>
+                {/* <div css={profileImgStyle}>
                     <img alt={name} />
-                </div>
+                </div> */}
                 <div css={profileRoleStyle}>
                     <p>{name}</p>
                     {role.map((r) => (

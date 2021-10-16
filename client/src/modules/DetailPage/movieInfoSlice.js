@@ -23,7 +23,7 @@ const initialState = {
             naver: 0.0,
             daum: 0.0,
             watcha: 0.0,
-            cine: 0.0,
+            cine21: 0.0,
             naver_count: 0,
             daum_count: 0,
             watcha_count: 0,
@@ -46,6 +46,7 @@ export const getMovieInfo = createAsyncThunk("GET_MOVIE_INFO", async (args, Thun
                 movie_id: args.id
             }
         });
+        console.log(response.data);
         return { data: response.data, movie_id: args.id };
     } catch (err) {
         console.log("default 영화 데이터를 얻어오는데 실패했습니다.", err);
@@ -79,7 +80,7 @@ export const movieInfoSlice = createSlice({
                     naver: 0.0,
                     daum: 0.0,
                     watcha: 0.0,
-                    cine: 0.0,
+                    cine21: 0.0,
                     naver_count: 0,
                     daum_count: 0,
                     watcha_count: 0,

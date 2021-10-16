@@ -64,7 +64,7 @@ function SearchBar() {
     }, [title]);
 
     const onQueryString = (keyword) => {
-        keyword && history.push(`/search?keyword=${keyword}&page=1`);
+        keyword && keyword.charAt(0) !== " " && history.push(`/search?keyword=${keyword}&page=1`);
         dispatch(setTitle({ keyword }));
         dispatch(getMovieListByTitle());
     };

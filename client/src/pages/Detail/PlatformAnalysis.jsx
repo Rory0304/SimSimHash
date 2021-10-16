@@ -193,6 +193,7 @@ function PlatformBox({ movie_id, name, enName, score, wholeScore, noreview, tags
 const PlatformAnalysis = React.forwardRef(({ props }, ref) => {
     const { movie_id, movieInfo, loading } = useSelector((state) => state.movieInfoSlice);
 
+    console.log(movieInfo);
     const platforms = [
         {
             name: "네이버",
@@ -214,7 +215,7 @@ const PlatformAnalysis = React.forwardRef(({ props }, ref) => {
             name: "왓챠",
             enName: "watcha",
             score: movieInfo.platform_summary.watcha,
-            wholeScore: 10,
+            wholeScore: 5,
             noreview: movieInfo.platform_summary.watcha_count,
             tags: movieInfo.platform_summary.watcha_tag
         },
@@ -237,7 +238,7 @@ const PlatformAnalysis = React.forwardRef(({ props }, ref) => {
                         movie_id={movie_id}
                         name={platform.name}
                         enName={platform.enName}
-                        score={Math.round(platform.score) / 2}
+                        score={platform.score.toFixed(1)}
                         wholeScore={platform.wholeScore}
                         noreview={platform.noreview}
                         tags={platform.tags}

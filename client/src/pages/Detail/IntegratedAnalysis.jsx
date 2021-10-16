@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ShowGraph } from "./ShowGraph";
-import { Modal } from "antd";
+import { Modal, Rate } from "antd";
 
 const integrateAreaWrapper = css`
     h3 {
@@ -46,6 +46,9 @@ const integratedResultData = css`
         text-align: center;
         padding: 40px;
         font-size: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
 `;
 
@@ -79,6 +82,10 @@ const viewMore = css`
     border-radius: 20px;
     text-align: center;
     margin-right: 10px;
+`;
+
+const rateStyle = css`
+    font-size: 13px;
 `;
 
 const IntegratedAnalysis = React.forwardRef(({ movie }, ref) => {
@@ -115,7 +122,13 @@ const IntegratedAnalysis = React.forwardRef(({ movie }, ref) => {
                 <div css={integratedResultData}>
                     <h4>통합 평점</h4>
                     <p>
-                        <span>{Math.round(movieInfo.total.score) / 2}</span> / 5
+                        {Math.round(movieInfo.total.score) / 2}점 / 5점
+                        <Rate
+                            disabled
+                            allowHalf
+                            value={Math.round(movieInfo.total.score) / 2}
+                            css={rateStyle}
+                        />
                     </p>
                     <h4>통합 리뷰</h4>
                     <div css={integratedReviews}>

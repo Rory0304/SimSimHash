@@ -63,7 +63,7 @@ for i in range(1, N+1):
     movie.score = total_score
     movie.naver = naver_score
     movie.daum = daum_score
-    movie.watcha = watcha_score
+    movie.watcha = watcha_score/2
     movie.cine21 = cine21_score
 
 

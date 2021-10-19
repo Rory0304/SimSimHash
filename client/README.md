@@ -1,3 +1,13 @@
+### 프론트엔드 실행 방법
+```
+1) cd client
+
+2) npm install / yarn install
+
+3) npm start / yarn start
+
+```
+
 ### 📁 디렉토리 구조 (Ducks 패턴 적용)
 
 ```
@@ -37,6 +47,6 @@ chore : 쓸모 없는 파일 제거 등 그 외의 자잘한 커밋
 
 ### 🛠️ 스택
 
-react  
-redux / redux-toolkit  
-storybook
+react, redux / redux-toolkit    
+react-chartjs-2 / react-wordcloud  
+emotion / ant-design 

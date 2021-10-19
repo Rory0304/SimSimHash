@@ -10,6 +10,9 @@
 
 사이트 크롤링을 통해 작품에 대한 정보, 리뷰 데이터 수집
 
+### 회의록
+https://www.notion.so/LUCKY-SEVEN-59cbdf176abc4d80888bf69a11279ed5
+
 ### 기술 스택 & 사용된 라이브러리
 Python  
 Jupyter  

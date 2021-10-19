@@ -12,6 +12,7 @@ const platformAreaWrapper = css`
         color: #fff;
         font-weight: bold;
         font-size: 2.3rem;
+        margin: 40px 0;
     }
 `;
 
@@ -95,7 +96,7 @@ const hiddenPlatformInfo = ({ expanded, name }) => css`
     ${expanded && name === "씨네21" && ` border-top: 1px solid rgba(173, 35, 35, 0.93);`}
 
     div {
-        margin-bottom: 30px;
+        margin: 30px 0;
     }
     p {
         font-weight: bold;
@@ -149,7 +150,7 @@ function PlatformBox({ movie_id, name, enName, score, wholeScore, noreview, tags
                             ? `${name} 관련 리뷰 데이터가 없습니다!`
                             : `${name} 유저들은 "${title}"을 이렇게 평가했어요!`}
                     </p>
-                    <div style={{ height: "200px", width: "100%", border: "1px solid white" }}>
+                    <div style={{ height: "200px", width: "100%" }}>
                         {words[enName].length !== 0 && <WordCloud name={enName} />}
                     </div>
                 </div>
@@ -164,9 +165,7 @@ function PlatformBox({ movie_id, name, enName, score, wholeScore, noreview, tags
                         style={{
                             height: "200px",
                             width: "100%",
-                            border: "1px solid white",
-                            overflowY: "auto",
-                            padding: "20px"
+                            overflowY: "auto"
                         }}
                     >
                         {" "}
@@ -191,8 +190,6 @@ function PlatformBox({ movie_id, name, enName, score, wholeScore, noreview, tags
 }
 const PlatformAnalysis = React.forwardRef(({ props }, ref) => {
     const { movie_id, movieInfo, loading } = useSelector((state) => state.movieInfoSlice);
-
-    console.log(movieInfo);
     const platforms = [
         {
             name: "네이버",

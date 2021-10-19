@@ -25,7 +25,6 @@ const tabStyle = css`
     display: flex;
     align-items: center;
     gap: 25px;
-    margin-bottom: 40px;
     border-bottom: 1px solid gray;
     padding-bottom: 10px;
 

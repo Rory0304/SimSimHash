@@ -6,19 +6,10 @@ import { useSelector } from "react-redux";
 
 import { Pie } from "react-chartjs-2";
 
-const divStyle = css`
+const graphStyle = css`
     width: 300px;
     height: 300px;
-`;
-
-const graphStyle = css`
-    margin-bottom: 40px;
-
-    @media screen and (max-width: 600px) {
-        width: 90%;
-        text-align: center;
-        margin: 0 auto 20px auto;
-    }
+    margin: 0 auto;
 `;
 
 export const ShowGraph = ({ labels, noreviewarr }) => {
@@ -53,9 +44,11 @@ export const ShowGraph = ({ labels, noreviewarr }) => {
     };
 
     return (
-        <div css={divStyle}>
+        <>
             <h4>플랫폼 별 리뷰 수</h4>
-            <Pie data={data} css={graphStyle} />
-        </div>
+            <div css={graphStyle}>
+                <Pie data={data} />
+            </div>
+        </>
     );
 };

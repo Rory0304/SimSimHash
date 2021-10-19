@@ -15,6 +15,9 @@ import { sample } from "../../assets/Sample";
 const paginationStyle = css`
     margin-top: 30px;
     text-align: center;
+    .ant-pagination-item a {
+        color: #fff;
+    }
     .ant-pagination-item:focus-visible,
     .ant-pagination-item:hover a {
         color: rgba(246, 45, 168, 0.93);
@@ -79,6 +82,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
 
     useEffect(() => {
         setCurrentpage(Number(queryPage));
+        console.log(queryPage);
         dispatch(
             setPagination({
                 totalPage: length / pageSize,
@@ -88,7 +92,7 @@ function SearchedMovieList({ keyword, setKeyword, location }) {
             })
         );
         dispatch(setPage({ page: queryPage }));
-        dispatch(getMovieListByTitle());
+        dispatch(getMovieListByTitle({ page: queryPage }));
     }, [queryPage]);
 
     const handlePageChange = (page) => {

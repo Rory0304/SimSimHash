@@ -18,7 +18,6 @@ export const getRandomTagList = createAsyncThunk("GET_TAG_DATA", async (args, Th
         let requestedTags = await axios.get("/api/tag");
         return requestedTags.data;
     } catch (err) {
-        console.log("태그 요청에 실패했습니다.", err);
         return [];
     }
 });
@@ -29,11 +28,9 @@ export const getInitialMovieList = createAsyncThunk(
     async (args, ThunkAPI) => {
         try {
             let response = await axios.get("/api/movie");
-            console.log("deafault 영화 데이터를 성공적으로 불러왔습니다.", response.data);
             const entry = Object.entries(response.data);
             return entry;
         } catch (err) {
-            console.log("default 영화 데이터를 얻어오는데 실패했습니다.", err);
             return [];
         }
     }
@@ -44,10 +41,6 @@ export const getMovieListByTag = createAsyncThunk("GET_MOVIE_DATA", async (args,
     const { mainTagDataSlice } = ThunkAPI.getState();
     try {
         if (mainTagDataSlice.selectedTagList.length === 0) {
-            console.log(
-                "이미 default 영화 리스트가 존재합니다.",
-                mainTagDataSlice.initialMovieList
-            );
             return mainTagDataSlice.initialMovieList;
         } else {
             const convertedJson = { ...mainTagDataSlice.selectedTagList };
@@ -57,13 +50,10 @@ export const getMovieListByTag = createAsyncThunk("GET_MOVIE_DATA", async (args,
                 N: 50,
                 tags: convertedJson
             });
-            console.log("태그와 관련된 영화 정보를 성공적으로 얻었습니다.", response.data);
-            console.log(response.data.content);
             const entry = Object.entries(response.data.content);
             return entry;
         }
     } catch (err) {
-        console.log("태그와 관련된 영화 정보를 얻는데 실패했습니다", err);
         return [];
     }
 });

@@ -30,7 +30,6 @@ export const getPlatformWord = createAsyncThunk("GET_PLATFORM_WORD", async (args
         });
         return response.data;
     } catch (err) {
-        console.log(`${args.platform}데이터를 얻어오는데 실패했습니다.`, err);
         return [];
     }
 });

@@ -50,7 +50,7 @@ const moviePoster = ({ open }) => css`
     grid-row-end: 4;`}
 
     img {
-        ${open ? `width: 300px` : `width:200px`}
+        ${open ? `width: 300px` : `width:200px`};
     }
 `;
 
@@ -75,6 +75,11 @@ const movieInfoSpec = ({ open }) => css`
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
+            p {
+                span {
+                    margin-right: 20px;
+                }
+            }
         }
 
         dd:last-of-type {
@@ -98,6 +103,10 @@ function MovieInfo() {
         genre
     } = movieInfo.detail;
 
+    const clickMovieInfo = () => {
+        setMovieInfoOpen(!movieInfoOpen);
+        window.scrollTo(0, 0);
+    };
     return (
         <div css={movieInfoWrapper}>
             <div css={movieInfoContents({ open: movieInfoOpen })}>
@@ -111,7 +120,7 @@ function MovieInfo() {
                         <dd>
                             <p>
                                 <span>{genre}</span>
-                                <span>{release_date} 개봉</span>
+                                <span>({release_date} 개봉)</span>
                             </p>
                         </dd>
                         <dt>감독</dt>
@@ -125,9 +134,7 @@ function MovieInfo() {
                     </dl>
                 </div>
             </div>
-            <button onClick={() => setMovieInfoOpen(!movieInfoOpen)}>
-                {movieInfoOpen ? "접기" : "펼쳐보기"}
-            </button>
+            <button onClick={() => clickMovieInfo()}>{movieInfoOpen ? "접기" : "전체보기"}</button>
         </div>
     );
 }

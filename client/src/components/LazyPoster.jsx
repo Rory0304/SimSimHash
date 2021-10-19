@@ -46,7 +46,6 @@ const rateStyle = css`
 
 function LazyPoster({ page, item }) {
     let { imgSrc, imgRef } = useLazyImageHandler({ src: item.poster });
-    console.log(item);
 
     return (
         <>

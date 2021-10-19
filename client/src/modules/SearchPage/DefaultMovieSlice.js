@@ -14,11 +14,9 @@ const initialState = {
 export const getMovieList = createAsyncThunk("GET_MOVIE_LIST", async (args, ThunkAPI) => {
     try {
         let response = await axios.get("/api/movie");
-        console.log("deafault 영화 데이터를 성공적으로 불러왔습니다.", response.data);
         const entry = Object.entries(response.data);
         return entry;
     } catch (err) {
-        console.log("default 영화 데이터를 얻어오는데 실패했습니다.", err);
         return [];
     }
 });

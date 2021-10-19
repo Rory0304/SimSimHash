@@ -48,7 +48,6 @@ export const getMovieInfo = createAsyncThunk("GET_MOVIE_INFO", async (args, Thun
         });
         return { data: response.data, movie_id: args.id };
     } catch (err) {
-        console.log("default 영화 데이터를 얻어오는데 실패했습니다.", err);
         return [];
     }
 });

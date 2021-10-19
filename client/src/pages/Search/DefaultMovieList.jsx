@@ -16,18 +16,25 @@ const movieListWrapper = css`
 `;
 
 const SpecialMovieList = css`
-    text-align: center;
-    height: 13vh;
+    height: 18vh;
+    width: calc(100vw - 28vw);
+    margin: 0 auto;
+    margin-bottom: 30px;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 30px 0;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: white;
-    text-decoration: underline;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
 
     p {
+        line-height: 2rem;
+    }
+
+    p:last-of-type {
         font-weight: bold;
+        font-size: 1.5rem;
     }
 
     span {
@@ -68,8 +75,9 @@ function DefaultMovieList({ setKeyword }) {
     return (
         <>
             <div css={SpecialMovieList}>
+                <p>#심심해시가 선정한,</p>
                 <p>
-                    #심심해시가 선정한 <span>"코로나"</span>가 가장 많이 언급된 영화들
+                    <span>"코로나"</span>가 가장 많이 언급된 영화들🎬
                 </p>
             </div>
             <ul css={movieListWrapper}>

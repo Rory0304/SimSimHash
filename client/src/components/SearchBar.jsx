@@ -43,8 +43,7 @@ const buttonStyle = css`
     border-color: #444444;
     &:hover,
     &:focus {
-        background-color: #222222;
-        box-shadow: 0 1px 6px 0 #171717;
+        background-color: #444444;
         border-color: rgba(223, 225, 229, 0);
     }
     [ant-click-animating-without-extra-node]&::after {
